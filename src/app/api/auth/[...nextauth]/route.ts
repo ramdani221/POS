@@ -7,7 +7,7 @@ import getConfig from "next/config"
 const { serverRuntimeConfig } = getConfig()
 
 
-export const config = {
+const authOptions = {
     providers: [
         CredentialsProvider({
             id: 'domain-login',
@@ -34,6 +34,6 @@ export const config = {
     },
 }
 
-const handler = NextAuth(config)
+const handler = NextAuth(authOptions)
 
 export { handler as GET, handler as POST }
