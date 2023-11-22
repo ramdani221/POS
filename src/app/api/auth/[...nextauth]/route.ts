@@ -2,11 +2,6 @@ import { login } from "@/lib/auth/auth"
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 
-import getConfig from "next/config"
-
-const { serverRuntimeConfig } = getConfig()
-
-
 const authOptions = {
     providers: [
         CredentialsProvider({
@@ -28,7 +23,7 @@ const authOptions = {
             },
         })
     ],
-    secret: serverRuntimeConfig.secret,
+    secret: process.env.AUTH_SECRET,
     pages: {
         signIn: '/signIn'
     },

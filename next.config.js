@@ -11,16 +11,6 @@ const nextConfig = {
         ],
     },
     reactStrictMode: true,
-    serverRuntimeConfig: {
-        dbConfig: {
-            user: 'Ramdani',
-            host: 'localhost',
-            database: 'posdb',
-            password: '12345',
-            port: 5432,
-        },
-        secret: 'Rubicam@B37'
-    },
 }
 
 module.exports = nextConfig
