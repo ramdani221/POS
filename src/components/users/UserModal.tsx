@@ -1,6 +1,10 @@
-import { signOut } from "next-auth/react";
 
-export default function Modal({ setShow }: { setShow: any }) {
+import { useDispatch } from "@/lib/redux";
+import { remove, removeUser } from "@/lib/redux/users/userSlice";
+
+
+export default function UserModal({ setShow, id, input }: { setShow: any, id: number, input: {keyword: string, limit: number, page: number, sort: string, sortBy: string}}) {
+    const dispatch = useDispatch()
   return (
     <div
       className="modal fade show bg-black bg-opacity-50"
@@ -14,7 +18,7 @@ export default function Modal({ setShow }: { setShow: any }) {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalLabel">
-              Do you want to Leave?
+              Deleted Confirmation
             </h5>
             <button
               className="close"
@@ -27,7 +31,7 @@ export default function Modal({ setShow }: { setShow: any }) {
             </button>
           </div>
           <div className="modal-body">
-            Select Logout to end your session.
+            Are you sure, you want delete it?
           </div>
           <div className="modal-footer">
             <button
@@ -36,10 +40,10 @@ export default function Modal({ setShow }: { setShow: any }) {
               data-dismiss="modal"
               onClick={() => setShow(false)}
             >
-              Cancel
+              No
             </button>
-            <button className="btn btn-primary" onClick={() => signOut()}>
-              Logout
+            <button className="btn btn-primary" onClick={() => {dispatch(removeUser(id, input)); setShow(false)}}>
+              Yes
             </button>
           </div>
         </div>

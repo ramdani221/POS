@@ -12,7 +12,7 @@ export default function Sidebar({toggled, setToggled} : {toggled: any, setToggle
     >
       <Link
         className="sidebar-brand d-flex align-items-center justify-content-center"
-        href="dashboard"
+        href="/home/dashboard"
       >
         <div className="sidebar-brand-icon rotate-n-15">
           <i className="fas fa-laugh-wink"></i>
@@ -22,8 +22,8 @@ export default function Sidebar({toggled, setToggled} : {toggled: any, setToggle
 
       <hr className="sidebar-divider my-0" />
 
-      <li className={"nav-item" + (position === 'dashboard'? ' active': '')}>
-        <Link className="nav-link" href="dashboard">
+      <li className={"nav-item " + (position === 'dashboard' && 'active')}>
+        <Link className="nav-link" href="/home/dashboard">
           <i className="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </Link>
@@ -33,7 +33,7 @@ export default function Sidebar({toggled, setToggled} : {toggled: any, setToggle
 
       <div className="sidebar-heading">Master</div>
 
-      <li className={"nav-item" + (position === 'goods-utilities'? ' active': '')}>
+      <li className={"nav-item " + (position === 'goods-utilities' && 'active')}>
         <button
           className={"nav-link " + (!collapse && 'collapsed')}
           data-toggle="collapse"
@@ -70,22 +70,22 @@ export default function Sidebar({toggled, setToggled} : {toggled: any, setToggle
         </div>
       </li>
 
-      <li className={"nav-item" + (position === 'suppliers'? ' active': '')}>
-        <Link className="nav-link" href="suppliers">
+      <li className={"nav-item " + (position === 'suppliers' && 'active')}>
+        <Link className="nav-link" href="/home/suppliers">
           <i className="fas fa-solid fa-link"></i>
           <span>Suppliers</span>
         </Link>
       </li>
 
-      <li className={"nav-item" + (position === 'customers'? ' active': '')}>
-        <Link className="nav-link" href="customers">
+      <li className={"nav-item " + (position === 'customers' && " active")}>
+        <Link className="nav-link" href="/home/customers">
           <i className="fas fa-solid fa-users"></i>
           <span>Customers</span>
         </Link>
       </li>
 
-      <li className={"nav-item" + (position === 'users'? ' active': '')}>
-        <Link className="nav-link" href="users">
+      <li className={"nav-item " + (position === 'users' && 'active')}>
+        <Link className="nav-link" href="/home/users">
           <i className="fas fa-solid fa-user"></i>
           <span>Users</span>
         </Link>
@@ -95,15 +95,15 @@ export default function Sidebar({toggled, setToggled} : {toggled: any, setToggle
 
       <div className="sidebar-heading">TRANSACTIONS</div>
 
-      <li className={"nav-item" + (position === 'purchases'? ' active': '')}>
-        <Link className="nav-link" href="purchases">
+      <li className={"nav-item " + (position === 'purchases' && 'active')}>
+        <Link className="nav-link" href="/home/purchases">
           <i className="fas fa-fw fa-table"></i>
           <span>Purchases</span>
         </Link>
       </li>
 
-      <li className={"nav-item" + (position === 'sales'? ' active': '')}>
-        <Link className="nav-link" href="sales">
+      <li className={"nav-item " + (position === 'sales' && 'active')}>
+        <Link className="nav-link" href="/home/sales">
           <i className="fas fa-fw fa-chart-area"></i>
           <span>Sales</span>
         </Link>

@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
     checkPassword = (password) => {
       return compareSync(password, this.password)
     }
+
+    sendData = () => {
+      return {id: this.id, email: this.email, name: this.name, role: this.role}
+    }
   }
   User.init({
     email: DataTypes.STRING,
@@ -30,6 +34,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     role: DataTypes.STRING
   }, {
+    defaultScope: {
+      attributes: {exclude: ['password', 'createdAt', 'updatedAt']}
+    },
     sequelize,
     modelName: 'User',
   });

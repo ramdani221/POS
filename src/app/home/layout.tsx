@@ -7,6 +7,8 @@ import Modal from "../../components/Modal";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
+import { Provider } from "react-redux";
+import { reduxStore } from "@/lib/redux";
 
 export default function HomeLayout({
   children,
@@ -27,24 +29,26 @@ export default function HomeLayout({
       </div>
     );
   if (!data || status !== "authenticated") redirect("/signIn");
-  
+
   return (
-    <section>
-      <div id="wrapper">
-        <Sidebar toggled={toggled} setToggled={setToggled} />
-        <div id="content-wrapper" className="d-flex flex-column">
-          <div id="content">
-            <Topbar
-              setShow={setShow}
-              toggled={toggled}
-              setToggled={setToggled}
-            />
-            <div className="container-fluid overflow-scroll">{children}</div>
+    <Provider store={reduxStore}>
+      <section>
+        <div id="wrapper">
+          <Sidebar toggled={toggled} setToggled={setToggled} />
+          <div id="content-wrapper" className="d-flex flex-column">
+            <div id="content">
+              <Topbar
+                setShow={setShow}
+                toggled={toggled}
+                setToggled={setToggled}
+              />
+              <div className="container-fluid overflow-scroll">{children}</div>
+            </div>
+            <Footer />
           </div>
-          <Footer />
         </div>
-      </div>
-      {show && <Modal setShow={setShow} />}
-    </section>
+        {show && <Modal setShow={setShow} />}
+      </section>
+    </Provider>
   );
 }

@@ -2,6 +2,7 @@
 
 import { signIn } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -102,9 +103,9 @@ export default function Login() {
                       </form>
                       <hr className="border-top border-secondary" />
                       <div className="text-center">
-                        <a className="small" href="#">
+                        <Link className="small" href="#">
                           Forgot Password?
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </div>

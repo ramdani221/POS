@@ -3,8 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import "../../public/fontawesome-free/css/all.min.css";
 import "../../public/bootstrap/css/bootstrap.min.css";
+import "../../public/bootstrap/css/dataTables.bootstrap4.min.css";
 import "../../public/css/sb-admin-2.min.css";
-import Providers from "../components/Provider";
+import Providers from "../lib/auth/Providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
