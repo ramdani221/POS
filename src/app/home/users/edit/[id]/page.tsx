@@ -62,7 +62,6 @@ export default function Edite() {
               </div>
               <div className="row mb-3">
                 <label
-                  htmlFor="inputPassword3"
                   className="col-sm-3 col-form-label"
                 >
                   Name
@@ -71,7 +70,6 @@ export default function Edite() {
                   <input
                     type="text"
                     className="form-control"
-                    id="inputPassword3"
                     value={user.name}
                     onChange={(e) => setUser({ ...user, name: e.target.value })}
                   />

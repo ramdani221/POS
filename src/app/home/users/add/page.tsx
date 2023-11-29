@@ -58,7 +58,7 @@ export default function Edite() {
                 <label className="col-sm-3 col-form-label">Name</label>
                 <div className="col-sm-9">
                   <input
-                    type="email"
+                    type="text"
                     className="form-control"
                     onChange={(e) => setUser({ ...user, name: e.target.value })}
                   />

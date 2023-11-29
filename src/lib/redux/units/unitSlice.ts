@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchCreateUser, fetchDeleteUser, fetchLoadUsers, fetchUpdateUser } from "./userAPI";
+import { fetchCreateUser, fetchDeleteUser, fetchLoadUsers, fetchUpdateUser } from "./unitAPI";
 import { ReduxState, ReduxThunkAction } from "@/lib/redux/store";
 
 export interface UserState {

@@ -54,17 +54,11 @@ export default function Sidebar({toggled, setToggled} : {toggled: any, setToggle
         >
           <div className="bg-white py-2 collapse-inner rounded">
             <h6 className="collapse-header">Custom Utilities:</h6>
-            <Link className="collapse-item" href="utilities-color.html">
-              Colors
+            <Link className="collapse-item" href="/home/goods">
+              Goods
             </Link>
-            <Link className="collapse-item" href="utilities-border.html">
-              Borders
-            </Link>
-            <Link className="collapse-item" href="utilities-animation.html">
-              Animations
-            </Link>
-            <Link className="collapse-item" href="utilities-other.html">
-              Other
+            <Link className="collapse-item" href="/home/units">
+              Units
             </Link>
           </div>
         </div>
