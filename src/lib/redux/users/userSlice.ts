@@ -95,15 +95,19 @@ export const userSlice = createSlice({
 })
 
 export const { remove, add } = userSlice.actions
-export const selectUsers = (state: ReduxState) => state.counter.value;
-export const usersPagination = (state: ReduxState) => state.counter.footer;
+export const selectUsers = (state: ReduxState) => state.user.value;
+export const usersPagination = (state: ReduxState) => state.user.footer;
 
-export const removeUser = (id: number, input: UserParams): ReduxThunkAction => async (dispatch, getState) => {
-    dispatch(remove(Number(id)));
-    await dispatch(deleteUserAsync(id));
-    const {data} = await fetchLoadUsers(input)
-    if(!data.users.length) return
-    dispatch(add(data))
+export const removeUser = (id: number, input: UserParams, pages: number): ReduxThunkAction => async (dispatch, getState) => {
+    try {
+        dispatch(remove(Number(id)));
+        await dispatch(deleteUserAsync(id));
+        const { data } = await fetchLoadUsers(input)
+        if (!data.users.length || pages === 1) return
+        dispatch(add(data))
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 export default userSlice.reducer

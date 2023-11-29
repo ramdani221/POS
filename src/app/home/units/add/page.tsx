@@ -1,7 +1,7 @@
 "use client";
 
 import { useDispatch } from "@/lib/redux";
-import { addUserAsync } from "@/lib/redux/users/userSlice";
+import { addUnitAsync } from "@/lib/redux/units/unitSlice";
 import Link from "next/link";
 import {  useRouter } from "next/navigation";
 import { useState } from "react";
@@ -10,17 +10,17 @@ export default function Edite() {
   const dispatch = useDispatch();
   const router = useRouter()
 
-  const [user, setUser] = useState({
+  const [unit, setUnit] = useState({
     unit: "",
     name: "",
     note: ""
   });
 
   const submit = (e: any) => {
-    // e.preventDefault()
-    // dispatch(addUserAsync(user))
-    //   .then(() => router.push('/home/users'))
-    //   .catch((err) => console.log(err));
+    e.preventDefault()
+    dispatch(addUnitAsync(unit))
+      .then(() => router.push('/home/units'))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -46,7 +46,7 @@ export default function Edite() {
                     type="text"
                     className="form-control"
                     onChange={(e) =>
-                      setUser({ ...user, unit: e.target.value })
+                      setUnit({ ...unit, unit: e.target.value })
                     }
                   />
                 </div>
@@ -57,14 +57,14 @@ export default function Edite() {
                   <input
                     type="text"
                     className="form-control"
-                    onChange={(e) => setUser({ ...user, name: e.target.value })}
+                    onChange={(e) => setUnit({ ...unit, name: e.target.value })}
                   />
                 </div>
               </div>
               <div className="row mb-3">
                 <label className="col-sm-3 col-form-label">Note</label>
                 <div className="col-sm-9">
-                <textarea className="form-control" id="exampleFormControlTextarea1" rows={2} onChange={(e) => setUser({ ...user, note: e.target.value })}></textarea>
+                <textarea className="form-control" id="exampleFormControlTextarea1" rows={2} onChange={(e) => setUnit({ ...unit, note: e.target.value })}></textarea>
                 </div>
               </div>
             </form>

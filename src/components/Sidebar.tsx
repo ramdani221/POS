@@ -33,7 +33,7 @@ export default function Sidebar({toggled, setToggled} : {toggled: any, setToggle
 
       <div className="sidebar-heading">Master</div>
 
-      <li className={"nav-item " + (position === 'goods-utilities' && 'active')}>
+      <li className={"nav-item " + ((position === 'units' || position === 'goods') && 'active')}>
         <button
           className={"nav-link " + (!collapse && 'collapsed')}
           data-toggle="collapse"

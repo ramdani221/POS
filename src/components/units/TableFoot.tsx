@@ -3,16 +3,13 @@ export default function TableFoot() {
         <tfoot>
             <tr>
               <th rowSpan={1} colSpan={1}>
-                User ID
-              </th>
-              <th rowSpan={1} colSpan={1}>
-                Position
+                Unit
               </th>
               <th rowSpan={1} colSpan={1}>
                 Name
               </th>
               <th rowSpan={1} colSpan={1}>
-                Role
+                note
               </th>
               <th rowSpan={1} colSpan={1}>
                 Action

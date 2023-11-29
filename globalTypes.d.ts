@@ -25,3 +25,24 @@ declare type UsersType = {
     name: string, 
     role: string 
 }
+
+declare type UnitParams = {
+    keyword: string;
+    page: number;
+    limit: number;
+    sort: string;
+    sortBy: string;
+}
+
+declare type UnitInput = {
+    unit: string;
+    name: string;
+    note: string;
+}
+
+declare type UnitsType = { 
+    id: number, 
+    unit: string, 
+    name: string, 
+    note: string 
+}

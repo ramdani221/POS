@@ -23,7 +23,7 @@ export default function TableBox() {
             id="dataTable_wrapper"
             className="dataTables_wrapper dt-bootstrap4"
           >
-            <TableControl setFilter={setFilter} filter={filter} />
+            <TableControl setFilter={setFilter} filter={filter} setPageNum={setPageNum} />
             <TableList filter={filter} pageNum={pageNum} />
             <Pagination pageNum={pageNum} setPageNum={setPageNum} />
           </div>

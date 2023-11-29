@@ -8,20 +8,16 @@ export default function TableHead({
   setSorting: Dispatch<SetStateAction<{ sort: boolean; sortBy: string }>>;
 }) {
 
-    const sortId = () => {
-        if(sorting.sortBy !== 'id') return setSorting({sort: true, sortBy: 'id'})
-        return setSorting({...sorting, sort: !sorting.sort})
-    }
-    const sortEmail = () => {
-        if(sorting.sortBy !== 'email') return setSorting({sort: true, sortBy: 'email'})
+    const sortNote = () => {
+        if(sorting.sortBy !== 'note') return setSorting({sort: true, sortBy: 'note'})
         return setSorting({...sorting, sort: !sorting.sort})
     }
     const sortName = () => {
         if(sorting.sortBy !== 'name') return setSorting({sort: true, sortBy: 'name'})
         return setSorting({...sorting, sort: !sorting.sort})
     }
-    const sortRole = () => {
-        if(sorting.sortBy !== 'role') return setSorting({sort: true, sortBy: 'role'})
+    const sortUnit = () => {
+        if(sorting.sortBy !== 'unit') return setSorting({sort: true, sortBy: 'unit'})
         return setSorting({...sorting, sort: !sorting.sort})
     }
 
@@ -29,27 +25,15 @@ export default function TableHead({
     <thead>
       <tr role="row">
         <th
-          className={"sorting " + (sorting.sortBy === 'id'? sorting.sort?  "sorting_asc" : "sorting_desc" : "")}
+          className={"sorting " + (sorting.sortBy === 'unit'? sorting.sort?  "sorting_asc" : "sorting_desc" : "")}
           tabIndex={0}
           aria-controls="dataTable"
           rowSpan={1}
           colSpan={1}
-          style={{ width: "116px" }}
-          onClick={() => sortId()}
-
+          style={{ width: "224px" }}
+          onClick={() => sortUnit()}
         >
-          User ID
-        </th>
-        <th
-          className={"sorting " + (sorting.sortBy === 'email'? sorting.sort?  "sorting_asc" : "sorting_desc" : "")}
-          tabIndex={0}
-          aria-controls="dataTable"
-          rowSpan={1}
-          colSpan={1}
-          style={{ width: "450px" }}
-          onClick={() => sortEmail()}
-        >
-          Email
+          Unit
         </th>
         <th
           className={"sorting " + (sorting.sortBy === 'name'? sorting.sort?  "sorting_asc" : "sorting_desc" : "")}
@@ -63,22 +47,22 @@ export default function TableHead({
           Name
         </th>
         <th
-          className={"sorting " + (sorting.sortBy === 'role'? sorting.sort?  "sorting_asc" : "sorting_desc" : "")}
+          className={"sorting " + (sorting.sortBy === 'note'? sorting.sort?  "sorting_asc" : "sorting_desc" : "")}
           tabIndex={0}
           aria-controls="dataTable"
           rowSpan={1}
           colSpan={1}
-          style={{ width: "224px" }}
-          onClick={() => sortRole()}
+          style={{ width: "450px" }}
+          onClick={() => sortNote()}
         >
-          Role
+          note
         </th>
         <th
           tabIndex={0}
           aria-controls="dataTable"
           rowSpan={1}
           colSpan={1}
-          style={{ width: "213px" }}
+          style={{ width: "300px" }}
         >
           Action
         </th>

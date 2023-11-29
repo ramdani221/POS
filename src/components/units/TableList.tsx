@@ -3,10 +3,10 @@
 import TableData from "./TableData";
 import TableFoot from "./TableFoot";
 import TableHead from "./TableHead";
-import { loadUserAsync, selectUsers } from "@/lib/redux/users/userSlice";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "@/lib/redux";
-import UserModal from "@/components/users/UserModal";
+import UnitModal from "./UnitModal";
+import { loadUnitAsync, selectUnits } from "@/lib/redux/units/unitSlice";
 
 export default function TableList({
   filter,
@@ -15,16 +15,16 @@ export default function TableList({
   filter: { keyword: string; limit: number };
   pageNum: number;
 }) {
-  const users = useSelector(selectUsers);
+  const units = useSelector(selectUnits);
   const dispatch = useDispatch();
 
   const [show, setShow] = useState(false);
   const [id, setId] = useState(0);
-  const [sorting, setSorting] = useState({ sort: true, sortBy: "id" });
+  const [sorting, setSorting] = useState({ sort: true, sortBy: "unit" });
 
   useEffect(() => {
     dispatch(
-      loadUserAsync({
+      loadUnitAsync({
         ...filter,
         page: pageNum,
         sort: sorting.sort ? "asc" : "desc",
@@ -49,12 +49,12 @@ export default function TableList({
             <TableHead sorting={sorting} setSorting={setSorting} />
             <TableFoot />
             <tbody>
-              {users.map((user) => (
+              {units.map((unit) => (
                 <TableData
-                  user={user}
+                  unit={unit}
                   setId={setId}
                   setShow={setShow}
-                  key={user.id}
+                  key={unit.id}
                 />
               ))}
             </tbody>
@@ -63,7 +63,7 @@ export default function TableList({
       </div>
 
       {show && (
-        <UserModal
+        <UnitModal
           id={id}
           setShow={setShow}
           input={{

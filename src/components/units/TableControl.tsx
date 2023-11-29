@@ -1,15 +1,18 @@
 import { Dispatch, SetStateAction } from "react";
 
 export default function TableControl({
-  setFilter, filter
+  setFilter,
+  filter,
+  setPageNum,
 }: {
   setFilter: Dispatch<
     SetStateAction<{
       keyword: string;
       limit: number;
     }>
-  >,
-  filter: {keyword: string, limit: number}
+  >;
+  filter: { keyword: string; limit: number };
+  setPageNum: Dispatch<SetStateAction<number>>;
 }) {
   return (
     <div className="row">
@@ -21,7 +24,10 @@ export default function TableControl({
               name="dataTable_length"
               aria-controls="dataTable"
               className="custom-select custom-select-sm form-control form-control-sm"
-              onChange={(e: any) => setFilter({...filter, limit: e.target.value}) }
+              onChange={(e: any) => {
+                setFilter({ ...filter, limit: e.target.value });
+                setPageNum(1);
+              }}
             >
               <option value={3}>3</option>
               <option value={10}>10</option>
@@ -40,7 +46,10 @@ export default function TableControl({
               className="form-control form-control-sm"
               placeholder=""
               aria-controls="dataTable"
-              onChange={(e: any) => setFilter({...filter, keyword: e.target.value})}
+              onChange={(e: any) => {
+                setFilter({ ...filter, keyword: e.target.value });
+                setPageNum(1);
+              }}
             />
           </label>
         </div>

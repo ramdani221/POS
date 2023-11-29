@@ -15,7 +15,7 @@ export default function Edite() {
   const [user, setUser] = useState({ email: "", name: "", role: "" });
   useEffect(() => {
     console.log(id);
-    fetchGetUser(id as string)
+    fetchGetUser(Number(id))
       .then(({ data }) =>
         setUser({ email: data.email, name: data.name, role: data.role })
       )

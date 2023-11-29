@@ -10,7 +10,6 @@ export async function GET(req: NextRequest, {params} : {params : {id: string}}) 
         })
         return NextResponse.json({data})
     } catch (error: any) {
-        console.log(error)
         return NextResponse.json({ err: error.message })
     }
 }
@@ -28,7 +27,6 @@ export async function PUT(req: NextRequest, {params} : {params : {id: string}}) 
         });
         return NextResponse.json({ data: data[1] })
     } catch (error: any) {
-        console.log(error)
         return NextResponse.json({ err: error.message })
     }
 }
@@ -43,7 +41,6 @@ export async function DELETE(req: NextRequest, {params} : {params : {id: string}
         if (!deleteUnit) throw new Error('Failed to Delete Unit')
         return NextResponse.json({ data: unit })
     } catch (error: any) {
-        console.log(error)
         return NextResponse.json({ err: error.message })
     }
 }

@@ -1,8 +1,8 @@
 "use client";
 
 import { useDispatch } from "@/lib/redux";
-import { fetchGetUser } from "@/lib/redux/users/userAPI";
-import { updateUserAsync } from "@/lib/redux/users/userSlice";
+import { fetchGetUnit } from "@/lib/redux/units/unitAPI";
+import { updateUnitAsync } from "@/lib/redux/units/unitSlice";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -12,26 +12,25 @@ export default function Edite() {
   const dispatch = useDispatch();
   const router = useRouter()
 
-  const [user, setUser] = useState({
+  const [unit, setUnit] = useState({
     unit: "",
     name: "",
     note: ""
   });
 
   useEffect(() => {
-    // console.log(id);
-    // fetchGetUser(id as string)
-    //   .then(({ data }) =>
-    //     setUser({ email: data.email, name: data.name, role: data.role })
-    //   )
-    //   .catch((err) => console.log(err));
+    fetchGetUnit(Number(id))
+      .then(({ data }) =>
+        setUnit({ unit: data.unit, name: data.name, note: data.note })
+      )
+      .catch((err) => console.log(err));
   }, [id]);
 
   const submit = (e: Event) => {
     e.preventDefault()
-    // dispatch(updateUserAsync({ id: Number(id), input: user }))
-    //   .then(() => router.push("/home/users"))
-    //   .catch((err) => console.log(err));
+    dispatch(updateUnitAsync({ id: Number(id), input: unit }))
+      .then(() => router.push("/home/units"))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -56,8 +55,9 @@ export default function Edite() {
                   <input
                     type="text"
                     className="form-control"
+                    value={unit.unit}
                     onChange={(e) =>
-                      setUser({ ...user, unit: e.target.value })
+                      setUnit({ ...unit, unit: e.target.value })
                     }
                   />
                 </div>
@@ -68,14 +68,15 @@ export default function Edite() {
                   <input
                     type="text"
                     className="form-control"
-                    onChange={(e) => setUser({ ...user, name: e.target.value })}
+                    value={unit.name}
+                    onChange={(e) => setUnit({ ...unit, name: e.target.value })}
                   />
                 </div>
               </div>
               <div className="row mb-3">
                 <label className="col-sm-3 col-form-label">Note</label>
                 <div className="col-sm-9">
-                <textarea className="form-control" id="exampleFormControlTextarea1" rows={2} onChange={(e) => setUser({ ...user, note: e.target.value })}></textarea>
+                <textarea className="form-control" id="exampleFormControlTextarea1" value={unit.note} rows={2} onChange={(e) => setUnit({ ...unit, note: e.target.value })}></textarea>
                 </div>
               </div>
             </form>

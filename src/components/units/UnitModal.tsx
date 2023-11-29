@@ -1,10 +1,11 @@
 
-import { useDispatch } from "@/lib/redux";
-import { remove, removeUser } from "@/lib/redux/users/userSlice";
+import { useDispatch, useSelector } from "@/lib/redux";
+import { removeUnit, unitsPagination } from "@/lib/redux/units/unitSlice";
 
 
-export default function UserModal({ setShow, id, input }: { setShow: any, id: number, input: {keyword: string, limit: number, page: number, sort: string, sortBy: string}}) {
+export default function UnitModal({ setShow, id, input }: { setShow: any, id: number, input: {keyword: string, limit: number, page: number, sort: string, sortBy: string}}) {
     const dispatch = useDispatch()
+    const {pages} = useSelector(unitsPagination)
   return (
     <div
       className="modal fade show bg-black bg-opacity-50"
@@ -42,7 +43,7 @@ export default function UserModal({ setShow, id, input }: { setShow: any, id: nu
             >
               No
             </button>
-            <button className="btn btn-primary" onClick={() => {dispatch(removeUser(id, input)); setShow(false)}}>
+            <button className="btn btn-primary" onClick={() => {dispatch(removeUnit(id, input, pages)); setShow(false)}}>
               Yes
             </button>
           </div>

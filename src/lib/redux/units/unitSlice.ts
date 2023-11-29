@@ -1,9 +1,9 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchCreateUser, fetchDeleteUser, fetchLoadUsers, fetchUpdateUser } from "./unitAPI";
 import { ReduxState, ReduxThunkAction } from "@/lib/redux/store";
+import { fetchCreateUnit, fetchDeleteUnit, fetchLoadUnits, fetchUpdateUnit } from "./unitAPI";
 
-export interface UserState {
-    value: UsersType[];
+export interface UnitState {
+    value: UnitsType[];
     footer: {
         page: number;
         limit: number;
@@ -14,7 +14,7 @@ export interface UserState {
     status: 'idle' | 'loading' | 'failed'
 }
 
-const initialState: UserState = {
+const initialState: UnitState = {
     value: [],
     footer: {
         page: 1,
@@ -26,60 +26,60 @@ const initialState: UserState = {
     status: 'idle'
 }
 
-export const loadUserAsync = createAsyncThunk(
-    'users/loadUserAsync',
-    async (params: UserParams) => {
-        const { data } = await fetchLoadUsers(params)
+export const loadUnitAsync = createAsyncThunk(
+    'Units/loadUnitAsync',
+    async (params: UnitParams) => {
+        const { data } = await fetchLoadUnits(params)
         return data
     }
 )
 
-export const addUserAsync = createAsyncThunk(
-    'users/addUserAsync',
-    async (input: UserInput) => {
-        const { data } = await fetchCreateUser(input)
+export const addUnitAsync = createAsyncThunk(
+    'Units/addUnitAsync',
+    async (input: UnitInput) => {
+        const { data } = await fetchCreateUnit(input)
         return data
     }
 )
 
-export const updateUserAsync = createAsyncThunk(
-    'users/updateUserAsync',
-    async ({ id, input }: { id: number, input: UserEdit }) => {
-        const { data } = await fetchUpdateUser(id, input)
+export const updateUnitAsync = createAsyncThunk(
+    'Units/updateUnitAsync',
+    async ({ id, input }: { id: number, input: UnitInput }) => {
+        const { data } = await fetchUpdateUnit(id, input)
         return data
     }
 )
 
-export const deleteUserAsync = createAsyncThunk(
-    'users/deleteUserAsync',
+export const deleteUnitAsync = createAsyncThunk(
+    'Units/deleteUnitAsync',
     async (id: number) => {
-        const { data } = await fetchDeleteUser(id)
+        const { data } = await fetchDeleteUnit(id)
         return data
     }
 )
 
-export const userSlice = createSlice({
-    name: 'users',
+export const unitSlice = createSlice({
+    name: 'Units',
     initialState,
     reducers: {
         add: (state, action: PayloadAction<any>) => {
-            state.value.push(action.payload.users[action.payload.users.length - 1]);
+            state.value.push(action.payload.units[action.payload.units.length - 1]);
             state.footer.pages = action.payload.pages;
             state.footer.total = action.payload.total
         },
         remove: (state, action: PayloadAction<number>) => {
-            state.value = state.value.filter(user => user.id !== action.payload)
+            state.value = state.value.filter(unit => unit.id !== action.payload)
             state.footer.total -= 1
         },
     },
     extraReducers: (builder) => {
         builder
-            .addCase(loadUserAsync.pending, (state) => {
+            .addCase(loadUnitAsync.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(loadUserAsync.fulfilled, (state, action) => {
+            .addCase(loadUnitAsync.fulfilled, (state, action) => {
                 state.status = 'idle';
-                state.value = action.payload.users;
+                state.value = action.payload.units;
                 state.footer = {
                     page: action.payload.page,
                     limit: action.payload.limit,
@@ -88,22 +88,26 @@ export const userSlice = createSlice({
                     total: action.payload.total,
                 };
             })
-            .addCase(loadUserAsync.rejected, (state, action) => {
+            .addCase(loadUnitAsync.rejected, (state, action) => {
                 state.status = 'failed';
             })
     }
 })
 
-export const { remove, add } = userSlice.actions
-export const selectUsers = (state: ReduxState) => state.counter.value;
-export const usersPagination = (state: ReduxState) => state.counter.footer;
+export const { remove, add } = unitSlice.actions
+export const selectUnits = (state: ReduxState) => state.unit.value;
+export const unitsPagination = (state: ReduxState) => state.unit.footer;
 
-export const removeUser = (id: number, input: UserParams): ReduxThunkAction => async (dispatch, getState) => {
-    dispatch(remove(Number(id)));
-    await dispatch(deleteUserAsync(id));
-    const {data} = await fetchLoadUsers(input)
-    if(!data.users.length) return
-    dispatch(add(data))
+export const removeUnit = (id: number, input: UnitParams, pages: number): ReduxThunkAction => async (dispatch, getState) => {
+    try {
+        dispatch(remove(Number(id)));
+        await dispatch(deleteUnitAsync(id));
+        const { data } = await fetchLoadUnits(input)
+        if (!data.units.length || pages === 1) return
+        dispatch(add(data))
+    } catch (error) {
+        console.log(error)
+    }
 }
 
-export default userSlice.reducer
+export default unitSlice.reducer

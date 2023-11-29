@@ -9,7 +9,7 @@ export const fetchLoadUsers = async (input: UserParams) => {
     }
 }
 
-export const fetchGetUser = async (id:string) => {
+export const fetchGetUser = async (id: number) => {
     try {
         const {data} = await request.get(`/users/${id}`)
         return data

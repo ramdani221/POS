@@ -17,7 +17,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
             where: {
                 [Op.or]: [
                     { email: { [Op.iLike]: `%${keyword}%` } },
-                    { name: { [Op.like]: `%${keyword}%` } }
+                    { name: { [Op.iLike]: `%${keyword}%` } }
                 ]
             },
             order: [[sortBy, sort]],
@@ -27,7 +27,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
         const pages = Math.ceil(count / limit)
         return NextResponse.json({ data: { users: rows, page, limit, offset, pages, total: count, sortBy, sort } })
     } catch (error: any) {
-        console.log(error)
         return NextResponse.json({ err: error.message })
     }
 }
@@ -38,7 +37,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
         const user = await models.User.create({ email, name, password, role })
         return NextResponse.json({ data: user.sendData() })
     } catch (error: any) {
-        console.log(error)
         return NextResponse.json({ err: error.message })
     }
 }
