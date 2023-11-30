@@ -5,7 +5,7 @@ const models: any = db
 export async function GET(req: NextRequest, {params} : {params : {id: string}}) {
     const id = Number(params.id)
     try {
-        const data = await models.User.findOne({
+        const data = await models.Good.findOne({
             where: { id }
         })
         return NextResponse.json({data})
@@ -17,15 +17,15 @@ export async function GET(req: NextRequest, {params} : {params : {id: string}}) 
 export async function PUT(req: NextRequest, {params} : {params : {id: string}}) {
     try {
         const id = Number(params.id)
-        const { email, name, role } = await req.json()
-        const user = await models.User.update({ email, name, role }, {
+        const { barcode, name, stock, purchaseprice, sellingprice, unit, picture } = await req.json()
+        const data = await models.Good.update({ barcode, name, stock, purchaseprice, sellingprice, unit, picture }, {
             where: {
                 id
             },
             returning: true,
             plain: true
         });
-        return NextResponse.json({ data: user[1].sendData() })
+        return NextResponse.json({ data: data[1] })
     } catch (error: any) {
         return NextResponse.json({ err: error.message })
     }
@@ -33,13 +33,13 @@ export async function PUT(req: NextRequest, {params} : {params : {id: string}}) 
 
 export async function DELETE(req: NextRequest, {params} : {params : {id: string}}) {
     try {
-        const id = Number(params.id)
-        const user = await models.User.findOne({ where: { id } });
-        const deleteUser = await models.User.destroy({
+        const id = params.id
+        const good = await models.Good.findOne({ where: { id } });
+        const deleteGood = await models.Good.destroy({
             where: { id }
         });
-        if (!deleteUser) throw new Error('Failed to Delete User')
-        return NextResponse.json({ data: user })
+        if (!deleteGood) throw new Error('Failed to Delete Good')
+        return NextResponse.json({ data: good })
     } catch (error: any) {
         return NextResponse.json({ err: error.message })
     }

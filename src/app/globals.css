@@ -101,3 +101,11 @@ a {
 #main{
   min-height: 100vh;
 }
+
+#formFile::file-selector-button {
+  float: right;
+  border-inline-start-width: 1px;
+  border-inline-end-width: 0px;
+  margin-left: 0px;
+  margin-inline-end: 0rem;
+}
