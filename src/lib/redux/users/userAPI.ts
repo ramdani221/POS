@@ -1,6 +1,6 @@
 import { request } from "@/lib/api"
 
-export const fetchLoadUsers = async (input: UserParams) => {
+export const fetchLoadUsers = async (input: Params) => {
     try {
         const {data} = await request.get('/users', {params: input})
         return data

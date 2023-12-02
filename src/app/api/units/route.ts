@@ -7,7 +7,7 @@ const models: any = db
 export async function GET(req: NextRequest, res: NextResponse) {
     const keyword = req.nextUrl.searchParams.get('keyword') || ''
     const page = Number(req.nextUrl.searchParams.get('page')) || 1
-    const limit = Number(req.nextUrl.searchParams.get('limit')) || 3
+    const limit = JSON.parse(req.nextUrl.searchParams.get('limit') as string)
     const sort = req.nextUrl.searchParams.get('sort') || 'asc'
     const sortBy = req.nextUrl.searchParams.get('sortBy') || 'unit'
     const offset = (page - 1) * limit
@@ -34,8 +34,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
-        const { unit, name, note } = await req.json()
-        const data = await models.Unit.create({ unit, name, note })
+        const input = await req.json()
+        const data = await models.Unit.create(input)
         return NextResponse.json({ data })
     } catch (error: any) {
         return NextResponse.json({ err: error.message })

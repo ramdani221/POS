@@ -28,7 +28,7 @@ const initialState: UnitState = {
 
 export const loadUnitAsync = createAsyncThunk(
     'Units/loadUnitAsync',
-    async (params: UnitParams) => {
+    async (params: Params) => {
         const { data } = await fetchLoadUnits(params)
         return data
     }
@@ -98,7 +98,7 @@ export const { remove, add } = unitSlice.actions
 export const selectUnits = (state: ReduxState) => state.unit.value;
 export const unitsPagination = (state: ReduxState) => state.unit.footer;
 
-export const removeUnit = (id: number, input: UnitParams, pages: number): ReduxThunkAction => async (dispatch, getState) => {
+export const removeUnit = (id: number, input: Params, pages: number): ReduxThunkAction => async (dispatch, getState) => {
     try {
         dispatch(remove(Number(id)));
         await dispatch(deleteUnitAsync(id));

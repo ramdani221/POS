@@ -17,8 +17,8 @@ export async function GET(req: NextRequest, {params} : {params : {id: string}}) 
 export async function PUT(req: NextRequest, {params} : {params : {id: string}}) {
     try {
         const id = Number(params.id)
-        const { email, name, role } = await req.json()
-        const user = await models.User.update({ email, name, role }, {
+        const input = await req.json()
+        const user = await models.User.update(input, {
             where: {
                 id
             },

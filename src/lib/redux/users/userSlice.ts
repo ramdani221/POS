@@ -28,7 +28,7 @@ const initialState: UserState = {
 
 export const loadUserAsync = createAsyncThunk(
     'users/loadUserAsync',
-    async (params: UserParams) => {
+    async (params: Params) => {
         const { data } = await fetchLoadUsers(params)
         return data
     }
@@ -98,7 +98,7 @@ export const { remove, add } = userSlice.actions
 export const selectUsers = (state: ReduxState) => state.user.value;
 export const usersPagination = (state: ReduxState) => state.user.footer;
 
-export const removeUser = (id: number, input: UserParams, pages: number): ReduxThunkAction => async (dispatch, getState) => {
+export const removeUser = (id: number, input: Params, pages: number): ReduxThunkAction => async (dispatch, getState) => {
     try {
         dispatch(remove(Number(id)));
         await dispatch(deleteUserAsync(id));

@@ -1,11 +1,12 @@
 import { request } from "@/lib/api"
 
-export const fetchLoadUnits = async (input: UnitParams) => {
+export const fetchLoadUnits = async (input: Params) => {
     try {
         const { data } = await request.get('/units', { params: input })
         return data
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
@@ -15,6 +16,7 @@ export const fetchGetUnit = async (id: number) => {
         return data
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
@@ -24,6 +26,7 @@ export const fetchCreateUnit = async (input: UnitInput) => {
         return data
     } catch (error: any) {
         console.log(error.message)
+        throw error
     }
 }
 
@@ -33,6 +36,7 @@ export const fetchUpdateUnit = async (id: number, input: UnitInput) => {
         return data
     } catch (error) {
         console.log(error)
+        throw error
     }
 }
 
@@ -42,5 +46,6 @@ export const fetchDeleteUnit = async (id: number) => {
         return data
     } catch (error) {
         console.log(error)
+        throw error
     }
 }

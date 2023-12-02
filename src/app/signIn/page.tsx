@@ -35,7 +35,7 @@ export default function Login() {
                       className="d-none d-lg-block object-fit-contain"
                       src="/rubicamp.png"
                       alt="rubicamp"
-                      style={{ width: "100%", objectFit: "contain" }}
+                      style={{ width: "100%" }}
                       width={625}
                       height={200}
                     />

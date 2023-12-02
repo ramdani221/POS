@@ -33,8 +33,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
-        const { email, name, password, role } = await req.json()
-        const user = await models.User.create({ email, name, password, role })
+        const input = await req.json()
+        const user = await models.User.create(input)
         return NextResponse.json({ data: user.sendData() })
     } catch (error: any) {
         return NextResponse.json({ err: error.message })
