@@ -55,3 +55,16 @@ declare type GoodsType = {
         note: string
     }
 }
+
+declare type SupplierInput = {
+    name: string;
+    address: string;
+    phone: string;
+}
+
+declare type SuppliersType = {
+    id: number;
+    name: string;
+    address: string;
+    phone: string;
+}

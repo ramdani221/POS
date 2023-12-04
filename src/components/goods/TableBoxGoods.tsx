@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import Pagination from "./Pagination";
 import TableList from "./TableList";
 import TableControl from "./TableControl";

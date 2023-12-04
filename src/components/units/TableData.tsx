@@ -6,7 +6,7 @@ export default function TableData({
   setId,
   setShow
 }: {
-  unit: { id: number; unit: string; name: string; note: string };
+  unit: UnitsType;
   setId: Dispatch<SetStateAction<number>>;
   setShow: Dispatch<SetStateAction<boolean>>
 }) {

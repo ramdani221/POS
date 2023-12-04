@@ -1,10 +1,12 @@
-"use client"
+"use client";
 
+import TableBoxSuppliers from "@/components/suppliers/TableBoxSuppliers";
 
 export default function Suppliers() {
-  return (
-    <div className="d-sm-flex flex-column mb-4">
-      <h1 className="h3 text-gray-800">Suppliers</h1>
-    </div>
+  return ( 
+    <>
+      <p className="mb-4">This is data of Suppliers</p>
+      <TableBoxSuppliers />
+    </>
   );
 }

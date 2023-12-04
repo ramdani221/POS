@@ -103,7 +103,7 @@ export const removeUser = (id: number, input: Params, pages: number): ReduxThunk
         dispatch(remove(Number(id)));
         await dispatch(deleteUserAsync(id));
         const { data } = await fetchLoadUsers(input)
-        if (!data.users.length || pages === 1) return
+        if (!data.users.length || data.users.length === 1 || pages === 1) return
         dispatch(add(data))
     } catch (error) {
         console.log(error)

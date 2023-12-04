@@ -103,7 +103,7 @@ export const removeGood = (id: number, input: Params, pages: number): ReduxThunk
         dispatch(remove(id));
         await dispatch(deleteGoodAsync(id));
         const { data } = await fetchLoadGoods(input)
-        if (!data.goods.length || pages === 1) return
+        if (!data.goods.length || data.goods.length === 1 || pages === 1) return
         dispatch(add(data))
     } catch (error) {
         console.log(error)

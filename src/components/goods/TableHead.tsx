@@ -54,7 +54,7 @@ export default function TableHead({
           aria-controls="dataTable"
           rowSpan={1}
           colSpan={1}
-          style={{ width: "300px" }}
+          style={{ width: "450px" }}
           onClick={() => sortBarcode()}
         >
           Barcode
@@ -72,7 +72,7 @@ export default function TableHead({
           aria-controls="dataTable"
           rowSpan={1}
           colSpan={1}
-          style={{ width: "300px" }}
+          style={{ width: "450px" }}
           onClick={() => sortName()}
         >
           Name
@@ -90,7 +90,7 @@ export default function TableHead({
           aria-controls="dataTable"
           rowSpan={1}
           colSpan={1}
-          style={{ width: "450px" }}
+          style={{ width: "150px" }}
           onClick={() => sortStock()}
         >
           Stock
@@ -108,7 +108,7 @@ export default function TableHead({
           aria-controls="dataTable"
           rowSpan={1}
           colSpan={1}
-          style={{ width: "450px" }}
+          style={{ width: "150px" }}
           onClick={() => sortUnit()}
         >
           Unit
@@ -154,7 +154,7 @@ export default function TableHead({
           aria-controls="dataTable"
           rowSpan={1}
           colSpan={1}
-          style={{ width: "450px" }}
+          style={{ width: "300px" }}
         >
           Picture
         </th>

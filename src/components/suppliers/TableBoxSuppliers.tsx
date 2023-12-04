@@ -4,13 +4,16 @@ import TableList from "./TableList";
 import TableControl from "./TableControl";
 import Link from "next/link";
 
-export default function TableBoxUnits() {
+export default function TableBoxSuppliers() {
   const [filter, setFilter] = useState({ keyword: "", limit: 3 });
   const [pageNum, setPageNum] = useState(1);
   return (
     <div className="card shadow mb-4">
       <div className="card-header py-3">
-        <Link href="/home/units/add" className="btn btn-primary btn-icon-split">
+        <Link
+          href="/home/suppliers/add"
+          className="btn btn-primary btn-icon-split"
+        >
           <span className="icon text-white-50">
             <i className="fas fa-plus"></i>
           </span>
@@ -23,7 +26,11 @@ export default function TableBoxUnits() {
             id="dataTable_wrapper"
             className="dataTables_wrapper dt-bootstrap4"
           >
-            <TableControl setFilter={setFilter} filter={filter} setPageNum={setPageNum} />
+            <TableControl
+              setFilter={setFilter}
+              filter={filter}
+              setPageNum={setPageNum}
+            />
             <TableList filter={filter} pageNum={pageNum} />
             <Pagination pageNum={pageNum} setPageNum={setPageNum} />
           </div>
