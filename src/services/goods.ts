@@ -39,3 +39,6 @@ export const setWriteFile = async (file: any, pathStorage: any) => {
         throw error
     }
 }
+
+
+

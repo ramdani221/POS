@@ -102,9 +102,7 @@ export const removeUnit = (id: number, input: Params, pages: number): ReduxThunk
     try {
         dispatch(remove(Number(id)));
         await dispatch(deleteUnitAsync(id));
-        const { data } = await fetchLoadUnits(input)
-        if (!data.units.length || data.units.length === 1 || pages === 1) return
-        dispatch(add(data))
+        await dispatch(loadUnitAsync(input));
     } catch (error) {
         console.log(error)
     }

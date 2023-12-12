@@ -43,7 +43,7 @@ declare type GoodsType = {
     id: number;
     barcode: string;
     name: string;
-    stock: string;
+    stock: number;
     purchaseprice: string;
     sellingprice: string;
     unit: number;
@@ -52,7 +52,7 @@ declare type GoodsType = {
         id: number;
         unit: string;
         name: string;
-        note: string
+        note: string;
     }
 }
 
@@ -67,4 +67,55 @@ declare type SuppliersType = {
     name: string;
     address: string;
     phone: string;
+}
+
+declare type PurchaseInput = {
+    totalsum: string;
+    supplier: number | null;
+    operator: number;
+}
+
+declare type PurchasesType = {
+    id: number;
+    invoice: string;
+    createdAt: string;
+    totalsum: string;
+    supplier: number;
+    operator: number;
+    Supplier: {
+        id: number;
+        name: string;
+        address: string;
+        phone: string;
+    };
+    User: {
+        id: number;
+        email: string;
+        name: string;
+        role: string;
+    }
+
+}
+
+declare type PurchaseitemInput = {
+    invoice: number;
+    itemcode: number;
+    quantity: number;
+    purchaseprice: string;
+    totalprice: string;
+}
+
+declare type PurchaseitemsType = {
+    id: number;
+    invoice: number;
+    itemcode: number;
+    quantity: number;
+    purchaseprice: string;
+    totalprice: string;
+    Good: {
+        id: number;
+        barcode: string;
+        name: string;
+    }
+
 }

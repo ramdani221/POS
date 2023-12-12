@@ -34,7 +34,7 @@ const authOptions: NextAuthOptions = {
             if (!session) return null;
             try {
                 const data = await dataUser(session.user.email)
-                return {...session, user: {...session.user, role: data.role}}
+                return {...session, user: {...session.user, role: data.role, id: data.id}}
             } catch (error) {
                 return null
             }

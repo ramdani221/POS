@@ -12,7 +12,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      User.hasMany(models.Purchase, {
+        foreignKey: 'operator'
+      })
     };
 
     checkPassword = (password) => {
@@ -26,14 +28,14 @@ module.exports = (sequelize, DataTypes) => {
   User.init({
     email: DataTypes.STRING,
     name: DataTypes.STRING,
-    password: {
-      type: DataTypes.STRING,
-      set(value) {
-        this.setDataValue('password', hashSync(value, saltRounds))
-      }
-    },
+    password: DataTypes.STRING,
     role: DataTypes.STRING
   }, {
+    hooks: {
+      beforeCreate: async (user, options) => {
+        user.password = hashSync(user.password, saltRounds)
+      }
+    },
     defaultScope: {
       attributes: {exclude: ['password', 'createdAt', 'updatedAt']}
     },

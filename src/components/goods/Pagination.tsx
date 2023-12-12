@@ -69,7 +69,7 @@ export default function Pagination({
             <li
               className={
                 "paginate_button page-item next " +
-                (page === pages && "disabled")
+                (page >= pages && "disabled")
               }
               id="dataTable_next"
             >

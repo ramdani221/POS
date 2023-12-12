@@ -71,6 +71,18 @@ export const goodSlice = createSlice({
             state.value = state.value.filter(good => good.id !== action.payload)
             state.footer.total -= 1
         },
+        addStock: (state, action: PayloadAction<{ id: number, qty: any }>) => {
+            state.value = state.value.map(item => {
+                if (item.id === action.payload.id) return { ...item, stock: item.stock + action.payload.qty }
+                return item
+            })
+        },
+        reduceStock: (state, action: PayloadAction<{ id: number, qty: any }>) => {
+            state.value = state.value.map(item => {
+                if (item.id === action.payload.id) return { ...item, stock: (item.stock - action.payload.qty) }
+                return item
+            })
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -94,7 +106,7 @@ export const goodSlice = createSlice({
     }
 })
 
-export const { remove, add } = goodSlice.actions
+export const { remove, add, addStock, reduceStock } = goodSlice.actions
 export const selectGoods = (state: ReduxState) => state.good.value;
 export const goodsPagination = (state: ReduxState) => state.good.footer;
 
@@ -102,9 +114,7 @@ export const removeGood = (id: number, input: Params, pages: number): ReduxThunk
     try {
         dispatch(remove(id));
         await dispatch(deleteGoodAsync(id));
-        const { data } = await fetchLoadGoods(input)
-        if (!data.goods.length || data.goods.length === 1 || pages === 1) return
-        dispatch(add(data))
+        await dispatch(loadGoodAsync(input));
     } catch (error) {
         console.log(error)
     }

@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
       Good.belongsTo(models.Unit, {
         foreignKey: 'unit'
       })
+      Good.hasMany(models.Purchaseitem, {
+        foreignKey: 'itemcode'
+      })
     }
   }
   Good.init({

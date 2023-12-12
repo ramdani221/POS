@@ -15,7 +15,7 @@ export interface SupplierState {
 }
 
 const initialState: SupplierState = {
-    value: [],
+    value: [{id: 0, name: '', phone: '', address: ''}],
     footer: {
         page: 1,
         limit: 3,
@@ -102,9 +102,7 @@ export const removeSupplier = (id: number, input: Params, pages: number): ReduxT
     try {
         dispatch(remove(Number(id)));
         await dispatch(deleteSupplierAsync(id));
-        const { data } = await fetchLoadSuppliers(input)
-        if (!data.suppliers.length || data.suppliers.length === 1 || pages === 1) return
-        dispatch(add(data))
+        await dispatch(loadSupplierAsync(input));
     } catch (error) {
         console.log(error)
     }

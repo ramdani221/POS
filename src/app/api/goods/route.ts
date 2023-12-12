@@ -10,7 +10,7 @@ const models: any = db
 export async function GET(req: NextRequest, res: NextResponse) {
     const keyword = req.nextUrl.searchParams.get('keyword') || ''
     const page = Number(req.nextUrl.searchParams.get('page')) || 1
-    const limit = Number(req.nextUrl.searchParams.get('limit')) || 3
+    const limit = JSON.parse(req.nextUrl.searchParams.get('limit') as string)
     const sort = req.nextUrl.searchParams.get('sort') || 'asc'
     const sortBy = req.nextUrl.searchParams.get('sortBy') || 'barcode'
     const offset = (page - 1) * limit
