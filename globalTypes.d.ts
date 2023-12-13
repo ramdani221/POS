@@ -119,3 +119,16 @@ declare type PurchaseitemsType = {
     }
 
 }
+
+declare type CustomerInput = {
+    name: string;
+    address: string;
+    phone: string;
+}
+
+declare type CustomersType = {
+    id: number;
+    name: string;
+    address: string;
+    phone: string;
+}

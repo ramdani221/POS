@@ -4,16 +4,16 @@ import TableList from "./TableList";
 import TableControl from "./TableControl";
 import Link from "next/link";
 
-export default function TableBoxUsers() {
-  const [filter, setFilter] = useState({
-    keyword: "",
-    limit: 3,
-  });
+export default function TableBoxCustomers() {
+  const [filter, setFilter] = useState({ keyword: "", limit: 3 });
   const [pageNum, setPageNum] = useState(1);
   return (
     <div className="card shadow mb-4">
       <div className="card-header py-3">
-        <Link href="/home/users/add" className="btn btn-primary btn-icon-split">
+        <Link
+          href="/home/customers/add"
+          className="btn btn-primary btn-icon-split"
+        >
           <span className="icon text-white-50">
             <i className="fas fa-plus"></i>
           </span>

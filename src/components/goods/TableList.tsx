@@ -20,7 +20,10 @@ export default function TableList({
 
   const [show, setShow] = useState(false);
   const [id, setId] = useState(0);
-  const [sorting, setSorting] = useState({ sort: true, sortBy: "barcode" });
+  const [sorting, setSorting] = useState({ 
+    sort: true, 
+    sortBy: "barcode" 
+  });
 
   useEffect(() => {
     dispatch(

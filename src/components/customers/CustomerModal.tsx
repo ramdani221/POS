@@ -1,25 +1,23 @@
-
 import { useDispatch, useSelector } from "@/lib/redux";
-import { removeSupplier, suppliersPagination } from "@/lib/redux/suppliers/supplierSlice";
+import { customersPagination, removeCustomer } from "@/lib/redux/customers/customerSlice";
 
-
-export default function SupplierModal({ 
-  setShow, 
-  id, 
-  input 
-}: { 
-  setShow: any, 
-  id: number, 
+export default function CustomerModal({
+  setShow,
+  id,
+  input,
+}: {
+  setShow: any;
+  id: number;
   input: {
-    keyword: string, 
-    limit: number, 
-    page: number, 
-    sort: string, 
-    sortBy: string
-  }
+    keyword: string;
+    limit: number;
+    page: number;
+    sort: string;
+    sortBy: string;
+  };
 }) {
-    const dispatch = useDispatch()
-    const {pages} = useSelector(suppliersPagination)
+  const dispatch = useDispatch();
+  const { pages } = useSelector(customersPagination);
   return (
     <div
       className="modal fade show bg-black bg-opacity-50"
@@ -45,9 +43,7 @@ export default function SupplierModal({
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <div className="modal-body">
-            Are you sure, you want delete it?
-          </div>
+          <div className="modal-body">Are you sure, you want delete it?</div>
           <div className="modal-footer">
             <button
               className="btn btn-secondary"
@@ -57,7 +53,13 @@ export default function SupplierModal({
             >
               No
             </button>
-            <button className="btn btn-primary" onClick={() => {dispatch(removeSupplier(id, input, pages)); setShow(false)}}>
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                dispatch(removeCustomer(id, input, pages));
+                setShow(false);
+              }}
+            >
               Yes
             </button>
           </div>

@@ -6,6 +6,7 @@ const models: any = db
 export const getGood = async (id: number) => {
     try {
         const data = await models.Good.findOne({
+            include: models.Unit,
             where: { id }
         })
         return data

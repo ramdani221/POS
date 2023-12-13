@@ -5,10 +5,7 @@ import TableFoot from "./TableFoot";
 import TableHead from "./TableHead";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "@/lib/redux";
-import {
-  loadSupplierAsync,
-  selectSuppliers,
-} from "@/lib/redux/supliers/supplierSlice";
+import { loadSupplierAsync, selectSuppliers } from "@/lib/redux/suppliers/supplierSlice";
 import SupplierModal from "./SupplierModal";
 
 export default function TableList({
@@ -23,7 +20,10 @@ export default function TableList({
 
   const [show, setShow] = useState(false);
   const [id, setId] = useState(0);
-  const [sorting, setSorting] = useState({ sort: true, sortBy: "id" });
+  const [sorting, setSorting] = useState({ 
+    sort: true, 
+    sortBy: "id" 
+  });
 
   useEffect(() => {
     dispatch(

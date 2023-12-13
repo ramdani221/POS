@@ -1,12 +1,8 @@
 import { useDispatch, useSelector } from "@/lib/redux";
-import {
-  addStock,
-  loadGoodAsync,
-  selectGoods,
-} from "@/lib/redux/goods/goodSlice";
+import { addStock, loadGoodAsync, selectGoods } from "@/lib/redux/goods/goodSlice";
 import { addPurchaseitem } from "@/lib/redux/purchaseItems/purchaseitemSlice";
 import { RpInd } from "@/services/service";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function PurchaseItems({ id }: { id: string }) {
   const goods = useSelector(selectGoods);

@@ -5,7 +5,10 @@ import TableControl from "./TableControl";
 import Link from "next/link";
 
 export default function TableBoxUnits() {
-  const [filter, setFilter] = useState({ keyword: "", limit: 3 });
+  const [filter, setFilter] = useState({ 
+    keyword: "", 
+    limit: 3 
+  });
   const [pageNum, setPageNum] = useState(1);
   return (
     <div className="card shadow mb-4">

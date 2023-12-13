@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchCreateUser, fetchDeleteUser, fetchLoadUsers, fetchUpdateUser } from "./userAPI";
+import { fetchCreateUser, fetchDeleteUser, fetchGetUser, fetchLoadUsers, fetchUpdateUser } from "./userAPI";
 import { ReduxState, ReduxThunkAction } from "@/lib/redux/store";
 
 export interface UserState {
@@ -11,6 +11,7 @@ export interface UserState {
         pages: number;
         total: number;
     }
+    user: UsersType;
     status: 'idle' | 'loading' | 'failed'
 }
 
@@ -23,6 +24,12 @@ const initialState: UserState = {
         pages: 1,
         total: 1
     },
+    user: {
+        id: 0,
+        email: '',
+        name: '',
+        role: ''
+    },
     status: 'idle'
 }
 
@@ -30,6 +37,14 @@ export const loadUserAsync = createAsyncThunk(
     'users/loadUserAsync',
     async (params: Params) => {
         const { data } = await fetchLoadUsers(params)
+        return data
+    }
+)
+
+export const getUserAsync = createAsyncThunk(
+    'users/getUserAsync',
+    async (id: number) => {
+        const { data } = await fetchGetUser(id)
         return data
     }
 )
@@ -62,11 +77,6 @@ export const userSlice = createSlice({
     name: 'users',
     initialState,
     reducers: {
-        add: (state, action: PayloadAction<any>) => {
-            state.value.push(action.payload.users[action.payload.users.length - 1]);
-            state.footer.pages = action.payload.pages;
-            state.footer.total = action.payload.total
-        },
         remove: (state, action: PayloadAction<number>) => {
             state.value = state.value.filter(user => user.id !== action.payload)
             state.footer.total -= 1
@@ -91,11 +101,22 @@ export const userSlice = createSlice({
             .addCase(loadUserAsync.rejected, (state, action) => {
                 state.status = 'failed';
             })
+            .addCase(getUserAsync.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(getUserAsync.fulfilled, (state, action) => {
+                state.status = 'idle';
+                state.user = action.payload
+            })
+            .addCase(getUserAsync.rejected, (state, action) => {
+                state.status = 'failed';
+            })
     }
 })
 
-export const { remove, add } = userSlice.actions
+export const { remove } = userSlice.actions
 export const selectUsers = (state: ReduxState) => state.user.value;
+export const getUser = (state: ReduxState) => state.user.user;
 export const usersPagination = (state: ReduxState) => state.user.footer;
 
 export const removeUser = (id: number, input: Params, pages: number): ReduxThunkAction => async (dispatch, getState) => {
@@ -104,7 +125,7 @@ export const removeUser = (id: number, input: Params, pages: number): ReduxThunk
         await dispatch(deleteUserAsync(id));
         await dispatch(loadUserAsync(input));
     } catch (error) {
-        console.log(error)
+        return error
     }
 }
 

@@ -1,29 +1,38 @@
 "use client";
 
-import { useDispatch } from "@/lib/redux";
-import { fetchGetUser } from "@/lib/redux/users/userAPI";
-import { updateUserAsync } from "@/lib/redux/users/userSlice";
+import { useDispatch, useSelector } from "@/lib/redux";
+import { getUser, getUserAsync, updateUserAsync } from "@/lib/redux/users/userSlice";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Edite() {
   const { id } = useParams();
+  const user = useSelector(getUser)
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const [user, setUser] = useState({ email: "", name: "", role: "" });
+  const [input, setInput] = useState({ 
+    email: "", 
+    name: "", 
+    role: "" 
+  });
+
   useEffect(() => {
-    fetchGetUser(Number(id))
-      .then(({ data }) =>
-        setUser({ email: data.email, name: data.name, role: data.role })
-      )
-      .catch((err) => console.log(err));
-  }, [id]);
+    dispatch(getUserAsync(Number(id)))
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    setInput({
+      email: user.email,
+      name: user.name,
+      role: user.role
+    })
+  }, [user])
 
   const submit = (e: any) => {
     e.preventDefault();
-    dispatch(updateUserAsync({ id: Number(id), input: user }))
+    dispatch(updateUserAsync({ id: Number(id), input }))
       .then(() => router.push("/home/users"))
       .catch((err) => console.log(err));
   };
@@ -46,8 +55,8 @@ export default function Edite() {
                   className="form-control"
                   id="inputEmail3"
                   required
-                  value={user.email}
-                  onChange={(e) => setUser({ ...user, email: e.target.value })}
+                  value={input.email}
+                  onChange={(e) => setInput({ ...input, email: e.target.value })}
                 />
               </div>
             </div>
@@ -58,8 +67,8 @@ export default function Edite() {
                   type="text"
                   className="form-control"
                   required
-                  value={user.name}
-                  onChange={(e) => setUser({ ...user, name: e.target.value })}
+                  value={input.name}
+                  onChange={(e) => setInput({ ...input, name: e.target.value })}
                 />
               </div>
             </div>
@@ -74,8 +83,8 @@ export default function Edite() {
                     id="gridRadios1"
                     value="Oprator"
                     required
-                    checked={user.role === "Oprator"}
-                    onChange={(e) => setUser({ ...user, role: e.target.value })}
+                    checked={input.role === "Oprator"}
+                    onChange={(e) => setInput({ ...input, role: e.target.value })}
                   />
                   <label className="form-check-label" htmlFor="gridRadios1">
                     Oprator
@@ -88,8 +97,8 @@ export default function Edite() {
                     name="gridRadios"
                     id="gridRadios2"
                     value="Admin"
-                    checked={user.role === "Admin"}
-                    onChange={(e) => setUser({ ...user, role: e.target.value })}
+                    checked={input.role === "Admin"}
+                    onChange={(e) => setInput({ ...input, role: e.target.value })}
                   />
                   <label className="form-check-label" htmlFor="gridRadios2">
                     Admin

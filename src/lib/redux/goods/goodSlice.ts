@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ReduxState, ReduxThunkAction } from "@/lib/redux/store";
-import { fetchCreateGood, fetchDeleteGood, fetchLoadGoods, fetchUpdateGood } from "./goodAPI";
+import { fetchCreateGood, fetchDeleteGood, fetchGetGood, fetchLoadGoods, fetchUpdateGood } from "./goodAPI";
 
 export interface GoodState {
     value: GoodsType[];
@@ -10,7 +10,8 @@ export interface GoodState {
         offset: number;
         pages: number;
         total: number;
-    }
+    };
+    good: GoodsType;
     status: 'idle' | 'loading' | 'failed'
 }
 
@@ -23,6 +24,22 @@ const initialState: GoodState = {
         pages: 1,
         total: 1
     },
+    good: {
+        id: 0,
+        barcode: '',
+        name: '',
+        stock: 0,
+        purchaseprice: '',
+        sellingprice: '',
+        unit: 0,
+        picture: '',
+        Unit: {
+            id: 0,
+            unit: '',
+            name: '',
+            note: '',
+        }
+    },
     status: 'idle'
 }
 
@@ -30,6 +47,14 @@ export const loadGoodAsync = createAsyncThunk(
     'Goods/loadGoodAsync',
     async (params: Params) => {
         const { data } = await fetchLoadGoods(params)
+        return data
+    }
+)
+
+export const getGoodAsync = createAsyncThunk(
+    'Goods/getGoodAsync',
+    async (id: number) => {
+        const { data } = await fetchGetGood(id)
         return data
     }
 )
@@ -62,11 +87,6 @@ export const goodSlice = createSlice({
     name: 'Goods',
     initialState,
     reducers: {
-        add: (state, action: PayloadAction<any>) => {
-            state.value.push(action.payload.goods[action.payload.goods.length - 1]);
-            state.footer.pages = action.payload.pages;
-            state.footer.total = action.payload.total
-        },
         remove: (state, action: PayloadAction<number>) => {
             state.value = state.value.filter(good => good.id !== action.payload)
             state.footer.total -= 1
@@ -103,11 +123,22 @@ export const goodSlice = createSlice({
             .addCase(loadGoodAsync.rejected, (state, action) => {
                 state.status = 'failed';
             })
+            .addCase(getGoodAsync.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(getGoodAsync.fulfilled, (state, action) => {
+                state.status = 'idle';
+                state.good = action.payload
+            })
+            .addCase(getGoodAsync.rejected, (state, action) => {
+                state.status = 'failed';
+            })
     }
 })
 
-export const { remove, add, addStock, reduceStock } = goodSlice.actions
+export const { remove, addStock, reduceStock } = goodSlice.actions
 export const selectGoods = (state: ReduxState) => state.good.value;
+export const getGood = (state: ReduxState) => state.good.good;
 export const goodsPagination = (state: ReduxState) => state.good.footer;
 
 export const removeGood = (id: number, input: Params, pages: number): ReduxThunkAction => async (dispatch, getState) => {
@@ -116,7 +147,7 @@ export const removeGood = (id: number, input: Params, pages: number): ReduxThunk
         await dispatch(deleteGoodAsync(id));
         await dispatch(loadGoodAsync(input));
     } catch (error) {
-        console.log(error)
+        return error
     }
 }
 

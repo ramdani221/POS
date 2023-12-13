@@ -13,7 +13,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const offset = (page - 1) * limit
 
     try {
-        const { count, rows } = await models.Supplier.findAndCountAll({
+        const { count, rows } = await models.Customer.findAndCountAll({
             where: {
                 [Op.or]: [
                     { name: { [Op.iLike]: `%${keyword}%` } },
@@ -26,7 +26,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
             offset
         })
         const pages = Math.ceil(count / limit)
-        return NextResponse.json({ data: { suppliers: rows, page, limit, offset, pages, total: count, sortBy, sort } })
+        return NextResponse.json({ data: { customers: rows, page, limit, offset, pages, total: count, sortBy, sort } })
     } catch (error: any) {
         return NextResponse.json({ err: error.message })
     }
@@ -35,9 +35,11 @@ export async function GET(req: NextRequest, res: NextResponse) {
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
         const input = await req.json()
-        const supplier = await models.Supplier.create(input)
-        return NextResponse.json({ data: supplier })
+        console.log(input)
+        const customer = await models.Customer.create(input)
+        return NextResponse.json({ data: customer })
     } catch (error: any) {
+        console.log(error)
         return NextResponse.json({ err: error.message })
     }
 }

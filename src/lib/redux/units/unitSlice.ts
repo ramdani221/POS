@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ReduxState, ReduxThunkAction } from "@/lib/redux/store";
-import { fetchCreateUnit, fetchDeleteUnit, fetchLoadUnits, fetchUpdateUnit } from "./unitAPI";
+import { fetchCreateUnit, fetchDeleteUnit, fetchGetUnit, fetchLoadUnits, fetchUpdateUnit } from "./unitAPI";
 
 export interface UnitState {
     value: UnitsType[];
@@ -10,18 +10,30 @@ export interface UnitState {
         offset: number;
         pages: number;
         total: number;
-    }
+    };
+    unit: UnitsType;
     status: 'idle' | 'loading' | 'failed'
 }
 
 const initialState: UnitState = {
-    value: [],
+    value: [{
+        id: 0,
+        unit: '',
+        name: '',
+        note: ''
+    }],
     footer: {
         page: 1,
         limit: 3,
         offset: 0,
         pages: 1,
         total: 1
+    },
+    unit: {
+        id: 0,
+        unit: '',
+        name: '',
+        note: ''
     },
     status: 'idle'
 }
@@ -30,6 +42,14 @@ export const loadUnitAsync = createAsyncThunk(
     'Units/loadUnitAsync',
     async (params: Params) => {
         const { data } = await fetchLoadUnits(params)
+        return data
+    }
+)
+
+export const getUnitAsync = createAsyncThunk(
+    'Units/getUnitAsync',
+    async (id: number) => {
+        const { data } = await fetchGetUnit(id)
         return data
     }
 )
@@ -62,11 +82,6 @@ export const unitSlice = createSlice({
     name: 'Units',
     initialState,
     reducers: {
-        add: (state, action: PayloadAction<any>) => {
-            state.value.push(action.payload.units[action.payload.units.length - 1]);
-            state.footer.pages = action.payload.pages;
-            state.footer.total = action.payload.total
-        },
         remove: (state, action: PayloadAction<number>) => {
             state.value = state.value.filter(unit => unit.id !== action.payload)
             state.footer.total -= 1
@@ -91,11 +106,22 @@ export const unitSlice = createSlice({
             .addCase(loadUnitAsync.rejected, (state, action) => {
                 state.status = 'failed';
             })
+            .addCase(getUnitAsync.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(getUnitAsync.fulfilled, (state, action) => {
+                state.status = 'idle';
+                state.unit = action.payload
+            })
+            .addCase(getUnitAsync.rejected, (state, action) => {
+                state.status = 'failed';
+            })
     }
 })
 
-export const { remove, add } = unitSlice.actions
+export const { remove } = unitSlice.actions
 export const selectUnits = (state: ReduxState) => state.unit.value;
+export const getUnit = (state: ReduxState) => state.unit.unit;
 export const unitsPagination = (state: ReduxState) => state.unit.footer;
 
 export const removeUnit = (id: number, input: Params, pages: number): ReduxThunkAction => async (dispatch, getState) => {
@@ -104,7 +130,7 @@ export const removeUnit = (id: number, input: Params, pages: number): ReduxThunk
         await dispatch(deleteUnitAsync(id));
         await dispatch(loadUnitAsync(input));
     } catch (error) {
-        console.log(error)
+        return error
     }
 }
 

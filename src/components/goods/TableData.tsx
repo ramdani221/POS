@@ -1,3 +1,4 @@
+import { RpInd } from "@/services/service";
 import Image from "next/image";
 import Link from "next/link";
 import { Dispatch, SetStateAction } from "react";
@@ -17,8 +18,8 @@ export default function TableData({
       <td className="">{good?.name}</td>
       <td className="">{good?.stock}</td>
       <td className="">{good?.Unit?.unit}</td>
-      <td className="">{good?.purchaseprice}</td>
-      <td className="">{good?.sellingprice}</td>
+      <td className="">{RpInd.format(good?.purchaseprice)}</td>
+      <td className="">{RpInd.format(good?.sellingprice)}</td>
       <td className=""><Image className="object-fit-contain" src={`/imgGoods/${good?.picture}`} alt={good?.name} width={500} height={500} style={{width: '100%', height: '100%', objectFit: 'scale-down'}}/></td>
       <td>
         <Link href={`/home/goods/edit/${good?.id}`} className="btn btn-success btn-circle me-1">

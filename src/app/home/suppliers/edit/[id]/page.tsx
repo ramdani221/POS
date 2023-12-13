@@ -1,32 +1,40 @@
 "use client";
 
-import { useDispatch } from "@/lib/redux";
-import { fetchGetSupplier } from "@/lib/redux/supliers/supplierAPI";
-import { updateSupplierAsync } from "@/lib/redux/supliers/supplierSlice";
+import { useDispatch, useSelector } from "@/lib/redux";
+import { getSupplier, getSupplierAsync, updateSupplierAsync } from "@/lib/redux/suppliers/supplierSlice";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Edite() {
   const { id } = useParams();
+  const supplier = useSelector(getSupplier)
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const [supplier, setSupplier] = useState({ name: "", address: "", phone: "" });
-  useEffect(() => {
-    fetchGetSupplier(Number(id))
-      .then(({ data }) =>
-        setSupplier({ name: data.name, address: data.address, phone: data.phone })
-      )
-      .catch((err) => console.log(err));
-  }, [id]);
-
+  const [input, setInput] = useState({ 
+    name: "", 
+    address: "", 
+    phone: "" 
+  });
+  
   const submit = (e: any) => {
     e.preventDefault();
-    dispatch(updateSupplierAsync({ id: Number(id), input: supplier }))
-      .then(() => router.push("/home/suppliers"))
-      .catch((err) => console.log(err));
+    dispatch(updateSupplierAsync({ id: Number(id), input }))
+    router.push("/home/suppliers")
   };
+
+  useEffect(() => {
+    dispatch(getSupplierAsync(Number(id)))
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    setInput({
+      name: supplier.name,
+      phone: supplier.phone,
+      address: supplier.address
+    })
+  }, [supplier])
 
   return (
     <div className="card shadow mb-4">
@@ -42,9 +50,9 @@ export default function Edite() {
                 <input
                   type="text"
                   className="form-control"
-                  value={supplier.name}
+                  value={input.name}
                   required
-                  onChange={(e) => setSupplier({ ...supplier, name: e.target.value })}
+                  onChange={(e) => setInput({ ...input, name: e.target.value })}
                 />
               </div>
             </div>
@@ -54,10 +62,10 @@ export default function Edite() {
                 <textarea
                   className="form-control"
                   id="exampleFormControlTextarea1"
-                  value={supplier.address}
+                  value={input.address}
                   required
                   rows={2}
-                  onChange={(e) => {}}
+                  onChange={(e) => setInput({ ...input, address: e.target.value })}
                 ></textarea>
               </div>
             </div>
@@ -67,9 +75,9 @@ export default function Edite() {
                 <input
                   type="text"
                   className="form-control"
-                  value={supplier.phone}
+                  value={input.phone}
                   required
-                  onChange={(e) => setSupplier({ ...supplier, name: e.target.value })}
+                  onChange={(e) => setInput({ ...input, phone: e.target.value })}
                 />
               </div>
             </div>            

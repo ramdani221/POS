@@ -1,17 +1,17 @@
 "use client";
 
 import { useDispatch, useSelector } from "@/lib/redux";
-import { addGoodAsync, selectGoods } from "@/lib/redux/goods/goodSlice";
-import { fetchLoadUnits } from "@/lib/redux/units/unitAPI";
+import { addGoodAsync } from "@/lib/redux/goods/goodSlice";
+import { loadUnitAsync, selectUnits } from "@/lib/redux/units/unitSlice";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Edite() {
+  const units = useSelector(selectUnits);
   const dispatch = useDispatch();
   const router = useRouter();
   const [image, setImage] = useState();
-  const [units, setUnits] = useState([{ id: "", unit: "" }]);
 
   const [good, setGood] = useState({
     barcode: "",
@@ -19,30 +19,26 @@ export default function Edite() {
     stock: "",
     purchaseprice: "",
     sellingprice: "",
-    unit: "",
+    unit: 0,
   });
 
-  console.log(good);
+  useEffect(() => {
+    dispatch(
+      loadUnitAsync({
+        keyword: "",
+        limit: "null",
+        page: 1,
+        sort: "asc",
+        sortBy: "unit",
+      })
+    );
+  }, [dispatch]);
+
 
   useEffect(() => {
-    fetchLoadUnits({
-      keyword: "",
-      limit: "null",
-      page: 1,
-      sort: "asc",
-      sortBy: "unit",
-    }).then(({ data }) => {
-      setUnits(data.units);
-      setGood({
-        barcode: "",
-        name: "",
-        stock: "",
-        purchaseprice: "",
-        sellingprice: "",
-        unit: data.units[0].id,
-      });
-    });
-  }, []);
+    console.log(units)
+    setGood(g => ({...g, unit: units[0].id}))
+  }, [units])
 
   const imageChange = (e: any) => {
     if (e.target.files && e.target.files.length > 0)
@@ -54,11 +50,8 @@ export default function Edite() {
     const formData: any = new FormData();
     formData.append("image", image);
     formData.append("data", JSON.stringify(good));
-    dispatch(addGoodAsync(formData))
-      .then(() => router.push("/home/goods"))
-      .catch((err) => console.log(err));
-
-    console.log("jalan");
+    dispatch(addGoodAsync(formData));
+    router.push("/home/goods");
   };
 
   return (
@@ -136,9 +129,9 @@ export default function Edite() {
                 <select
                   className="form-select text-gray-700"
                   aria-label="Default select example"
-                  defaultValue={units[0].id}
+                  value={good.unit}
                   required
-                  onChange={(e) => setGood({ ...good, unit: e.target.value })}
+                  onChange={(e) => setGood({...good, unit: Number(e.target.value)})}
                 >
                   {units.map((unit) => (
                     <option value={unit.id} key={unit.id}>

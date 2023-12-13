@@ -1,9 +1,8 @@
 "use client";
 
-import { useDispatch } from "@/lib/redux";
-import { fetchGetGood } from "@/lib/redux/goods/goodAPI";
-import { updateGoodAsync } from "@/lib/redux/goods/goodSlice";
-import { fetchLoadUnits } from "@/lib/redux/units/unitAPI";
+import { useDispatch, useSelector } from "@/lib/redux";
+import { getGood, getGoodAsync, updateGoodAsync } from "@/lib/redux/goods/goodSlice";
+import { loadUnitAsync, selectUnits } from "@/lib/redux/units/unitSlice";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
@@ -11,60 +10,60 @@ import { useEffect, useState } from "react";
 
 export default function Edite() {
   const { id }: { id: string } = useParams();
+  const good = useSelector(getGood);
+  const units = useSelector(selectUnits);
   const dispatch = useDispatch();
   const router = useRouter();
   const [image, setImage] = useState();
-  const [units, setUnits] = useState([{ id: "", unit: "" }]);
 
-  const [good, setGood] = useState({
+  const [input, setInput] = useState({
     barcode: "",
     name: "",
-    stock: "",
+    stock: 0,
     purchaseprice: "",
     sellingprice: "",
-    unit: "",
+    unit: 0,
     picture: "",
   });
-console.log(good)
+
   const imageChange = (e: any) => {
     if (e.target.files && e.target.files.length > 0)
       setImage(e.target.files[0]);
   };
 
+  const submit = (e: any) => {
+    e.preventDefault();
+    const formData: any = new FormData();
+    formData.append("data", JSON.stringify(input));
+    if (image) formData.append("image", image);
+    dispatch(updateGoodAsync({ id: Number(id), input: formData }))
+    router.push("/home/goods")
+  };
+
   useEffect(() => {
-    fetchGetGood(id)
-      .then(({ data }) => {
-        setGood({
-          barcode: data.barcode,
-          name: data.name,
-          stock: data.stock,
-          purchaseprice: data.purchaseprice,
-          sellingprice: data.sellingprice,
-          unit: data.unit,
-          picture: data.picture,
-        });
-      })
-      .catch((err) => console.log(err));
-      fetchLoadUnits({
+    dispatch(getGoodAsync(Number(id)));
+    dispatch(
+      loadUnitAsync({
         keyword: "",
         limit: "null",
         page: 1,
         sort: "asc",
         sortBy: "unit",
-      }).then(({ data }) => {
-        setUnits(data.units);
-      });
-  }, [id]);
+      })
+    );
+  }, [dispatch, id]);
 
-  const submit = (e: any) => {
-    e.preventDefault();
-    const formData: any = new FormData();
-    formData.append("data", JSON.stringify(good));
-    if (image) formData.append("image", image);
-    dispatch(updateGoodAsync({ id: Number(id), input: formData }))
-      .then(() => router.push("/home/goods"))
-      .catch((err) => console.log(err));
-  };
+  useEffect(() => {
+    setInput({
+      barcode: good.barcode,
+      name: good.name,
+      stock: good.stock,
+      purchaseprice: good.purchaseprice,
+      sellingprice: good.sellingprice,
+      unit: good.unit,
+      picture: good.picture,
+    })
+  }, [good])
 
   return (
     <div className="card shadow mb-4">
@@ -80,10 +79,10 @@ console.log(good)
                 <input
                   type="text"
                   className="form-control"
-                  value={good.barcode}
+                  value={input.barcode}
                   required
                   onChange={(e) =>
-                    setGood({ ...good, barcode: e.target.value })
+                    setInput({ ...input, barcode: e.target.value })
                   }
                 />
               </div>
@@ -94,9 +93,9 @@ console.log(good)
                 <input
                   type="text"
                   className="form-control"
-                  value={good.name}
+                  value={input.name}
                   required
-                  onChange={(e) => setGood({ ...good, name: e.target.value })}
+                  onChange={(e) => setInput({ ...input, name: e.target.value })}
                 />
               </div>
             </div>
@@ -106,9 +105,9 @@ console.log(good)
                 <input
                   type="text"
                   className="form-control"
-                  value={good.stock}
+                  value={input.stock}
                   required
-                  onChange={(e) => setGood({ ...good, stock: e.target.value })}
+                  onChange={(e) => setInput({ ...input, stock: Number(e.target.value) })}
                 />
               </div>
             </div>
@@ -118,10 +117,10 @@ console.log(good)
                 <input
                   type="text"
                   className="form-control"
-                  value={good.purchaseprice}
+                  value={input.purchaseprice}
                   required
                   onChange={(e) =>
-                    setGood({ ...good, purchaseprice: e.target.value })
+                    setInput({ ...input, purchaseprice: e.target.value })
                   }
                 />
               </div>
@@ -132,10 +131,10 @@ console.log(good)
                 <input
                   type="text"
                   className="form-control"
-                  value={good.sellingprice}
+                  value={input.sellingprice}
                   required
                   onChange={(e) =>
-                    setGood({ ...good, sellingprice: e.target.value })
+                    setInput({ ...input, sellingprice: e.target.value })
                   }
                 />
               </div>
@@ -146,9 +145,9 @@ console.log(good)
                 <select
                   className="form-select text-gray-700"
                   aria-label="Default select example"
-                  value={good.unit}
+                  value={input.unit}
                   required
-                  onChange={(e) => setGood({ ...good, unit: e.target.value })}
+                  onChange={(e) => setInput({ ...input, unit: Number(e.target.value) })}
                 >
                   {units.map((unit) => (
                     <option value={unit.id} key={unit.id}>
@@ -177,7 +176,7 @@ console.log(good)
                   src={
                     image
                       ? URL.createObjectURL(image)
-                      : `/imgGoods/${good.picture}`
+                      : `/imgGoods/${input.picture}`
                   }
                   alt="good image"
                   width={500}

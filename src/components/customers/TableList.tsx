@@ -5,8 +5,8 @@ import TableFoot from "./TableFoot";
 import TableHead from "./TableHead";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "@/lib/redux";
-import PurchaseModal from "./PurchaseModal";
-import { loadPurchaseAsync, selectPurchases } from "@/lib/redux/purchases/purchaseSlice";
+import { loadCustomerAsync, selectCustomers } from "@/lib/redux/customers/customerSlice";
+import CustomerModal from "./CustomerModal";
 
 export default function TableList({
   filter,
@@ -15,7 +15,7 @@ export default function TableList({
   filter: { keyword: string; limit: number };
   pageNum: number;
 }) {
-  const purchases = useSelector(selectPurchases);
+  const customers = useSelector(selectCustomers);
   const dispatch = useDispatch();
 
   const [show, setShow] = useState(false);
@@ -27,7 +27,7 @@ export default function TableList({
 
   useEffect(() => {
     dispatch(
-      loadPurchaseAsync({
+      loadCustomerAsync({
         ...filter,
         page: pageNum,
         sort: sorting.sort ? "asc" : "desc",
@@ -52,12 +52,12 @@ export default function TableList({
             <TableHead sorting={sorting} setSorting={setSorting} />
             <TableFoot />
             <tbody>
-              {purchases.map((purchase) => (
+              {customers.map((customer) => (
                 <TableData
-                  purchase={purchase}
+                  customer={customer}
                   setId={setId}
                   setShow={setShow}
-                  key={purchase.id}
+                  key={customer.id}
                 />
               ))}
             </tbody>
@@ -66,7 +66,7 @@ export default function TableList({
       </div>
 
       {show && (
-        <PurchaseModal
+        <CustomerModal
           id={id}
           setShow={setShow}
           input={{

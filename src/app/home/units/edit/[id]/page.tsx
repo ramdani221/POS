@@ -1,36 +1,39 @@
 "use client";
 
-import { useDispatch } from "@/lib/redux";
-import { fetchGetUnit } from "@/lib/redux/units/unitAPI";
-import { updateUnitAsync } from "@/lib/redux/units/unitSlice";
+import { useDispatch, useSelector } from "@/lib/redux";
+import { getUnit, getUnitAsync, updateUnitAsync } from "@/lib/redux/units/unitSlice";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Edite() {
   const { id } = useParams();
+  const unit = useSelector(getUnit);
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const [unit, setUnit] = useState({
+  const [input, setInput] = useState({
     unit: "",
     name: "",
     note: "",
   });
 
   useEffect(() => {
-    fetchGetUnit(Number(id))
-      .then(({ data }) =>
-        setUnit({ unit: data.unit, name: data.name, note: data.note })
-      )
-      .catch((err) => console.log(err));
-  }, [id]);
+    dispatch(getUnitAsync(Number(id)));
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    setInput({
+      unit: unit.unit,
+      name: unit.name,
+      note: unit.note,
+    });
+  }, [unit]);
 
   const submit = (e: any) => {
     e.preventDefault();
-    dispatch(updateUnitAsync({ id: Number(id), input: unit }))
-      .then(() => router.push("/home/units"))
-      .catch((err) => console.log(err));
+    dispatch(updateUnitAsync({ id: Number(id), input }));
+    router.push("/home/units");
   };
 
   return (
@@ -48,8 +51,8 @@ export default function Edite() {
                   type="text"
                   className="form-control"
                   required
-                  value={unit.unit}
-                  onChange={(e) => setUnit({ ...unit, unit: e.target.value })}
+                  value={input.unit}
+                  onChange={(e) => setInput({ ...input, unit: e.target.value })}
                 />
               </div>
             </div>
@@ -60,8 +63,8 @@ export default function Edite() {
                   type="text"
                   className="form-control"
                   required
-                  value={unit.name}
-                  onChange={(e) => setUnit({ ...unit, name: e.target.value })}
+                  value={input.name}
+                  onChange={(e) => setInput({ ...input, name: e.target.value })}
                 />
               </div>
             </div>
@@ -72,9 +75,9 @@ export default function Edite() {
                   className="form-control"
                   id="exampleFormControlTextarea1"
                   required
-                  value={unit.note}
+                  value={input.note}
                   rows={2}
-                  onChange={(e) => setUnit({ ...unit, note: e.target.value })}
+                  onChange={(e) => setInput({ ...input, note: e.target.value })}
                 ></textarea>
               </div>
             </div>

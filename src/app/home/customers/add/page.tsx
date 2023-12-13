@@ -1,7 +1,7 @@
 "use client";
 
 import { useDispatch } from "@/lib/redux";
-import { addSupplierAsync } from "@/lib/redux/suppliers/supplierSlice";
+import { addCustomerAsync } from "@/lib/redux/customers/customerSlice";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -10,16 +10,15 @@ export default function Edite() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const [supplier, setSupplier] = useState({
+  const [input, setInput] = useState({ 
     name: "",
-    address: "",
-    phone: "",
-  });
+    address: "", 
+    phone: "" });
 
   const submit = (e: any) => {
     e.preventDefault();
-    dispatch(addSupplierAsync(supplier));
-    router.push("/home/suppliers");
+    dispatch(addCustomerAsync(input))      
+    router.push("/home/customers")
   };
 
   return (
@@ -37,9 +36,7 @@ export default function Edite() {
                   type="text"
                   className="form-control"
                   required
-                  onChange={(e) =>
-                    setSupplier({ ...supplier, name: e.target.value })
-                  }
+                  onChange={(e) => setInput({ ...input, name: e.target.value })}
                 />
               </div>
             </div>
@@ -51,9 +48,7 @@ export default function Edite() {
                   id="exampleFormControlTextarea1"
                   required
                   rows={2}
-                  onChange={(e) =>
-                    setSupplier({ ...supplier, address: e.target.value })
-                  }
+                  onChange={(e) => setInput({ ...input, address: e.target.value })}
                 ></textarea>
               </div>
             </div>
@@ -64,12 +59,10 @@ export default function Edite() {
                   type="text"
                   className="form-control"
                   required
-                  onChange={(e) =>
-                    setSupplier({ ...supplier, phone: e.target.value })
-                  }
+                  onChange={(e) => setInput({ ...input, phone: e.target.value })}
                 />
               </div>
-            </div>
+            </div>            
           </div>
         </div>
         <div className="card-footer py-3">
@@ -79,10 +72,7 @@ export default function Edite() {
             </span>
             <span className="text">Save</span>
           </button>
-          <Link
-            href={"/home/suppliers"}
-            className="btn btn-warning btn-icon-split"
-          >
+          <Link href={"/home/customers"} className="btn btn-warning btn-icon-split">
             <span className="icon text-white-50">
               <i className="fas fa-undo-alt"></i>
             </span>

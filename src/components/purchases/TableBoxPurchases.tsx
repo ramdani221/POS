@@ -11,7 +11,10 @@ import { useRouter } from "next/navigation";
 
 export default function TableBoxPurchases() {
   const { data }: { data: any } = useSession();
-  const [filter, setFilter] = useState({ keyword: "", limit: 3 });
+  const [filter, setFilter] = useState({ 
+    keyword: "", 
+    limit: 3 
+  });
   const [pageNum, setPageNum] = useState(1);
   const [isError, setIsError] = useState(false);
   const dispatch = useDispatch();

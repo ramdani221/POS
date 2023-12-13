@@ -3,7 +3,7 @@ import { updatePurchaseAsync } from "@/lib/redux/purchases/purchaseSlice";
 import {
   loadSupplierAsync,
   selectSuppliers,
-} from "@/lib/redux/supliers/supplierSlice";
+} from "@/lib/redux/suppliers/supplierSlice";
 import { RpInd } from "@/services/service";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

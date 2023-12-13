@@ -5,11 +5,7 @@ import PurchaseFooter from "@/components/purchases/edit/PurchaseFooter";
 import PurchaseItems from "@/components/purchases/edit/PurchaseItems";
 import PurchaseitemsList from "@/components/purchases/edit/PurchaseitemsList";
 import { useDispatch, useSelector } from "@/lib/redux";
-import {
-  getPurchase,
-  getPurchaseAsync,
-} from "@/lib/redux/purchases/purchaseSlice";
-import Link from "next/link";
+import { getPurchase, getPurchaseAsync } from "@/lib/redux/purchases/purchaseSlice";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -17,18 +13,15 @@ export default function Edite() {
   const { id }: { id: string } = useParams();
   const dispatch = useDispatch();
   const purchase = useSelector(getPurchase);
-  const router = useRouter();
   const [totalSum, setTotalSum] = useState('0.00')
 
   useEffect(() => {
     dispatch(getPurchaseAsync(Number(id)));
   }, [dispatch, id]);
 
-  const submit = (e: any) => {};
-
   return (
     <div className="card shadow mb-4">
-      <form onSubmit={submit}>
+      <form>
         <div className="card-header py-3">
           <h1 className="m-0 text-gray-700">Transaction</h1>
         </div>

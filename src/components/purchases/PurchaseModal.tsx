@@ -1,11 +1,23 @@
-
 import { useDispatch, useSelector } from "@/lib/redux";
 import { purchasesPagination, removePurchase } from "@/lib/redux/purchases/purchaseSlice";
 
-
-export default function PurchaseModal({ setShow, id, input }: { setShow: any, id: number, input: {keyword: string, limit: number, page: number, sort: string, sortBy: string}}) {
-    const dispatch = useDispatch()
-    const {pages} = useSelector(purchasesPagination)
+export default function PurchaseModal({
+  setShow,
+  id,
+  input,
+}: {
+  setShow: any;
+  id: number;
+  input: {
+    keyword: string;
+    limit: number;
+    page: number;
+    sort: string;
+    sortBy: string;
+  };
+}) {
+  const dispatch = useDispatch();
+  const { pages } = useSelector(purchasesPagination);
   return (
     <div
       className="modal fade show bg-black bg-opacity-50"
@@ -31,9 +43,7 @@ export default function PurchaseModal({ setShow, id, input }: { setShow: any, id
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <div className="modal-body">
-            Are you sure, you want delete it?
-          </div>
+          <div className="modal-body">Are you sure, you want delete it?</div>
           <div className="modal-footer">
             <button
               className="btn btn-secondary"
@@ -43,7 +53,13 @@ export default function PurchaseModal({ setShow, id, input }: { setShow: any, id
             >
               No
             </button>
-            <button className="btn btn-primary" onClick={() => {dispatch(removePurchase(id, input, pages)); setShow(false)}}>
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                dispatch(removePurchase(id, input, pages));
+                setShow(false);
+              }}
+            >
               Yes
             </button>
           </div>

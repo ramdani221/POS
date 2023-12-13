@@ -1,16 +1,18 @@
 "use client";
 
-import { useDispatch } from "@/lib/redux";
-import { addSupplierAsync } from "@/lib/redux/suppliers/supplierSlice";
+import { useDispatch, useSelector } from "@/lib/redux";
+import { getCostumer, getCustomerAsync, updateCustomerAsync } from "@/lib/redux/customers/customerSlice";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Edite() {
+  const { id } = useParams();
+  const customer = useSelector(getCostumer);
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const [supplier, setSupplier] = useState({
+  const [input, setInput] = useState({
     name: "",
     address: "",
     phone: "",
@@ -18,15 +20,27 @@ export default function Edite() {
 
   const submit = (e: any) => {
     e.preventDefault();
-    dispatch(addSupplierAsync(supplier));
-    router.push("/home/suppliers");
+    dispatch(updateCustomerAsync({ id: Number(id), input }))
+    router.push("/home/customers")
   };
+
+  useEffect(() => {
+    dispatch(getCustomerAsync(Number(id)));
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    setInput({
+      name: customer.name,
+      address: customer.address,
+      phone: customer.phone,
+    });
+  }, [customer]);
 
   return (
     <div className="card shadow mb-4">
       <form onSubmit={submit}>
         <div className="card-header py-3">
-          <h6 className="m-0 font-weight-bold text-primary">Form add</h6>
+          <h6 className="m-0 font-weight-bold text-primary">Form edit</h6>
         </div>
         <div className="card-body">
           <div className="table-responsive">
@@ -36,10 +50,9 @@ export default function Edite() {
                 <input
                   type="text"
                   className="form-control"
+                  value={input.name}
                   required
-                  onChange={(e) =>
-                    setSupplier({ ...supplier, name: e.target.value })
-                  }
+                  onChange={(e) => setInput({ ...input, name: e.target.value })}
                 />
               </div>
             </div>
@@ -49,10 +62,11 @@ export default function Edite() {
                 <textarea
                   className="form-control"
                   id="exampleFormControlTextarea1"
+                  value={input.address}
                   required
                   rows={2}
                   onChange={(e) =>
-                    setSupplier({ ...supplier, address: e.target.value })
+                    setInput({ ...input, address: e.target.value })
                   }
                 ></textarea>
               </div>
@@ -63,9 +77,10 @@ export default function Edite() {
                 <input
                   type="text"
                   className="form-control"
+                  value={input.phone}
                   required
                   onChange={(e) =>
-                    setSupplier({ ...supplier, phone: e.target.value })
+                    setInput({ ...input, phone: e.target.value })
                   }
                 />
               </div>
@@ -80,7 +95,7 @@ export default function Edite() {
             <span className="text">Save</span>
           </button>
           <Link
-            href={"/home/suppliers"}
+            href={"/home/customers"}
             className="btn btn-warning btn-icon-split"
           >
             <span className="icon text-white-50">

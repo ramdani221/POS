@@ -1,7 +1,7 @@
 import { useSelector } from "@/lib/redux";
 import PageNum from "./PageNum";
 import { Dispatch, SetStateAction } from "react";
-import { suppliersPagination } from "@/lib/redux/suppliers/supplierSlice";
+import { customersPagination } from "@/lib/redux/customers/customerSlice";
 
 export default function Pagination({
   pageNum,
@@ -10,7 +10,7 @@ export default function Pagination({
   pageNum: number;
   setPageNum: Dispatch<SetStateAction<number>>;
 }) {
-  const { page, limit, offset, pages, total } = useSelector(suppliersPagination);
+  const { page, limit, offset, pages, total } = useSelector(customersPagination);
   const rows = [];
   for (let i = 1; i <= pages; i++) {
     rows.push(i);
