@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "@/lib/redux";
-import { addStock, loadGoodAsync, selectGoods } from "@/lib/redux/goods/goodSlice";
-import { addPurchaseitem } from "@/lib/redux/purchaseItems/purchaseitemSlice";
+import { loadGoodAsync, reduceStock, selectGoods } from "@/lib/redux/goods/goodSlice";
+import { addSaleitem } from "@/lib/redux/saleitems/saleitrmSlice";
 import { RpInd } from "@/services/currency";
 import { useEffect, useState } from "react";
 
-export default function PurchaseItems({ id }: { id: string }) {
+export default function SaleItems({ id }: { id: string }) {
   const goods = useSelector(selectGoods);
   const dispatch = useDispatch();
   const [qty, setQty] = useState('0');
@@ -20,15 +20,15 @@ export default function PurchaseItems({ id }: { id: string }) {
   const addItem = (e: Event) => {
     e.preventDefault();
     dispatch(
-      addPurchaseitem({
+      addSaleitem({
         invoice: Number(id),
         itemcode: goods[index].id,
         quantity: Number(qty),
-        purchaseprice: goods[index].purchaseprice,
+        sellingprice: goods[index].sellingprice,
         totalprice: total.toString(),
       })
     );
-    dispatch(addStock({ id: goods[index].id, qty: Number(qty) }));
+    dispatch(reduceStock({ id: goods[index].id, qty: Number(qty) }));
   };
 
   useEffect(() => {
@@ -40,12 +40,13 @@ export default function PurchaseItems({ id }: { id: string }) {
         sort: "asc",
         sortBy: "barcode",
       })
-    );
-  }, [dispatch]);
-
-  useEffect(() => {
-    if(Number(qty) < 0) setQty('0')
-  }, [index, qty, goods])
+      );
+    }, [dispatch]);
+    
+    useEffect(() => {
+      if(Number(qty) > goods[index]?.stock) setQty(goods[index]?.stock.toString())
+      if(Number(qty) < 0) setQty('0')
+    }, [index, qty, goods])
 
   return (
     <div className="card-body border-bottom pb-5 pt-5">
@@ -95,13 +96,13 @@ export default function PurchaseItems({ id }: { id: string }) {
       <div className="row mb-3">
         <div className="col-sm-4">
           <label htmlFor="purchasePrice" className="form-label">
-            Purchase price
+            Selling price
           </label>
           <input
             type="text"
             className="form-control"
             id="purchasePrice"
-            value={goods[index]?.purchaseprice}
+            value={goods[index]?.sellingprice}
             disabled
           />
         </div>
@@ -115,6 +116,8 @@ export default function PurchaseItems({ id }: { id: string }) {
             id="qty"
             value={qty}
             min={0}
+            max={goods[index]?.stock}
+            disabled={goods[index]?.stock === 0}
             onChange={(e) => setQty(e.target.value)}
           />
         </div>

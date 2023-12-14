@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import db from "@/db/models";
 import fs from 'fs'
 import path from "path";
-import { getGood, setWriteFile, updateGood } from "@/services/goods";
+import { getGood, setWriteFile, updateGood } from "@/services/good";
 
 const models: any = db
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {

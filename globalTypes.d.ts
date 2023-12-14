@@ -94,7 +94,6 @@ declare type PurchasesType = {
         name: string;
         role: string;
     }
-
 }
 
 declare type PurchaseitemInput = {
@@ -117,7 +116,6 @@ declare type PurchaseitemsType = {
         barcode: string;
         name: string;
     }
-
 }
 
 declare type CustomerInput = {
@@ -131,4 +129,57 @@ declare type CustomersType = {
     name: string;
     address: string;
     phone: string;
+}
+
+declare type SaleInput = {
+    totalsum: string;
+    pay: string;
+    change: string;
+    customer: number | null;
+    operator: number;
+}
+
+declare type SalesType = {
+    id: number;
+    invoice: string;
+    createdAt: string;
+    totalsum: string;
+    pay: string;
+    change: string;
+    customer: number;
+    operator: number;
+    Customer: {
+        id: number;
+        name: string;
+        address: string;
+        phone: string;
+    };
+    User: {
+        id: number;
+        email: string;
+        name: string;
+        role: string;
+    }
+}
+
+declare type SaleitemInput = {
+    invoice: number;
+    itemcode: number;
+    quantity: number;
+    sellingprice: string;
+    totalprice: string;
+}
+
+declare type SaleitemsType = {
+    id: number;
+    invoice: number;
+    itemcode: number;
+    quantity: number;
+    sellingprice: string;
+    totalprice: string;
+    Good: {
+        id: number;
+        barcode: string;
+        name: string;
+    }
 }

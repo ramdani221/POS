@@ -10,22 +10,38 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       invoice: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(20),
+        allowNull: false,
+        unique: true
       },
       totalsum: {
-        type: Sequelize.DECIMAL
+        type: Sequelize.DECIMAL(19,2)
       },
       pay: {
-        type: Sequelize.DECIMAL
+        type: Sequelize.DECIMAL(19,2)
       },
       change: {
-        type: Sequelize.DECIMAL
+        type: Sequelize.DECIMAL(19,2)
       },
       customer: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references:{
+          model: 'Customers',
+          key: 'id'
+        },
+        onDelete: 'RESTRICT'
       },
       operator: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id'
+        },
+        onDelete: 'RESTRICT'
+      },
+      deleted: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       createdAt: {
         allowNull: false,

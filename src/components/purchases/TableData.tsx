@@ -1,4 +1,5 @@
-import { RpInd } from "@/services/service";
+
+import { RpInd } from "@/services/currency";
 import moment from "moment";
 import Link from "next/link";
 import { Dispatch, SetStateAction } from "react";

@@ -91,13 +91,13 @@ export const goodSlice = createSlice({
             state.value = state.value.filter(good => good.id !== action.payload)
             state.footer.total -= 1
         },
-        addStock: (state, action: PayloadAction<{ id: number, qty: any }>) => {
+        addStock: (state, action: PayloadAction<{ id: number, qty: number }>) => {
             state.value = state.value.map(item => {
                 if (item.id === action.payload.id) return { ...item, stock: item.stock + action.payload.qty }
                 return item
             })
         },
-        reduceStock: (state, action: PayloadAction<{ id: number, qty: any }>) => {
+        reduceStock: (state, action: PayloadAction<{ id: number, qty: number }>) => {
             state.value = state.value.map(item => {
                 if (item.id === action.payload.id) return { ...item, stock: (item.stock - action.payload.qty) }
                 return item

@@ -76,7 +76,6 @@ export const { remove, add, update } = purchaseitemSlice.actions
 export const selectPurchaseitems = (state: ReduxState) => state.purchaseitem.value;
 
 export const addPurchaseitem = (input: PurchaseitemInput): ReduxThunkAction => async (dispatch, getState) => {
-    const id = Date.now()
     const currentState = selectPurchaseitems(getState())
     const purchaseitem = currentState.find(item => item.invoice === input.invoice && item.itemcode === input.itemcode)
     if (purchaseitem) {

@@ -1,21 +1,17 @@
 import { useDispatch, useSelector } from "@/lib/redux";
-import { reduceStock } from "@/lib/redux/goods/goodSlice";
-import {
-  deletePurchaseItem,
-  loadPurchaseitemAsync,
-  selectPurchaseitems,
-} from "@/lib/redux/purchaseItems/purchaseitemSlice";
+import { addStock } from "@/lib/redux/goods/goodSlice";
+import { deleteSaleItem, loadSaleitemAsync, selectSaleitems } from "@/lib/redux/saleitems/saleitrmSlice";
 import { RpInd } from "@/services/currency";
 import { Dispatch, SetStateAction, useEffect } from "react";
 
-export default function PurchaseitemsList({
+export default function SaleitemsList({
   id,
   setTotalSum,
 }: {
   id: string;
   setTotalSum: Dispatch<SetStateAction<string>>;
 }) {
-  const purchaseitems = useSelector(selectPurchaseitems);
+  const saleitems = useSelector(selectSaleitems);
   const dispatch = useDispatch();
 
   const deleteItem = (
@@ -24,20 +20,21 @@ export default function PurchaseitemsList({
     itemcode: number,
     qty: number
   ) => {
-    dispatch(deletePurchaseItem(itemId));
-    dispatch(reduceStock({ id: itemcode, qty }));
+    dispatch(deleteSaleItem(itemId));
+    dispatch(addStock({ id: itemcode, qty }));
   };
 
   useEffect(() => {
     let totalsum = 0
-    purchaseitems.forEach(item => totalsum += Number(item.totalprice))
+    saleitems.forEach(item => totalsum += Number(item.totalprice))
     
     setTotalSum(totalsum.toString());
-  }, [setTotalSum, purchaseitems]);
+  }, [setTotalSum, saleitems]);
 
   useEffect(() => {
-    dispatch(loadPurchaseitemAsync(id));
+    dispatch(loadSaleitemAsync(id));
   }, [dispatch, id]);
+
   return (
     <div className="card-body px-0 overflow-x-auto">
       <table className="table table-striped">
@@ -53,21 +50,21 @@ export default function PurchaseitemsList({
           </tr>
         </thead>
         <tbody>
-          {purchaseitems.length === 0 && (
+          {saleitems.length === 0 && (
             <tr>
               <td colSpan={7} className="text-center">
                 no items
               </td>
             </tr>
           )}
-          {purchaseitems.length > 0 &&
-            purchaseitems.map((item, index) => (
+          {saleitems.length > 0 &&
+            saleitems.map((item, index) => (
               <tr key={item?.id}>
                 <td>{index + 1}</td>
                 <td>{item?.Good.barcode}</td>
                 <td>{item?.Good.name}</td>
                 <td>{item?.quantity}</td>
-                <td>{RpInd.format(item?.purchaseprice)}</td>
+                <td>{RpInd.format(item?.sellingprice)}</td>
                 <td>{RpInd.format(item?.totalprice)}</td>
                 <td>
                   <button

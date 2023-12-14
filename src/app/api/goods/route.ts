@@ -3,7 +3,7 @@ import db from "@/db/models";
 import { Op } from "sequelize";
 import fs from 'fs'
 import path from "path";
-import { setWriteFile } from "@/services/goods";
+import { setWriteFile } from "@/services/good";
 
 const models: any = db
 

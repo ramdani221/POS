@@ -1,4 +1,4 @@
-import { RpInd } from "@/services/service";
+import { RpInd } from "@/services/currency";
 import Image from "next/image";
 import Link from "next/link";
 import { Dispatch, SetStateAction } from "react";

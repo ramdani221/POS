@@ -1,50 +1,52 @@
 import { useDispatch, useSelector } from "@/lib/redux";
-import { updatePurchaseAsync } from "@/lib/redux/purchases/purchaseSlice";
-import {
-  loadSupplierAsync,
-  selectSuppliers,
-} from "@/lib/redux/suppliers/supplierSlice";
+import { loadCustomerAsync, selectCustomers } from "@/lib/redux/customers/customerSlice";
+import { updateSaleAsync } from "@/lib/redux/sales/saleSlice";
 import { RpInd } from "@/services/currency";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function PurchaseFooter({
+export default function SaleFooter({
   id,
-  purchase,
+  sale,
   totalSum,
 }: {
   id: string;
-  purchase: PurchasesType;
+  sale: SalesType;
   totalSum: string;
 }) {
-  const suppliers = useSelector(selectSuppliers);
+  const customers = useSelector(selectCustomers);
   const dispatch = useDispatch();
-  const [supplierId, setSuplierId] = useState(0);
+  const [customerId, setCustomerId] = useState(0);
+  const [pay, setPay] = useState('0')
+  const change = Number(pay) - Number(totalSum)
   const route = useRouter();
 
   const finish = (e: any) => {
     e.preventDefault();
     dispatch(
-      updatePurchaseAsync({
+      updateSaleAsync({
         id: Number(id),
         input: {
           totalsum: totalSum,
-          supplier: supplierId,
-          operator: purchase.operator,
+          customer: customerId,
+          operator: sale.operator,
+          pay: pay.toString(),
+          change: change.toString()
         },
       })
     );
-    route.push("/home/purchases");
+    route.push("/home/sales");
   };
 
   useEffect(() => {
-    setSuplierId(purchase.supplier || suppliers[0].id);
-  }, [suppliers, purchase.supplier]);
+    setCustomerId(sale.customer || customers[0].id);
+    setPay(sale.pay)
+  }, [customers, sale]);
 
   useEffect(() => {
     dispatch(
-      loadSupplierAsync({
+      loadCustomerAsync({
         keyword: "",
         limit: "null",
         page: 1,
@@ -69,18 +71,42 @@ export default function PurchaseFooter({
         </div>
       </div>
       <div className="row mb-3">
-        <label className="col-sm-2 col-form-label">Supplier</label>
+        <label className="col-sm-2 col-form-label">Pay</label>
+        <div className="col-sm-10">
+          <input
+            type="text"
+            className="form-control"
+            value={pay}
+            required
+            onChange={(e) => setPay(e.target.value)}
+          />
+        </div>
+      </div>
+      <div className="row mb-3">
+        <label className="col-sm-2 col-form-label">Change</label>
+        <div className="col-sm-10">
+          <input
+            type="text"
+            className="form-control"
+            value={RpInd.format(change)}
+            required
+            disabled
+          />
+        </div>
+      </div>
+      <div className="row mb-3">
+        <label className="col-sm-2 col-form-label">Customer</label>
         <div className="col-sm-10">
           <select
             className="form-select text-gray-700"
             aria-label="Default select example"
-            value={supplierId}
+            value={customerId}
             required
-            onChange={(e) => setSuplierId(Number(e.target.value))}
+            onChange={(e) => setCustomerId(Number(e.target.value))}
           >
-            {suppliers.map((supplier) => (
-              <option value={supplier.id} key={supplier.id}>
-                {supplier.name}
+            {customers.map((customer) => (
+              <option value={customer.id} key={customer.id}>
+                {customer.name}
               </option>
             ))}
           </select>
@@ -96,7 +122,7 @@ export default function PurchaseFooter({
         </span>
         <span className="text">Finish</span>
       </button>
-      <Link href={"/home/purchases"} className="btn btn-warning btn-icon-split">
+      <Link href={"/home/sales"} className="btn btn-warning btn-icon-split">
         <span className="icon text-white-50">
           <i className="fas fa-arrow-left"></i>
         </span>
