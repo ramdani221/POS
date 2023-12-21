@@ -34,7 +34,10 @@ module.exports = (sequelize, DataTypes) => {
     hooks: {
       beforeCreate: async (user, options) => {
         user.password = hashSync(user.password, saltRounds)
-      }
+      },
+      beforeUpdate: async (user, options) =>{
+        user.password = hashSync(user.password, saltRounds)
+      },
     },
     defaultScope: {
       attributes: {exclude: ['password', 'createdAt', 'updatedAt']}

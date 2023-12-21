@@ -26,7 +26,7 @@ export default function ChartBox() {
             </h6>
           </div>
           <div className="card-body">
-            <div className="chart-area">
+            <div className="chart-area position-relative">
             <PieChart />
             </div>
           </div>

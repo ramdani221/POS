@@ -38,29 +38,24 @@ export default function UserInfo({ setShow }: { setShow: any }) {
         }
         aria-labelledby="userDropdown"
       >
-        <Link className="dropdown-item" href="#">
+        <Link className="dropdown-item" href="/home/profile">
           <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
           Profile
         </Link>
-        <Link className="dropdown-item" href="#">
+        <Link className="dropdown-item" href="/home/changepassword">
           <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-          Settings
-        </Link>
-        <Link className="dropdown-item" href="#">
-          <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-          Activity Log
+          Change Password
         </Link>
         <div className="dropdown-divider"></div>
-        <Link
+        <button
           className="dropdown-item"
-          href="#"
           data-toggle="modal"
           data-target="#logoutModal"
           onClick={() => setShow(true)}
         >
           <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
           Logout
-        </Link>
+        </button>
       </div>
     </li>
   );

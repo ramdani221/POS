@@ -12,6 +12,14 @@ export default function LineChart() {
     curveType: "function",
     legend: { position: "bottom" },
   };
+
+  if (report.length === 0)
+    return (
+      <div className="alert alert-primary position-absolute top-50 start-50 translate-middle w-100 text-center" role="alert">
+        There are no transaction on this date
+      </div>
+    );
+
   return (
     <Chart
       chartType="LineChart"

@@ -27,7 +27,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
         const pages = Math.ceil(count / limit)
         return NextResponse.json({ data: { users: rows, page, limit, offset, pages, total: count, sortBy, sort } })
     } catch (error: any) {
-        return NextResponse.json({ err: error.message })
+        return NextResponse.json({ error: error.message })
     }
 }
 
@@ -37,7 +37,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         const user = await models.User.create(input)
         return NextResponse.json({ data: user.sendData() })
     } catch (error: any) {
-        return NextResponse.json({ err: error.message })
+        return NextResponse.json({ error: error.message })
     }
 }
 

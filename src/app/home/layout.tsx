@@ -18,7 +18,9 @@ export default function HomeLayout({
   const [toggled, setToggled] = useState(false);
   const [show, setShow] = useState(false);
 
-  const { data, status } = useSession();
+  const { data, status } = useSession({required: true, onUnauthenticated() {
+    redirect('/signIn')
+},});
 
   if (status === "loading")
     return (
@@ -28,7 +30,7 @@ export default function HomeLayout({
         </div>
       </div>
     );
-  if (!data || status !== "authenticated") redirect("/signIn");
+  if (!data || status !== 'authenticated') redirect("/signIn");
 
   return (
     <Provider store={reduxStore}>

@@ -19,7 +19,6 @@ const authOptions: NextAuthOptions = {
                     const user = await login(credentials.email, credentials.password)
                     return user
                 } catch (error: any) {
-                    console.log(error.message)
                     return null
                 }
             },
@@ -30,16 +29,21 @@ const authOptions: NextAuthOptions = {
         signIn: '/signIn'
     },
     callbacks: {
-        async session({ session }: { session: any }) {
-            if (!session) return null;
-            try {
-                const data = await dataUser(session.user.email)
-                return {...session, user: {...session.user, role: data.role, id: data.id}}
-            } catch (error) {
-                return null
+        async jwt({ token, user, trigger, session }) {
+            if (trigger === "update" && session?.name) {
+                token.name = session?.name
+                token.email = session?.email
             }
-
-        }
+            return token
+        },
+        async session({ session }) {
+            try {
+                const data = await dataUser(session?.user?.email as string)
+                return { ...session, user: { ...session.user, role: data.role, id: data.id } }
+            } catch (error) {
+                return session
+            }
+        },
     }
 }
 
