@@ -1,6 +1,7 @@
 /* Instruments */
 
 import customerSlice from "./customers/customerSlice";
+import dashboardSlice from "./dashboard/dashboardSlice";
 import goodSlice from "./goods/goodSlice";
 import purchaseItemSlice from "./purchaseItems/purchaseitemSlice";
 import purchaseSlice from "./purchases/purchaseSlice";
@@ -20,4 +21,5 @@ export const reducer = {
   customer: customerSlice,
   sale: saleSlice,
   saleitem: saleitrmSlice,
+  dashboard: dashboardSlice
 }

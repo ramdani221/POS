@@ -183,3 +183,21 @@ declare type SaleitemsType = {
         name: string;
     }
 }
+
+declare type ParamsDashboard = {
+    keyword: string;
+    strDate: string;
+    endDate: string;
+    page: number;
+    limit: number | string;
+    sort: string;
+    sortBy: string;
+}
+
+declare type ReportType = {
+    monthly: string;
+    name: string;
+    expense: string;
+    revenue: string | null;
+    earning: string;
+}
