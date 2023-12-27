@@ -3,9 +3,9 @@ import { request } from "@/lib/api"
 export const fetchLoadSuppliers = async (input: Params) => {
     try {
         const { data } = await request.get('/suppliers', { params: input })
+        if (data.error) throw data.error
         return data
     } catch (error) {
-        console.log(error)
         throw error
     }
 }
@@ -13,9 +13,9 @@ export const fetchLoadSuppliers = async (input: Params) => {
 export const fetchGetSupplier = async (id: number) => {
     try {
         const { data } = await request.get(`/suppliers/${id}`)
+        if (data.error) throw data.error
         return data
     } catch (error) {
-        console.log(error)
         throw error
     }
 }
@@ -23,9 +23,9 @@ export const fetchGetSupplier = async (id: number) => {
 export const fetchCreateSupplier = async (input: SupplierInput) => {
     try {
         const { data } = await request.post('/suppliers', input)
+        if (data.error) throw data.error
         return data
     } catch (error: any) {
-        console.log(error.message)
         throw error
     }
 }
@@ -33,9 +33,9 @@ export const fetchCreateSupplier = async (input: SupplierInput) => {
 export const fetchUpdateSupplier = async (id: number, input: SupplierInput) => {
     try {
         const { data } = await request.put(`/suppliers/${id}`, input)
+        if (data.error) throw data.error
         return data
     } catch (error) {
-        console.log(error)
         throw error
     }
 }
@@ -43,9 +43,9 @@ export const fetchUpdateSupplier = async (id: number, input: SupplierInput) => {
 export const fetchDeleteSupplier = async (id: number) => {
     try {
         const { data } = await request.delete(`/suppliers/${id}`)
+        if (data.error) throw data.error
         return data
     } catch (error) {
-        console.log(error)
         throw error
     }
 }

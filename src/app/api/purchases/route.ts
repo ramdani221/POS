@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import db from "@/db/models";
+import db from "@/db/sequelize/models";
 import { Op } from "sequelize";
 
 const models: any = db
@@ -27,7 +27,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
         const pages = Math.ceil(count / limit)
         return NextResponse.json({ data: { purchases: rows, page, limit, offset, pages, total: count, sortBy, sort } })
     } catch (error: any) {
-        return NextResponse.json({ err: error.message })
+        return NextResponse.json({ error: error.message })
     }
 }
 
@@ -37,8 +37,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         const purchase = await models.Purchase.create(input)
         return NextResponse.json({ data: purchase })
     } catch (error: any) {
-        console.log(error)
-        return NextResponse.json({ err: error.message })
+        return NextResponse.json({ error: error.message })
     }
 }
 

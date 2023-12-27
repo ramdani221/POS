@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import db from "@/db/models";
+import db from "@/db/sequelize/models";
 import { createSaleItem } from "@/services/model";
 
 const models: any = db
@@ -14,7 +14,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
         })
         return NextResponse.json({ data: saleitems })
     } catch (error: any) {
-        return NextResponse.json({ err: error.message })
+        return NextResponse.json({ error: error.message })
     }
 }
 
@@ -24,7 +24,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         const saleitem = await createSaleItem(input)
         return NextResponse.json({ data: saleitem })
     } catch (error: any) {
-        return NextResponse.json({ err: error.message })
+        return NextResponse.json({ error: error.message })
     }
 }
 

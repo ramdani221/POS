@@ -1,46 +1,75 @@
-import Link from "next/link";
+import { useDispatch } from "@/lib/redux";
+import { addPurchaseAsync } from "@/lib/redux/purchases/purchaseSlice";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-export default function AlertDropdown({dropped} : {dropped : any}) {
-    return (
-        <div className={"dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in " + (dropped && 'show')}
-            aria-labelledby="alertsDropdown">
-            <h6 className="dropdown-header">
-                Alerts Center
-            </h6>
-            <Link className="dropdown-item d-flex align-items-center" href="#">
-                <div className="mr-3">
-                    <div className="icon-circle bg-primary">
-                        <i className="fas fa-file-alt text-white"></i>
-                    </div>
-                </div>
-                <div>
-                    <div className="small text-gray-500">December 12, 2019</div>
-                    <span className="font-weight-bold">A new monthly report is ready to download!</span>
-                </div>
-            </Link>
-            <Link className="dropdown-item d-flex align-items-center" href="#">
-                <div className="mr-3">
-                    <div className="icon-circle bg-success">
-                        <i className="fas fa-donate text-white"></i>
-                    </div>
-                </div>
-                <div>
-                    <div className="small text-gray-500">December 7, 2019</div>
-                    $290.29 has been deposited into your account!
-                </div>
-            </Link>
-            <Link className="dropdown-item d-flex align-items-center" href="#">
-                <div className="mr-3">
-                    <div className="icon-circle bg-warning">
-                        <i className="fas fa-exclamation-triangle text-white"></i>
-                    </div>
-                </div>
-                <div>
-                    <div className="small text-gray-500">December 2, 2019</div>
-                    Spending Alert: We&apos;ve noticed unusually high spending for your account.
-                </div>
-            </Link>
-            <Link className="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</Link>
-        </div>
+export default function AlertDropdown({ dropped, notifs }: { dropped: any, notifs: NotifsType[] }) {
+  const dispatch = useDispatch()
+  const route = useRouter()
+  const {data}: {data: any} = useSession()
+  const create = () => {
+    dispatch(
+      addPurchaseAsync({
+        totalsum: "0",
+        operator: data?.user?.id,
+        supplier: null,
+      })
     )
+      .then(({ payload }) => {
+        route.push(`/home/purchases/edit/${payload.id}`);
+      })
+      .catch((err) => {});
+  };
+
+    if(notifs.length < 1)return (
+      <div
+        className={
+          "dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in " +
+          (dropped && "show")
+        }
+        aria-labelledby="alertsDropdown"
+      >
+        <h6 className="dropdown-header">Alerts Center</h6>
+        <button
+          className="dropdown-item d-flex align-items-center"
+        >
+          <div className="text-gray-500">
+            No Alerts
+          </div>
+        </button>
+      </div>
+    );
+
+  return (
+    <div
+      className={
+        "dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in " +
+        (dropped && "show")
+      }
+      aria-labelledby="alertsDropdown"
+    >
+      <h6 className="dropdown-header">Alerts Center</h6>
+      {notifs.map((notif) => (
+        <button
+          className="dropdown-item d-flex align-items-center"
+          key={notif.id}
+          onClick={() => create()}
+        >
+          <div className="mr-3">
+            <div className="icon-circle bg-warning">
+              <i className="fas fa-exclamation-triangle text-white"></i>
+            </div>
+          </div>
+          <div>
+            <div className="small text-gray-500">Barcode: {notif.barcode}</div>
+            Stock Alert: <span className="font-weight-bold">
+              {notif.name}
+            </span>{" "}
+            only have stock {notif.stock}
+          </div>
+        </button>
+      ))}
+    </div>
+  );
 }

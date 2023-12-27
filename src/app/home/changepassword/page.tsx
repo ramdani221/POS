@@ -27,7 +27,6 @@ export default function Edite() {
     setIsFailed(false)
     try {
       const data = await fetchChangePassword(input);
-      console.log(data)
       setIsSuccess(true);
     } catch (error) {
       setErrMessage(error as string);

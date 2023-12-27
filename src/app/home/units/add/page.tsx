@@ -18,9 +18,8 @@ export default function Edite() {
 
   const submit = (e: any) => {
     e.preventDefault();
-    dispatch(addUnitAsync(unit))
-      .then(() => router.push("/home/units"))
-      .catch((err) => console.log(err));
+    dispatch(addUnitAsync(unit));
+    router.push("/home/units");
   };
 
   return (

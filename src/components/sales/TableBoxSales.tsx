@@ -34,7 +34,6 @@ export default function TableBoxSales() {
         route.push(`/home/sales/edit/${payload.id}`);
       })
       .catch((err) => {
-        console.log(err)
         setIsError(true);
       });
   };

@@ -1,5 +1,5 @@
 
-import db from "@/db/models";
+import db from "@/db/sequelize/models";
 import path from "path";
 
 const models: any = db

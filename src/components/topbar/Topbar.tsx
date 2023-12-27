@@ -1,5 +1,3 @@
-import Image from "next/image";
-import { useState } from "react";
 import SearchDropdown from "./SearchDropdown";
 import Alert from "./Alerts";
 import UserInfo from "./UserInfo";

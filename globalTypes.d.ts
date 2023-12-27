@@ -201,3 +201,23 @@ declare type ReportType = {
     revenue: string | null;
     earning: string;
 }
+
+declare type NotifInput = {
+    barcode: string,
+    name: string,
+    stock: number | string
+}
+
+declare type NotifsType = {
+    id: string,
+    barcode: string,
+    name: string,
+    stock: number
+}
+
+declare type PasswordChange = {
+    id: number,
+    oldPassword: string,
+    newPassword: string,
+    rePassword: string
+}

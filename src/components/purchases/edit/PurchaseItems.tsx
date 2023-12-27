@@ -1,14 +1,16 @@
+import { SocketContext } from "@/app/home/layout";
 import { useDispatch, useSelector } from "@/lib/redux";
 import { addStock, loadGoodAsync, selectGoods } from "@/lib/redux/goods/goodSlice";
 import { addPurchaseitem } from "@/lib/redux/purchaseItems/purchaseitemSlice";
 import { RpInd } from "@/services/currency";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 export default function PurchaseItems({ id }: { id: string }) {
   const goods = useSelector(selectGoods);
   const dispatch = useDispatch();
   const [qty, setQty] = useState('0');
   const [index, setIndex] = useState(0);
+  const socket = useContext(SocketContext)
 
   const total = Number(qty) * Number(goods[index]?.purchaseprice);
 
@@ -19,15 +21,17 @@ export default function PurchaseItems({ id }: { id: string }) {
 
   const addItem = (e: Event) => {
     e.preventDefault();
-    dispatch(
-      addPurchaseitem({
-        invoice: Number(id),
-        itemcode: goods[index].id,
-        quantity: Number(qty),
-        purchaseprice: goods[index].purchaseprice,
-        totalprice: total.toString(),
-      })
-    );
+    new Promise(resolve => {
+      resolve(dispatch(
+        addPurchaseitem({
+          invoice: Number(id),
+          itemcode: goods[index].id,
+          quantity: Number(qty),
+          purchaseprice: goods[index].purchaseprice,
+          totalprice: total.toString(),
+        })
+      ))
+    }).then(() => socket.emit('send_notif'))
     dispatch(addStock({ id: goods[index].id, qty: Number(qty) }));
   };
 

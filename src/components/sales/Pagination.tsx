@@ -11,7 +11,6 @@ export default function Pagination({
   setPageNum: Dispatch<SetStateAction<number>>;
 }) {
   const { page, limit, offset, pages, total } = useSelector(salesPagination);
-  console.log(pages)
   const rows = [];
   for (let i = 1; i <= pages; i++) {
     rows.push(i);

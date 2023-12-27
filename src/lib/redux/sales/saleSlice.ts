@@ -146,7 +146,7 @@ export const removeSale = (id: number, input: Params, pages: number): ReduxThunk
         await dispatch(deleteSaleAsync(id));
         await dispatch(loadSaleAsync(input));
     } catch (error) {
-        console.log(error)
+        throw error
     }
 }
 

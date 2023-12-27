@@ -1,7 +1,8 @@
 "use client";
 
 import { useDispatch, useSelector } from "@/lib/redux";
-import { getUser, getUserAsync, updateUserAsync } from "@/lib/redux/users/userSlice";
+import { fetchUpdateUser } from "@/lib/redux/users/userAPI";
+import { getUser, getUserAsync } from "@/lib/redux/users/userSlice";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
@@ -33,10 +34,15 @@ export default function Edite() {
 
   const submit = (e: any) => {
     e.preventDefault();
-    dispatch(updateUserAsync({ id, input }))
+    setIsSuccess(false)
+    setIsFailed(false)
+    fetchUpdateUser( id, input )
       .then(() => {
         setIsSuccess(true)
-        update({...session?.user, name: input.name, email: input.email})
+        return new Promise(resolve => 
+          setTimeout(() => {
+            resolve(update({...session?.user, name: input.name, email: input.email}))
+          }, 3000))
       })
       .catch(() => setIsFailed(true));
   };
@@ -45,11 +51,11 @@ export default function Edite() {
     <div className="d-sm-flex flex-column mb-4">
       {isSuccess && (
         <div className="alert alert-success" role="alert">
-          Your profile has been update
+          Your profile has been update. Please wait a minute
         </div>
       )}
       {isFailed && (
-        <div className="alert alert-success" role="alert">
+        <div className="alert alert-danger" role="alert">
         Your profile failed to update
       </div>
       )}

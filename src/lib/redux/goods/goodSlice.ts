@@ -16,7 +16,20 @@ export interface GoodState {
 }
 
 const initialState: GoodState = {
-    value: [],
+    value: [{id: 0,
+        barcode: '',
+        name: '',
+        stock: 0,
+        purchaseprice: '',
+        sellingprice: '',
+        unit: 0,
+        picture: '',
+        Unit: {
+            id: 0,
+            unit: '',
+            name: '', 
+            note: ''}
+        }],
     footer: {
         page: 1,
         limit: 3,

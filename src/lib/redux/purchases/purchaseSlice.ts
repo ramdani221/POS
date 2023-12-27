@@ -144,7 +144,7 @@ export const removePurchase = (id: number, input: Params, pages: number): ReduxT
         await dispatch(deletePurchaseAsync(id));
         await dispatch(loadPurchaseAsync(input));
     } catch (error) {
-        console.log(error)
+        throw error
     }
 }
 

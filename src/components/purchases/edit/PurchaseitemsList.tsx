@@ -1,3 +1,4 @@
+import { SocketContext } from "@/app/home/layout";
 import { useDispatch, useSelector } from "@/lib/redux";
 import { reduceStock } from "@/lib/redux/goods/goodSlice";
 import {
@@ -6,7 +7,7 @@ import {
   selectPurchaseitems,
 } from "@/lib/redux/purchaseItems/purchaseitemSlice";
 import { RpInd } from "@/services/currency";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction, useContext, useEffect } from "react";
 
 export default function PurchaseitemsList({
   id,
@@ -17,6 +18,7 @@ export default function PurchaseitemsList({
 }) {
   const purchaseitems = useSelector(selectPurchaseitems);
   const dispatch = useDispatch();
+  const socket = useContext(SocketContext)
 
   const deleteItem = (
     e: any,
@@ -29,15 +31,15 @@ export default function PurchaseitemsList({
   };
 
   useEffect(() => {
-    let totalsum = 0
-    purchaseitems.forEach(item => totalsum += Number(item.totalprice))
-    
+    let totalsum = 0;
+    purchaseitems.forEach((item) => (totalsum += Number(item.totalprice)));
     setTotalSum(totalsum.toString());
   }, [setTotalSum, purchaseitems]);
 
   useEffect(() => {
     dispatch(loadPurchaseitemAsync(id));
   }, [dispatch, id]);
+  
   return (
     <div className="card-body px-0 overflow-x-auto">
       <table className="table table-striped">
@@ -72,9 +74,10 @@ export default function PurchaseitemsList({
                 <td>
                   <button
                     className="btn btn-danger btn-circle"
-                    onClick={(e) =>
-                      deleteItem(e, item.id, item.itemcode, item.quantity)
-                    }
+                    onClick={(e) => {
+                      deleteItem(e, item.id, item.itemcode, item.quantity);
+                      socket.emit('send_notif', 'send')
+                    }}
                   >
                     <i className="fas fa-trash"></i>
                   </button>

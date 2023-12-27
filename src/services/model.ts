@@ -1,4 +1,4 @@
-import db, { sequelize } from "@/db/models";
+import db, { sequelize } from "@/db/sequelize/models";
 import { Op, QueryTypes } from "sequelize";
 
 const models: any = db
@@ -85,7 +85,6 @@ export async function deleteSale(id: number | string) {
 async function deleteSaleItems(saleId: number | string) {
     try {
         const saleitems = await models.Saleitem.findAll({ where: { invoice: saleId } })
-        console.log(saleitems)
         saleitems.forEach(async (item: any) => {
             await models.Good.increment('stock', { by: item.quantity, where: { id: item.itemcode } })
         }); 15

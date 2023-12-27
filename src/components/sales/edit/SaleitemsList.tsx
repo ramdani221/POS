@@ -1,8 +1,9 @@
+import { SocketContext } from "@/app/home/layout";
 import { useDispatch, useSelector } from "@/lib/redux";
 import { addStock } from "@/lib/redux/goods/goodSlice";
-import { deleteSaleItem, loadSaleitemAsync, selectSaleitems } from "@/lib/redux/saleitems/saleitrmSlice";
+import { deleteSaleItem, loadSaleitemAsync, selectSaleitems } from "@/lib/redux/saleitems/saleitemSlice";
 import { RpInd } from "@/services/currency";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction, useContext, useEffect } from "react";
 
 export default function SaleitemsList({
   id,
@@ -13,6 +14,7 @@ export default function SaleitemsList({
 }) {
   const saleitems = useSelector(selectSaleitems);
   const dispatch = useDispatch();
+  const socket = useContext(SocketContext)
 
   const deleteItem = (
     e: any,
@@ -25,9 +27,8 @@ export default function SaleitemsList({
   };
 
   useEffect(() => {
-    let totalsum = 0
-    saleitems.forEach(item => totalsum += Number(item.totalprice))
-    
+    let totalsum = 0;
+    saleitems.forEach((item) => (totalsum += Number(item.totalprice)));
     setTotalSum(totalsum.toString());
   }, [setTotalSum, saleitems]);
 
@@ -69,9 +70,10 @@ export default function SaleitemsList({
                 <td>
                   <button
                     className="btn btn-danger btn-circle"
-                    onClick={(e) =>
-                      deleteItem(e, item.id, item.itemcode, item.quantity)
-                    }
+                    onClick={(e) => {
+                      deleteItem(e, item.id, item.itemcode, item.quantity);
+                      socket.emit('send_notif', 'send')
+                    }}
                   >
                     <i className="fas fa-trash"></i>
                   </button>

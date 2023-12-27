@@ -125,7 +125,7 @@ export const removeSupplier = (id: number, input: Params, pages: number): ReduxT
         await dispatch(deleteSupplierAsync(id));
         await dispatch(loadSupplierAsync(input));
     } catch (error) {
-        console.log(error)
+        throw error
     }
 }
 

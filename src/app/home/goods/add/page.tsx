@@ -36,7 +36,6 @@ export default function Edite() {
 
 
   useEffect(() => {
-    console.log(units)
     setGood(g => ({...g, unit: units[0].id}))
   }, [units])
 

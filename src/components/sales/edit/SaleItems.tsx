@@ -1,33 +1,43 @@
+import { SocketContext } from "@/app/home/layout";
 import { useDispatch, useSelector } from "@/lib/redux";
-import { loadGoodAsync, reduceStock, selectGoods } from "@/lib/redux/goods/goodSlice";
-import { addSaleitem } from "@/lib/redux/saleitems/saleitrmSlice";
+import {
+  loadGoodAsync,
+  reduceStock,
+  selectGoods,
+} from "@/lib/redux/goods/goodSlice";
+import { addSaleitem } from "@/lib/redux/saleitems/saleitemSlice";
 import { RpInd } from "@/services/currency";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 export default function SaleItems({ id }: { id: string }) {
   const goods = useSelector(selectGoods);
   const dispatch = useDispatch();
-  const [qty, setQty] = useState('0');
+  const [qty, setQty] = useState("0");
   const [index, setIndex] = useState(0);
+  const socket = useContext(SocketContext);
 
   const total = Number(qty) * Number(goods[index]?.purchaseprice);
 
   const setItem = (num: number) => {
-    setIndex(num)
-    setQty('0')
-  }
+    setIndex(num);
+    setQty("0");
+  };
 
   const addItem = (e: Event) => {
     e.preventDefault();
-    dispatch(
-      addSaleitem({
-        invoice: Number(id),
-        itemcode: goods[index].id,
-        quantity: Number(qty),
-        sellingprice: goods[index].sellingprice,
-        totalprice: total.toString(),
-      })
-    );
+    new Promise((resolve) => {
+      resolve(
+        dispatch(
+          addSaleitem({
+            invoice: Number(id),
+            itemcode: goods[index].id,
+            quantity: Number(qty),
+            sellingprice: goods[index].sellingprice,
+            totalprice: total.toString(),
+          })
+        )
+      );
+    }).then(() => socket.emit("send_notif", "send"))
     dispatch(reduceStock({ id: goods[index].id, qty: Number(qty) }));
   };
 
@@ -40,13 +50,14 @@ export default function SaleItems({ id }: { id: string }) {
         sort: "asc",
         sortBy: "barcode",
       })
-      );
-    }, [dispatch]);
-    
-    useEffect(() => {
-      if(Number(qty) > goods[index]?.stock) setQty(goods[index]?.stock.toString())
-      if(Number(qty) < 0) setQty('0')
-    }, [index, qty, goods])
+    );
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (Number(qty) > goods[index]?.stock)
+      setQty(goods[index]?.stock.toString());
+    if (Number(qty) < 0) setQty("0");
+  }, [index, qty, goods]);
 
   return (
     <div className="card-body border-bottom pb-5 pt-5">

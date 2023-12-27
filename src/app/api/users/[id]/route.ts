@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import db from "@/db/models";
+import db from "@/db/sequelize/models";
 
 const models: any = db
 export async function GET(req: NextRequest, {params} : {params : {id: string}}) {
@@ -10,7 +10,7 @@ export async function GET(req: NextRequest, {params} : {params : {id: string}}) 
         })
         return NextResponse.json({data})
     } catch (error: any) {
-        return NextResponse.json({ err: error.message })
+        return NextResponse.json({ error: error.message })
     }
 }
 
@@ -27,7 +27,7 @@ export async function PUT(req: NextRequest, {params} : {params : {id: string}}) 
         });
         return NextResponse.json({ data: user[1].sendData() })
     } catch (error: any) {
-        return NextResponse.json({ err: error.message })
+        return NextResponse.json({ error: error.message })
     }
 }
 
@@ -41,6 +41,6 @@ export async function DELETE(req: NextRequest, {params} : {params : {id: string}
         if (!deleteUser) throw new Error('Failed to Delete User')
         return NextResponse.json({ data: user })
     } catch (error: any) {
-        return NextResponse.json({ err: error.message })
+        return NextResponse.json({ error: error.message })
     }
 }

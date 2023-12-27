@@ -3,9 +3,9 @@ import { request } from "@/lib/api"
 export const fetchLoadSales = async (input: Params) => {
     try {
         const { data } = await request.get('/sales', { params: input })
+        if (data.error) throw data.error
         return data
     } catch (error) {
-        console.log(error)
         throw error
     }
 }
@@ -13,9 +13,9 @@ export const fetchLoadSales = async (input: Params) => {
 export const fetchGetSale = async (id: number) => {
     try {
         const { data } = await request.get(`/sales/${id}`)
+        if (data.error) throw data.error
         return data
     } catch (error) {
-        console.log(error)
         throw error
     }
 }
@@ -23,9 +23,9 @@ export const fetchGetSale = async (id: number) => {
 export const fetchCreateSale = async (input: SaleInput) => {
     try {
         const { data } = await request.post('/sales', input)
+        if (data.error) throw data.error
         return data
     } catch (error: any) {
-        console.log(error.message)
         throw error
     }
 }
@@ -33,9 +33,9 @@ export const fetchCreateSale = async (input: SaleInput) => {
 export const fetchUpdateSale = async (id: number, input: SaleInput) => {
     try {
         const { data } = await request.put(`/sales/${id}`, input)
+        if (data.error) throw data.error
         return data
     } catch (error) {
-        console.log(error)
         throw error
     }
 }
@@ -43,9 +43,9 @@ export const fetchUpdateSale = async (id: number, input: SaleInput) => {
 export const fetchDeleteSale = async (id: number) => {
     try {
         const { data } = await request.delete(`/sales/${id}`)
+        if (data.error) throw data.error
         return data
     } catch (error) {
-        console.log(error)
         throw error
     }
 }

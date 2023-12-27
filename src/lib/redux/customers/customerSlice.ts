@@ -130,7 +130,7 @@ export const removeCustomer = (id: number, input: Params, pages: number): ReduxT
         await dispatch(deleteCustomerAsync(id));
         await dispatch(loadCustomerAsync(input));
     } catch (error) {
-        console.log(error)
+        throw error
     }
 }
 

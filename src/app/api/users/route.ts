@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import db from "@/db/models";
+import db from "@/db/sequelize/models";
 import { Op } from "sequelize";
 
 const models: any = db

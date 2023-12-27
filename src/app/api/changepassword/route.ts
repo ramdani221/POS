@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import db from "@/db/models";
+import db from "@/db/sequelize/models";
 
 const models: any = db
 
@@ -18,7 +18,6 @@ export async function PUT(req: NextRequest, res: NextResponse) {
         });
         return NextResponse.json({ data: user[1] })
     } catch (error: any) {
-        console.log(error)
         return NextResponse.json({ error: error.message })
     }
 }

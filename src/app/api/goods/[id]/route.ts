@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import db from "@/db/models";
+import db from "@/db/sequelize/models";
 import fs from 'fs'
 import path from "path";
 import { getGood, setWriteFile, updateGood } from "@/services/good";
@@ -11,7 +11,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
         const data = await getGood(id)
         return NextResponse.json({ data })
     } catch (error: any) {
-        return NextResponse.json({ err: error.message })
+        return NextResponse.json({ error: error.message })
     }
 }
 
@@ -40,7 +40,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 
         return NextResponse.json({ data: result[1] })
     } catch (error: any) {
-        return NextResponse.json({ err: error.message })
+        return NextResponse.json({ error: error.message })
     }
 }
 
@@ -54,6 +54,6 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
         if (!deleteGood) throw new Error('Failed to Delete Good')
         return NextResponse.json({ data: good })
     } catch (error: any) {
-        return NextResponse.json({ err: error.message })
+        return NextResponse.json({ error: error.message })
     }
 }

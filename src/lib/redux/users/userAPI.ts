@@ -50,18 +50,12 @@ export const fetchDeleteUser = async (id: number) => {
     }
 }
 
-export const fetchChangePassword = async (input: {
-    id: number,
-    oldPassword: string,
-    newPassword: string,
-    rePassword: string
-}) => {
+export const fetchChangePassword = async (input: PasswordChange) => {
     try {
         const { data } = await request.put(`/changepassword`, input)
         if(data.error) throw data.error
         return data
     } catch (error) {
-        console.log(error)
         throw error
     }
 }
