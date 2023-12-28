@@ -1,8 +1,17 @@
 import { Dispatch, SetStateAction } from "react";
 
-export default function PageNum({page, pageNow, setPageNum}: {page: number, pageNow: number, setPageNum: Dispatch<SetStateAction<number>>}) {
+export default function PageNum({
+  page,
+  pageNow,
+  setPageNum
+}: {
+  page: number,
+  pageNow: number,
+  setPageNum: Dispatch<SetStateAction<number>>
+}) {
   return (
-    <li className={"paginate_button page-item " + (page === pageNow &&'active')}>
+    <li className={"paginate_button page-item " +
+      (page === pageNow && 'active')}>
       <button
         aria-controls="dataTable"
         data-dt-idx="1"

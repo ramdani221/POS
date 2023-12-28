@@ -20,9 +20,9 @@ export default function TableList({
 
   const [show, setShow] = useState(false);
   const [id, setId] = useState(0);
-  const [sorting, setSorting] = useState({ 
-    sort: true, 
-    sortBy: "id" 
+  const [sorting, setSorting] = useState({
+    sort: true,
+    sortBy: "id"
   });
 
   useEffect(() => {
@@ -41,8 +41,8 @@ export default function TableList({
       <div className="row">
         <div className="col-sm-12">
           <table
-            className="table table-bordered dataTable text-gray-700"
             id="dataTable"
+            className="table table-bordered dataTable text-gray-700"
             width="100%"
             cellSpacing="0"
             role="grid"
@@ -74,8 +74,7 @@ export default function TableList({
             page: pageNum,
             sort: sorting.sort ? "asc" : "desc",
             sortBy: sorting.sortBy,
-          }}
-        />
+          }} />
       )}
     </>
   );

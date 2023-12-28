@@ -10,14 +10,15 @@ export default function Edite() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const [input, setInput] = useState({ 
+  const [input, setInput] = useState({
     name: "",
-    address: "", 
-    phone: "" });
+    address: "",
+    phone: ""
+  });
 
   const submit = (e: any) => {
     e.preventDefault();
-    dispatch(addCustomerAsync(input))      
+    dispatch(addCustomerAsync(input))
     router.push("/home/customers")
   };
 
@@ -36,7 +37,10 @@ export default function Edite() {
                   type="text"
                   className="form-control"
                   required
-                  onChange={(e) => setInput({ ...input, name: e.target.value })}
+                  onChange={(e) => setInput({
+                    ...input,
+                    name: e.target.value
+                  })}
                 />
               </div>
             </div>
@@ -48,7 +52,10 @@ export default function Edite() {
                   id="exampleFormControlTextarea1"
                   required
                   rows={2}
-                  onChange={(e) => setInput({ ...input, address: e.target.value })}
+                  onChange={(e) => setInput({
+                    ...input,
+                    address: e.target.value
+                  })}
                 ></textarea>
               </div>
             </div>
@@ -59,20 +66,25 @@ export default function Edite() {
                   type="text"
                   className="form-control"
                   required
-                  onChange={(e) => setInput({ ...input, phone: e.target.value })}
+                  onChange={(e) => setInput({
+                    ...input,
+                    phone: e.target.value
+                  })}
                 />
               </div>
-            </div>            
+            </div>
           </div>
         </div>
         <div className="card-footer py-3">
-          <button type="submit" className="btn btn-success btn-icon-split me-1">
+          <button type="submit"
+            className="btn btn-success btn-icon-split me-1">
             <span className="icon text-white-50">
               <i className="fas fa-database"></i>
             </span>
             <span className="text">Save</span>
           </button>
-          <Link href={"/home/customers"} className="btn btn-warning btn-icon-split">
+          <Link href={"/home/customers"}
+            className="btn btn-warning btn-icon-split">
             <span className="icon text-white-50">
               <i className="fas fa-undo-alt"></i>
             </span>

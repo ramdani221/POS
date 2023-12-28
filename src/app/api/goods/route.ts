@@ -3,7 +3,7 @@ import db from "@/db/sequelize/models";
 import { Op } from "sequelize";
 import fs from 'fs'
 import path from "path";
-import { setWriteFile } from "@/services/good";
+import { setWriteFile } from "@/services/services";
 
 const models: any = db
 
@@ -33,7 +33,18 @@ export async function GET(req: NextRequest, res: NextResponse) {
             offset
         })
         const pages = Math.ceil(count / limit)
-        return NextResponse.json({ data: { goods: rows, page, limit, offset, pages, total: count, sortBy, sort } })
+        return NextResponse.json({
+            data: {
+                goods: rows,
+                page,
+                limit,
+                offset,
+                pages,
+                total: count,
+                sortBy,
+                sort
+            }
+        })
     } catch (error: any) {
         return NextResponse.json({ error: error.message })
     }

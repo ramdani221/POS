@@ -17,9 +17,17 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const params: any = {}
     const offset = (Number(page) - 1) * Number(limit)
 
-    if (strDate && endDate) params['createdAt'] = { [Op.between]: [new Date(strDate), new Date(`${endDate} 23:59:59.999`)] }
-    else if (strDate) params.createdAt = { [Op.gte]: new Date(strDate) }
-    else if (endDate) params.createdAt = { [Op.lte]: new Date(`${endDate} 23:59:59.999`) }
+    if (strDate && endDate)
+        params['createdAt'] = {
+            [Op.between]: [
+                new Date(strDate),
+                new Date(`${endDate} 23:59:59.999`)
+            ]
+        }
+    else if (strDate)
+        params.createdAt = { [Op.gte]: new Date(strDate) }
+    else if (endDate)
+        params.createdAt = { [Op.lte]: new Date(`${endDate} 23:59:59.999`) }
 
     try {
         const totPurchase = await models.Purchase.sum('totalsum', {
@@ -36,10 +44,33 @@ export async function GET(req: NextRequest, res: NextResponse) {
             where: { ...params, customer: 8 }
         })
 
-        const { total, report } = await monthReport(keyword, sortBy, sort, Number(limit), offset, strDate, endDate)
+        const { total, report } = await monthReport(
+            keyword,
+            sortBy,
+            sort,
+            Number(limit),
+            offset,
+            strDate,
+            endDate
+        )
         const pages = Math.ceil(total / Number(limit))
 
-        return NextResponse.json({ data: { totPurchase, totSelling, totSales, nonMember, report, page: Number(page), limit, offset, pages, total, sortBy, sort } })
+        return NextResponse.json({
+            data: {
+                totPurchase,
+                totSelling,
+                totSales,
+                nonMember,
+                report,
+                page: Number(page),
+                limit,
+                offset,
+                pages,
+                total,
+                sortBy,
+                sort
+            }
+        })
     } catch (error: any) {
         return NextResponse.json({ error: error.message })
     }

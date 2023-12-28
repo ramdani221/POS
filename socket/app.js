@@ -14,7 +14,7 @@ const io = new Server(httpServer, {
 
 io.on("connection", (socket) => {
   socket.on("send_notif", () => {
-    socket.emit('load_notif', 'ceck')    
+    socket.emit('load_notif')    
   })
 });
 

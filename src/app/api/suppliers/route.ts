@@ -26,7 +26,18 @@ export async function GET(req: NextRequest, res: NextResponse) {
             offset
         })
         const pages = Math.ceil(count / limit)
-        return NextResponse.json({ data: { suppliers: rows, page, limit, offset, pages, total: count, sortBy, sort } })
+        return NextResponse.json({
+            data: {
+                suppliers: rows,
+                page,
+                limit,
+                offset,
+                pages,
+                total: count,
+                sortBy,
+                sort
+            }
+        })
     } catch (error: any) {
         return NextResponse.json({ error: error.message })
     }

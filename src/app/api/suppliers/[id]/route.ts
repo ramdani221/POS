@@ -1,20 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import db from "@/db/sequelize/models";
+import { getSupplier } from "@/services/services";
 
 const models: any = db
-export async function GET(req: NextRequest, {params} : {params : {id: string}}) {
+export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
     const id = Number(params.id)
     try {
-        const data = await models.Supplier.findOne({
-            where: { id }
-        })
-        return NextResponse.json({data})
+        const data = await getSupplier(id)
+        return NextResponse.json({ data })
     } catch (error: any) {
         return NextResponse.json({ error: error.message })
     }
 }
 
-export async function PUT(req: NextRequest, {params} : {params : {id: string}}) {
+export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
     try {
         const id = Number(params.id)
         const input = await req.json()
@@ -31,10 +30,10 @@ export async function PUT(req: NextRequest, {params} : {params : {id: string}}) 
     }
 }
 
-export async function DELETE(req: NextRequest, {params} : {params : {id: string}}) {
+export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
     try {
         const id = Number(params.id)
-        const supplier = await models.Supplier.findOne({ where: { id } });
+        const supplier = await getSupplier(id);
         const deleteSupplier = await models.Supplier.destroy({
             where: { id }
         });

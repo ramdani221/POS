@@ -6,10 +6,18 @@ const models: any = db
 export async function PUT(req: NextRequest, res: NextResponse) {
     try {
         const input = await req.json()
-        const findUser = await models.User.scope(null).findOne({ where: { id: input.id } })
-        if(!findUser.checkPassword(input.oldPassword)) throw new Error('Old Password is Wrong')
-        if(input.newPassword !== input.rePassword) throw new Error("Retype Password is Dosn't Match" )
-        const user = await models.User.update({ password: input.newPassword }, {
+        const findUser = await models.User.scope(null).findOne({
+            where: { id: input.id }
+        })
+
+        if (!findUser.checkPassword(input.oldPassword))
+            throw new Error('Old Password is Wrong')
+        if (input.newPassword !== input.rePassword)
+            throw new Error("Retype Password is Dosn't Match")
+
+        const user = await models.User.update({
+            password: input.newPassword
+        }, {
             where: {
                 id: input.id
             },

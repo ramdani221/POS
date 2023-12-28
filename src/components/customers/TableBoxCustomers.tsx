@@ -10,8 +10,7 @@ export default function TableBoxCustomers() {
   return (
     <div className="card shadow mb-4">
       <div className="card-header py-3">
-        <Link
-          href="/home/customers/add"
+        <Link href="/home/customers/add"
           className="btn btn-primary btn-icon-split"
         >
           <span className="icon text-white-50">
@@ -22,8 +21,7 @@ export default function TableBoxCustomers() {
       </div>
       <div className="card-body">
         <div className="table-responsive">
-          <div
-            id="dataTable_wrapper"
+          <div id="dataTable_wrapper"
             className="dataTables_wrapper dt-bootstrap4"
           >
             <TableControl

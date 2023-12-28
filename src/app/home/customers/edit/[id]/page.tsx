@@ -52,7 +52,10 @@ export default function Edite() {
                   className="form-control"
                   value={input.name}
                   required
-                  onChange={(e) => setInput({ ...input, name: e.target.value })}
+                  onChange={(e) => setInput({
+                    ...input,
+                    name: e.target.value
+                  })}
                 />
               </div>
             </div>
@@ -65,9 +68,10 @@ export default function Edite() {
                   value={input.address}
                   required
                   rows={2}
-                  onChange={(e) =>
-                    setInput({ ...input, address: e.target.value })
-                  }
+                  onChange={(e) => setInput({
+                    ...input,
+                    address: e.target.value
+                  })}
                 ></textarea>
               </div>
             </div>
@@ -88,14 +92,14 @@ export default function Edite() {
           </div>
         </div>
         <div className="card-footer py-3">
-          <button type="submit" className="btn btn-success btn-icon-split me-1">
+          <button type="submit"
+            className="btn btn-success btn-icon-split me-1">
             <span className="icon text-white-50">
               <i className="fas fa-database"></i>
             </span>
             <span className="text">Save</span>
           </button>
-          <Link
-            href={"/home/customers"}
+          <Link href={"/home/customers"}
             className="btn btn-warning btn-icon-split"
           >
             <span className="icon text-white-50">

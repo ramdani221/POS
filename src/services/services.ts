@@ -42,6 +42,46 @@ export const setWriteFile = async (file: any, pathStorage: any) => {
     }
 }
 
+export const getCustomer = async (id: string | number) => {
+    try {
+        const data = await models.Customer.findOne({
+            where: { id }
+        })
+        return data
+    } catch (error) {
+        throw error
+    }
+}
 
+export const getSupplier = async (id: string | number) => {
+    try {
+        const data = await models.Supplier.findOne({
+            where: { id }
+        })
+        return data
+    } catch (error) {
+        throw error
+    }models.User.findOne({ where: { id } });
+}
 
+export const findUnit = async (id: string | number) => {
+    try {
+        const data = await models.Unit.findOne({
+            where: { id }
+        })
+        return data
+    } catch (error) {
+        throw error
+    }
+}
 
+export const findUser = async (id: string | number) => {
+    try {
+        const data = await models.User.findOne({
+            where: { id }
+        })
+        return data
+    } catch (error) {
+        throw error
+    }
+}

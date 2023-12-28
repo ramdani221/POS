@@ -3,15 +3,22 @@ import type { NextAuthOptions } from "next-auth"
 import NextAuth from "next-auth/next"
 import CredentialsProvider from "next-auth/providers/credentials"
 
-
 const authOptions: NextAuthOptions = {
     providers: [
         CredentialsProvider({
             id: 'domain-login',
             name: 'POS Account',
             credentials: {
-                email: { label: 'Email', type: 'email', placeholder: 'Enter Email' },
-                password: { label: 'Password', type: 'password', placeholder: 'pasword' }
+                email: {
+                    label: 'Email',
+                    type: 'email',
+                    placeholder: 'Enter Email'
+                },
+                password: {
+                    label: 'Password',
+                    type: 'password',
+                    placeholder: 'pasword'
+                }
             },
             async authorize(credentials, req) {
                 if (!credentials?.email || !credentials?.password) return null
@@ -39,7 +46,14 @@ const authOptions: NextAuthOptions = {
         async session({ session }) {
             try {
                 const data = await dataUser(session?.user?.email as string)
-                return { ...session, user: { ...session.user, role: data.role, id: data.id } }
+                return {
+                    ...session,
+                    user: {
+                        ...session.user,
+                        role: data.role,
+                        id: data.id
+                    }
+                }
             } catch (error) {
                 return session
             }

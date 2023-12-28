@@ -4,7 +4,7 @@ import { deleteSaleItem } from "@/services/model";
 
 const models: any = db
 
-export async function DELETE(req: NextRequest, {params} : {params : {id: string}}) {
+export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
     try {
         const id = Number(params.id)
         const deleteItem = await deleteSaleItem(id)

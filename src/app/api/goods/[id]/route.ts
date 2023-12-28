@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import db from "@/db/sequelize/models";
 import fs from 'fs'
 import path from "path";
-import { getGood, setWriteFile, updateGood } from "@/services/good";
+import { getGood, setWriteFile, updateGood } from "@/services/services";
 
 const models: any = db
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
@@ -29,12 +29,12 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
         }
 
         const { fileName, buffer, filePath } = await setWriteFile(file, pathStorage)
-        
+
         const good = await getGood(id)
         const rmPath = path.join(pathStorage, good.picture)
-        
+
         if (fs.existsSync(rmPath)) fs.unlinkSync(rmPath)
-        
+
         const result = await updateGood(id, { ...dataGood, picture: fileName })
         fs.writeFileSync(filePath, buffer)
 
@@ -46,8 +46,8 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 
 export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
     try {
-        const id = params.id
-        const good = await models.Good.findOne({ where: { id } });
+        const id = Number(params.id)
+        const good = await getGood(id)
         const deleteGood = await models.Good.destroy({
             where: { id }
         });

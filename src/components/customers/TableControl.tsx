@@ -6,10 +6,7 @@ export default function TableControl({
   setPageNum,
 }: {
   setFilter: Dispatch<
-    SetStateAction<{
-      keyword: string;
-      limit: number;
-    }>
+    SetStateAction<{ keyword: string; limit: number; }>
   >;
   filter: { keyword: string; limit: number };
   setPageNum: Dispatch<SetStateAction<number>>;
@@ -17,7 +14,7 @@ export default function TableControl({
   return (
     <div className="row">
       <div className="col-sm-12 col-md-6">
-        <div className="dataTables_length " id="dataTable_length">
+        <div id="dataTable_length" className="dataTables_length">
           <label>
             Show{" "}
             <select
@@ -25,7 +22,10 @@ export default function TableControl({
               aria-controls="dataTable"
               className="custom-select custom-select-sm form-control form-control-sm"
               onChange={(e: any) => {
-                setFilter({ ...filter, limit: e.target.value });
+                setFilter({
+                  ...filter,
+                  limit: e.target.value
+                });
                 setPageNum(1);
               }}
             >
@@ -47,7 +47,10 @@ export default function TableControl({
               placeholder=""
               aria-controls="dataTable"
               onChange={(e: any) => {
-                setFilter({ ...filter, keyword: e.target.value });
+                setFilter({
+                  ...filter,
+                  keyword: e.target.value
+                });
                 setPageNum(1);
               }}
             />
