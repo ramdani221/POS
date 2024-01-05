@@ -1,5 +1,20 @@
 # Point Of Sale (POS)
 
+## Introduction
+
+This is full stack React application which provides a solid starting point for [NextJS](https://nextjs.org),[ReactJS](https://reactjs.org/), [sequelize](https://sequelize.org/) [Mongoose](https://mongoosejs.com/), [NodeJS](https://nodejs.org/en/) and [Socket.IO](https://socket.io/) based applications. Client side code and the backend API is written using NextJS.
+
+Point of Sales or POS is a payment system that can facilitate transactions. POS can help in quick calculations,
+store customer data, calculate profits and losses, and recap sales reports.
+
+## Before You Begin
+
+Before you begin i recommend you to read about the basic building blocks that assemble this application:
+* MongoDB - Go through [MongoDB Official Website](https://www.mongodb.com/) and proceed to their [Official Manual](https://docs.mongodb.com/), which should help you understand NoSQL and MongoDB better.
+* Express - The best way to understand express is through it's [Official Website](https://expressjs.com/), which has a [Getting Started](https://expressjs.com/en/starter/installing.html) guide, as well as an [ExpressJS](https://expressjs.com/en/guide/routing.html) guide for general express topics.
+* ReactJS - React's [Official Website](https://reactjs.org/) is a great starting point.
+* Node.js - Start by going through [Node.js Official Website](https://nodejs.org/en/) which should get you going with the Node.js platform.
+
 ## Getting Started
 
 First, run the development server:
