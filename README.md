@@ -13,7 +13,7 @@ Before you begin i recommend you to read about the basic building blocks that as
 * NextJS - The best way to understand NextJS is through it's [Official Website]((https://nextjs.org) which has a [Getting Started](https://nextjs.org/docs) guide.
 * ReactJS - React's [Official Website](https://reactjs.org/) is a great starting point.
 * Sequelize - Get in-depth information about Sequelize on the [Official Website](https://sequelize.org/) to learn the [Core Concept](https://sequelize.org/docs/v6/category/core-concepts/) of Sequelize.
-* MongoDB - Go through [MongoDB Official Website](https://www.mongodb.com/) and proceed to their [Official Manual](https://docs.mongodb.com/), which should help you understand NoSQL and MongoDB better.* Express - The best way to understand express is through it's [Official Website](https://expressjs.com/), which has a [Getting Started](https://expressjs.com/en/starter/installing.html) guide, as well as an [ExpressJS](https://expressjs.com/en/guide/routing.html) guide for general express topics.
+* MongoDB - Go through [MongoDB Official Website](https://www.mongodb.com/) and proceed to their [Official Manual](https://docs.mongodb.com/), which should help you understand NoSQL and MongoDB better.
 * Node.js - Start by going through [Node.js Official Website](https://nodejs.org/en/) which should get you going with the Node.js platform.
 * Socket.IO - you can go to [Socket.IO Official Website](https://socket.io/) to get the bas way to learn how to use it
 
