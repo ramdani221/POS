@@ -1,12 +1,13 @@
 import mongoose, { Schema } from "mongoose";
 
 const notifSchema = new Schema({
-    barcode: {
-        type: String,
-        unique: true
-    },
+    barcode: String,
     name: String,
-    stock: Number
-})
+    stock: Number,
+    isRead: {
+        type: Boolean,
+        default: false
+    },
+}, {timestamps: true})
 
 export default mongoose.models.Notif || mongoose.model("Notif", notifSchema)

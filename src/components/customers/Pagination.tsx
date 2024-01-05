@@ -21,21 +21,25 @@ export default function Pagination({
         <div className="dataTables_info" id="dataTable_info"
           role="status" aria-live="polite">
           {offset < total ?
-            "Showing " + (offset + 1) + " to " +
-            (limit + offset > total ? total : limit + offset) +
-            " of " + total + " entries" :
+            (`Showing ${offset + 1} to ` +
+              (limit + offset > total ? total : limit + offset) +
+              ` of ${total} entries`) :
             "Nothing to show"}
         </div>
       </div>
       <div className="col-sm-12 col-md-7">
-        <div id="dataTable_paginate"
-          className="dataTables_paginate paging_simple_numbers">
+        <div className="dataTables_paginate paging_simple_numbers"
+          id="dataTable_paginate">
           <ul className="pagination">
             <li className={"paginate_button page-item previous " +
               (page === 1 && "disabled")} id="dataTable_previous">
-              <button aria-controls="dataTable" data-dt-idx="0"
-                tabIndex={0} className="page-link"
-                onClick={() => setPageNum(pageNum - 1)}>
+              <button
+                aria-controls="dataTable"
+                data-dt-idx="0"
+                tabIndex={0}
+                className="page-link"
+                onClick={() => setPageNum(pageNum - 1)}
+              >
                 Previous
               </button>
             </li>
@@ -49,9 +53,13 @@ export default function Pagination({
             ))}
             <li className={"paginate_button page-item next " +
               (page >= pages && "disabled")} id="dataTable_next">
-              <button aria-controls="dataTable" data-dt-idx="7"
-                tabIndex={0} className="page-link"
-                onClick={() => setPageNum(pageNum + 1)}>
+              <button
+                aria-controls="dataTable"
+                data-dt-idx="7"
+                tabIndex={0}
+                className="page-link"
+                onClick={() => setPageNum(pageNum + 1)}
+              >
                 Next
               </button>
             </li>

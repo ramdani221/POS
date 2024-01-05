@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Sidebar({
   toggled,
@@ -13,6 +13,21 @@ export default function Sidebar({
   const { data }: { data: any } = useSession();
   const [collapse, setCollapse] = useState(false);
   const position = usePathname().split("/")[2];
+  const ref: any = useRef(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event: Event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setCollapse(false)
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside, true);
+    return () => {
+      document.removeEventListener('click', handleClickOutside, true);
+    };
+  }, [])
+
   return (
     <ul
       className={
@@ -49,6 +64,7 @@ export default function Sidebar({
             "nav-item " +
             ((position === "units" || position === "goods") && "active")
           }
+          ref={ref}
         >
           <button
             className={"nav-link " + (!collapse && "collapsed")}
@@ -67,6 +83,7 @@ export default function Sidebar({
             aria-labelledby="headingUtilities"
             data-parent="#accordionSidebar"
             style={{ transition: "2s" }}
+
           >
             <div className="bg-white py-2 collapse-inner rounded">
               <h6 className="collapse-header">Custom Utilities:</h6>

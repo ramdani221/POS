@@ -52,7 +52,10 @@ export default function Edite() {
                   className="form-control"
                   required
                   value={input.unit}
-                  onChange={(e) => setInput({ ...input, unit: e.target.value })}
+                  onChange={(e) => setInput({
+                    ...input,
+                    unit: e.target.value
+                  })}
                 />
               </div>
             </div>
@@ -64,7 +67,10 @@ export default function Edite() {
                   className="form-control"
                   required
                   value={input.name}
-                  onChange={(e) => setInput({ ...input, name: e.target.value })}
+                  onChange={(e) => setInput({
+                    ...input,
+                    name: e.target.value
+                  })}
                 />
               </div>
             </div>
@@ -77,7 +83,10 @@ export default function Edite() {
                   required
                   value={input.note}
                   rows={2}
-                  onChange={(e) => setInput({ ...input, note: e.target.value })}
+                  onChange={(e) => setInput({
+                    ...input,
+                    note: e.target.value
+                  })}
                 ></textarea>
               </div>
             </div>

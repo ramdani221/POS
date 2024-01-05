@@ -5,9 +5,9 @@ import TableControl from "./TableControl";
 import Link from "next/link";
 
 export default function TableBoxGoods() {
-  const [filter, setFilter] = useState({ 
-    keyword: "", 
-    limit: 3 
+  const [filter, setFilter] = useState({
+    keyword: "",
+    limit: 3
   });
   const [pageNum, setPageNum] = useState(1);
   return (
@@ -22,11 +22,13 @@ export default function TableBoxGoods() {
       </div>
       <div className="card-body">
         <div className="table-responsive">
-          <div
-            id="dataTable_wrapper"
-            className="dataTables_wrapper dt-bootstrap4"
-          >
-            <TableControl setFilter={setFilter} filter={filter} setPageNum={setPageNum} />
+          <div className="dataTables_wrapper dt-bootstrap4"
+            id="dataTable_wrapper">
+            <TableControl
+              setFilter={setFilter}
+              filter={filter}
+              setPageNum={setPageNum}
+            />
             <TableList filter={filter} pageNum={pageNum} />
             <Pagination pageNum={pageNum} setPageNum={setPageNum} />
           </div>

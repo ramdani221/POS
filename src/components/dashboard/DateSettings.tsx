@@ -37,9 +37,7 @@ export default function DateSettings({
         </div>
         <div className="card-body row">
           <div className="col-sm-6">
-            <label htmlFor="strDate" className="form-label">
-              Start Date
-            </label>
+            <label htmlFor="strDate" className="form-label">Start Date</label>
             <input
               type="date"
               className="form-control"
@@ -49,9 +47,7 @@ export default function DateSettings({
             />
           </div>
           <div className="col-sm-6">
-            <label htmlFor="endDate" className="form-label">
-              End Date
-            </label>
+            <label htmlFor="endDate" className="form-label">End Date</label>
             <input
               type="date"
               className="form-control"

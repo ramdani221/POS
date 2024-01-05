@@ -3,23 +3,23 @@ import { useDispatch, useSelector } from "@/lib/redux";
 import { removeSupplier, suppliersPagination } from "@/lib/redux/suppliers/supplierSlice";
 
 
-export default function SupplierModal({ 
-  setShow, 
-  id, 
-  input 
-}: { 
-  setShow: any, 
-  id: number, 
+export default function SupplierModal({
+  setShow,
+  id,
+  input
+}: {
+  setShow: any,
+  id: number,
   input: {
-    keyword: string, 
-    limit: number, 
-    page: number, 
-    sort: string, 
+    keyword: string,
+    limit: number,
+    page: number,
+    sort: string,
     sortBy: string
   }
 }) {
-    const dispatch = useDispatch()
-    const {pages} = useSelector(suppliersPagination)
+  const dispatch = useDispatch()
+  const { pages } = useSelector(suppliersPagination)
   return (
     <div
       className="modal fade show bg-black bg-opacity-50"
@@ -57,7 +57,13 @@ export default function SupplierModal({
             >
               No
             </button>
-            <button className="btn btn-primary" onClick={() => {dispatch(removeSupplier(id, input, pages)); setShow(false)}}>
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                dispatch(removeSupplier(id, input, pages));
+                setShow(false)
+              }}
+            >
               Yes
             </button>
           </div>

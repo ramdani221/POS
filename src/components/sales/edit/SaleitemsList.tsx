@@ -53,9 +53,7 @@ export default function SaleitemsList({
         <tbody>
           {saleitems.length === 0 && (
             <tr>
-              <td colSpan={7} className="text-center">
-                no items
-              </td>
+              <td colSpan={7} className="text-center">no items</td>
             </tr>
           )}
           {saleitems.length > 0 &&
@@ -70,10 +68,11 @@ export default function SaleitemsList({
                 <td>
                   <button
                     className="btn btn-danger btn-circle"
-                    onClick={(e) => {
-                      deleteItem(e, item.id, item.itemcode, item.quantity);
-                      socket.emit('send_notif', 'send')
-                    }}
+                    onClick={(e) => deleteItem(
+                      e, item.id,
+                      item.itemcode,
+                      item.quantity
+                    )}
                   >
                     <i className="fas fa-trash"></i>
                   </button>

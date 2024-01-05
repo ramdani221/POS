@@ -10,9 +10,7 @@ export default function TableBoxCustomers() {
   return (
     <div className="card shadow mb-4">
       <div className="card-header py-3">
-        <Link href="/home/customers/add"
-          className="btn btn-primary btn-icon-split"
-        >
+        <Link href="/home/customers/add" className="btn btn-primary btn-icon-split">
           <span className="icon text-white-50">
             <i className="fas fa-plus"></i>
           </span>

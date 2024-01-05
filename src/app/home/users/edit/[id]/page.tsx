@@ -12,10 +12,10 @@ export default function Edite() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const [input, setInput] = useState({ 
-    email: "", 
-    name: "", 
-    role: "" 
+  const [input, setInput] = useState({
+    email: "",
+    name: "",
+    role: ""
   });
 
   useEffect(() => {
@@ -55,7 +55,10 @@ export default function Edite() {
                   id="inputEmail3"
                   required
                   value={input.email}
-                  onChange={(e) => setInput({ ...input, email: e.target.value })}
+                  onChange={(e) => setInput({
+                    ...input,
+                    email: e.target.value
+                  })}
                 />
               </div>
             </div>
@@ -67,7 +70,10 @@ export default function Edite() {
                   className="form-control"
                   required
                   value={input.name}
-                  onChange={(e) => setInput({ ...input, name: e.target.value })}
+                  onChange={(e) => setInput({
+                    ...input,
+                    name: e.target.value
+                  })}
                 />
               </div>
             </div>
@@ -83,7 +89,10 @@ export default function Edite() {
                     value="Oprator"
                     required
                     checked={input.role === "Oprator"}
-                    onChange={(e) => setInput({ ...input, role: e.target.value })}
+                    onChange={(e) => setInput({
+                      ...input,
+                      role: e.target.value
+                    })}
                   />
                   <label className="form-check-label" htmlFor="gridRadios1">
                     Oprator
@@ -97,7 +106,10 @@ export default function Edite() {
                     id="gridRadios2"
                     value="Admin"
                     checked={input.role === "Admin"}
-                    onChange={(e) => setInput({ ...input, role: e.target.value })}
+                    onChange={(e) => setInput({
+                      ...input,
+                      role: e.target.value
+                    })}
                   />
                   <label className="form-check-label" htmlFor="gridRadios2">
                     Admin

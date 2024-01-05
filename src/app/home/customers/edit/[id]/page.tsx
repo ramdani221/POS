@@ -99,9 +99,7 @@ export default function Edite() {
             </span>
             <span className="text">Save</span>
           </button>
-          <Link href={"/home/customers"}
-            className="btn btn-warning btn-icon-split"
-          >
+          <Link href={"/home/customers"} className="btn btn-warning btn-icon-split">
             <span className="icon text-white-50">
               <i className="fas fa-undo-alt"></i>
             </span>

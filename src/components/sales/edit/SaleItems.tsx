@@ -1,10 +1,7 @@
 import { SocketContext } from "@/app/home/layout";
 import { useDispatch, useSelector } from "@/lib/redux";
-import {
-  loadGoodAsync,
-  reduceStock,
-  selectGoods,
-} from "@/lib/redux/goods/goodSlice";
+import { loadGoodAsync, reduceStock, selectGoods } from "@/lib/redux/goods/goodSlice";
+import { addNotifAsync } from "@/lib/redux/notif/notifSlice";
 import { addSaleitem } from "@/lib/redux/saleitems/saleitemSlice";
 import { RpInd } from "@/services/currency";
 import { useContext, useEffect, useState } from "react";
@@ -37,8 +34,24 @@ export default function SaleItems({ id }: { id: string }) {
           })
         )
       );
-    }).then(() => socket.emit("send_notif", "send"))
-    dispatch(reduceStock({ id: goods[index].id, qty: Number(qty) }));
+    }).then(() => {
+      if ((goods[index].stock - Number(qty)) <= 5) {
+        new Promise(resolve => {
+          resolve(
+            dispatch(
+              addNotifAsync({
+                barcode: goods[index].barcode,
+                name: goods[index].name,
+                stock: goods[index].stock - Number(qty)
+              })
+            )
+          )
+        }).then(() => {
+          socket.emit("send_notif", "send")
+        }).catch(err => { })
+      }
+      dispatch(reduceStock({ id: goods[index].id, qty: Number(qty) }))
+    }).catch(err => { })
   };
 
   useEffect(() => {
@@ -145,10 +158,8 @@ export default function SaleItems({ id }: { id: string }) {
           />
         </div>
       </div>
-      <button
-        className="btn btn-primary btn-icon-split"
-        onClick={(e: any) => addItem(e)}
-      >
+      <button className="btn btn-primary btn-icon-split"
+        onClick={(e: any) => addItem(e)}>
         <span className="icon text-white-50">
           <i className="fas fa-plus"></i>
         </span>

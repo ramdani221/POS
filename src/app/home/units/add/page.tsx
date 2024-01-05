@@ -37,7 +37,10 @@ export default function Edite() {
                   type="text"
                   className="form-control"
                   required
-                  onChange={(e) => setUnit({ ...unit, unit: e.target.value })}
+                  onChange={(e) => setUnit({
+                    ...unit,
+                    unit: e.target.value
+                  })}
                 />
               </div>
             </div>
@@ -48,7 +51,10 @@ export default function Edite() {
                   type="text"
                   className="form-control"
                   required
-                  onChange={(e) => setUnit({ ...unit, name: e.target.value })}
+                  onChange={(e) => setUnit({
+                    ...unit,
+                    name: e.target.value
+                  })}
                 />
               </div>
             </div>
@@ -60,7 +66,10 @@ export default function Edite() {
                   id="exampleFormControlTextarea1"
                   required
                   rows={2}
-                  onChange={(e) => setUnit({ ...unit, note: e.target.value })}
+                  onChange={(e) => setUnit({
+                    ...unit,
+                    note: e.target.value
+                  })}
                 ></textarea>
               </div>
             </div>

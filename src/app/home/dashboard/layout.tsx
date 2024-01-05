@@ -7,17 +7,12 @@ export default function UsersLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const {data}: {data: any} = useSession()
+  const { data }: { data: any } = useSession()
   if (data?.user?.role !== 'Admin') return (
-    <div
-        className={
-          "alert alert-secondary"
-        }
-        role="alert"
-      >
-        <i className="fas fa-exclamation-triangle"></i>
-        <span className="ms-2">This page can only be accessed by Admin</span>
-      </div>
+    <div className={"alert alert-secondary"} role="alert">
+      <i className="fas fa-exclamation-triangle"></i>
+      <span className="ms-2">This page can only be accessed by Admin</span>
+    </div>
   )
   return (
     <section>

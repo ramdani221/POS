@@ -41,7 +41,10 @@ export default function Edite() {
                   className="form-control"
                   id="inputEmail3"
                   required
-                  onChange={(e) => setUser({ ...user, email: e.target.value })}
+                  onChange={(e) => setUser({
+                    ...user,
+                    email: e.target.value
+                  })}
                 />
               </div>
             </div>
@@ -52,7 +55,10 @@ export default function Edite() {
                   type="text"
                   className="form-control"
                   required
-                  onChange={(e) => setUser({ ...user, name: e.target.value })}
+                  onChange={(e) => setUser({
+                    ...user,
+                    name: e.target.value
+                  })}
                 />
               </div>
             </div>
@@ -70,8 +76,10 @@ export default function Edite() {
                   id="inputPassword3"
                   required
                   onChange={(e) =>
-                    setUser({ ...user, password: e.target.value })
-                  }
+                    setUser({
+                      ...user,
+                      password: e.target.value
+                    })}
                 />
               </div>
             </div>
@@ -88,7 +96,10 @@ export default function Edite() {
                     value="Oprator"
                     required
                     checked={user.role === "Oprator"}
-                    onChange={(e) => setUser({ ...user, role: e.target.value })}
+                    onChange={(e) => setUser({
+                      ...user,
+                      role: e.target.value
+                    })}
                   />
                   <label className="form-check-label" htmlFor="gridRadios1">
                     Oprator
@@ -101,7 +112,10 @@ export default function Edite() {
                     name="gridRadios"
                     id="gridRadios2"
                     value="Admin"
-                    onChange={(e) => setUser({ ...user, role: e.target.value })}
+                    onChange={(e) => setUser({
+                      ...user,
+                      role: e.target.value
+                    })}
                   />
                   <label className="form-check-label" htmlFor="gridRadios2">
                     Admin

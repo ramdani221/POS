@@ -3,9 +3,23 @@ import { useDispatch, useSelector } from "@/lib/redux";
 import { removeUser, usersPagination } from "@/lib/redux/users/userSlice";
 
 
-export default function UserModal({ setShow, id, input }: { setShow: any, id: number, input: {keyword: string, limit: number, page: number, sort: string, sortBy: string}}) {
-    const dispatch = useDispatch()
-    const {pages} = useSelector(usersPagination)
+export default function UserModal({
+  setShow,
+  id,
+  input
+}: {
+  setShow: any,
+  id: number,
+  input: {
+    keyword: string,
+    limit: number,
+    page: number,
+    sort: string,
+    sortBy: string
+  }
+}) {
+  const dispatch = useDispatch()
+  const { pages } = useSelector(usersPagination)
   return (
     <div
       className="modal fade show bg-black bg-opacity-50"
@@ -43,7 +57,12 @@ export default function UserModal({ setShow, id, input }: { setShow: any, id: nu
             >
               No
             </button>
-            <button className="btn btn-primary" onClick={() => {dispatch(removeUser(id, input, pages)); setShow(false)}}>
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                dispatch(removeUser(id, input, pages));
+                setShow(false)
+              }}>
               Yes
             </button>
           </div>

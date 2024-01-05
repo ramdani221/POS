@@ -3,7 +3,7 @@ import { selectTotSum } from "@/lib/redux/dashboard/dashboardSlice";
 import { RpInd } from "@/services/currency";
 
 export default function TotalSum() {
-    const totsum = useSelector(selectTotSum)
+  const totsum = useSelector(selectTotSum)
 
   return (
     <div className="row">

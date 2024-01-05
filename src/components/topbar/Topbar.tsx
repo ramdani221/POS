@@ -1,6 +1,6 @@
-import SearchDropdown from "./SearchDropdown";
 import Alert from "./Alerts";
 import UserInfo from "./UserInfo";
+import { useSession } from "next-auth/react";
 
 export default function Topbar({
   setShow,
@@ -11,6 +11,7 @@ export default function Topbar({
   toggled: any;
   setToggled: any;
 }) {
+  const { data }: { data: any } = useSession()
   return (
     <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow ps-3 pe-3">
       <button
@@ -21,27 +22,9 @@ export default function Topbar({
         <i className="fa fa-bars"></i>
       </button>
 
-      <form className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-        <div className="input-group">
-          <input
-            type="text"
-            className="form-control bg-light border-0 small"
-            placeholder="Search for..."
-            aria-label="Search"
-            aria-describedby="basic-addon2"
-          />
-          <div className="input-group-append">
-            <button className="btn btn-primary" type="button">
-              <i className="fas fa-search fa-sm"></i>
-            </button>
-          </div>
-        </div>
-      </form>
-
       <ul className="navbar-nav ml-auto">
-        <SearchDropdown />
 
-        <Alert />
+        {data.user.role === "Admin" && <Alert />}
 
         <div className="topbar-divider d-none d-sm-block"></div>
 

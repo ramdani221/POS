@@ -2,16 +2,19 @@
 
 import { useDispatch, useSelector } from "@/lib/redux";
 import { addGoodAsync } from "@/lib/redux/goods/goodSlice";
+import { addNotifAsync } from "@/lib/redux/notif/notifSlice";
 import { loadUnitAsync, selectUnits } from "@/lib/redux/units/unitSlice";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { SocketContext } from "../../layout";
 
 export default function Edite() {
   const units = useSelector(selectUnits);
   const dispatch = useDispatch();
   const router = useRouter();
   const [image, setImage] = useState();
+  const socket = useContext(SocketContext);
 
   const [good, setGood] = useState({
     barcode: "",
@@ -36,7 +39,7 @@ export default function Edite() {
 
 
   useEffect(() => {
-    setGood(g => ({...g, unit: units[0].id}))
+    setGood(g => ({ ...g, unit: units[0].id }))
   }, [units])
 
   const imageChange = (e: any) => {
@@ -49,8 +52,22 @@ export default function Edite() {
     const formData: any = new FormData();
     formData.append("image", image);
     formData.append("data", JSON.stringify(good));
-    dispatch(addGoodAsync(formData));
-    router.push("/home/goods");
+    dispatch(
+      addGoodAsync(formData)
+    ).then(() => {
+      if (Number(good.stock) <= 5) {
+        dispatch(
+          addNotifAsync({
+            barcode: good.barcode,
+            name: good.name,
+            stock: good.stock
+          })
+        ).then(() => {
+          socket.emit("send_notif", "send")
+        }).catch(err => { })
+      }
+      router.push("/home/goods");
+    }).catch(err => { })
   };
 
   return (
@@ -81,7 +98,10 @@ export default function Edite() {
                   type="text"
                   className="form-control"
                   required
-                  onChange={(e) => setGood({ ...good, name: e.target.value })}
+                  onChange={(e) => setGood({
+                    ...good,
+                    name: e.target.value
+                  })}
                 />
               </div>
             </div>
@@ -92,7 +112,10 @@ export default function Edite() {
                   type="text"
                   className="form-control"
                   required
-                  onChange={(e) => setGood({ ...good, stock: e.target.value })}
+                  onChange={(e) => setGood({
+                    ...good,
+                    stock: e.target.value
+                  })}
                 />
               </div>
             </div>
@@ -104,8 +127,10 @@ export default function Edite() {
                   className="form-control"
                   required
                   onChange={(e) =>
-                    setGood({ ...good, purchaseprice: e.target.value })
-                  }
+                    setGood({
+                      ...good,
+                      purchaseprice: e.target.value
+                    })}
                 />
               </div>
             </div>
@@ -117,8 +142,10 @@ export default function Edite() {
                   className="form-control"
                   required
                   onChange={(e) =>
-                    setGood({ ...good, sellingprice: e.target.value })
-                  }
+                    setGood({
+                      ...good,
+                      sellingprice: e.target.value
+                    })}
                 />
               </div>
             </div>
@@ -130,7 +157,10 @@ export default function Edite() {
                   aria-label="Default select example"
                   value={good.unit}
                   required
-                  onChange={(e) => setGood({...good, unit: Number(e.target.value)})}
+                  onChange={(e) => setGood({
+                    ...good,
+                    unit: Number(e.target.value)
+                  })}
                 >
                   {units.map((unit) => (
                     <option value={unit.id} key={unit.id}>

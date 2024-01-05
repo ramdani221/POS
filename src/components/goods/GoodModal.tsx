@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "@/lib/redux";
 import { goodsPagination, removeGood } from "@/lib/redux/goods/goodSlice";
 
 
-export default function GoodModal({ setShow, id, input }: { setShow: any, id: number, input: {keyword: string, limit: number, page: number, sort: string, sortBy: string}}) {
-    const dispatch = useDispatch()
-    const {pages} = useSelector(goodsPagination)
+export default function GoodModal({ setShow, id, input }: { setShow: any, id: number, input: { keyword: string, limit: number, page: number, sort: string, sortBy: string } }) {
+  const dispatch = useDispatch()
+  const { pages } = useSelector(goodsPagination)
   return (
     <div
       className="modal fade show bg-black bg-opacity-50"
@@ -43,7 +43,13 @@ export default function GoodModal({ setShow, id, input }: { setShow: any, id: nu
             >
               No
             </button>
-            <button className="btn btn-primary" onClick={() => {dispatch(removeGood(id, input, pages)); setShow(false)}}>
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                dispatch(removeGood(id, input, pages));
+                setShow(false)
+              }}
+            >
               Yes
             </button>
           </div>

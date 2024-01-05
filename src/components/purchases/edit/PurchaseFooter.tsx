@@ -57,7 +57,9 @@ export default function PurchaseFooter({
   return (
     <div className="card-footer py-3">
       <div className="row mb-3">
-        <label className="col-sm-2 col-form-label">Total Summary</label>
+        <label className="col-sm-2 col-form-label">
+          Total Summary
+        </label>
         <div className="col-sm-10">
           <input
             type="text"
@@ -69,7 +71,9 @@ export default function PurchaseFooter({
         </div>
       </div>
       <div className="row mb-3">
-        <label className="col-sm-2 col-form-label">Supplier</label>
+        <label className="col-sm-2 col-form-label">
+          Supplier
+        </label>
         <div className="col-sm-10">
           <select
             className="form-select text-gray-700"

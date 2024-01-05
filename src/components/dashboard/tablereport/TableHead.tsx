@@ -8,28 +8,34 @@ export default function TableHead({
   setSorting: Dispatch<SetStateAction<{ sort: boolean; sortBy: string }>>;
 }) {
 
-    const sortMonthly = () => {
-        if(sorting.sortBy !== 'monthly') return setSorting({sort: true, sortBy: 'monthly'})
-        return setSorting({...sorting, sort: !sorting.sort})
-    }
-    const sortExpense = () => {
-        if(sorting.sortBy !== 'expense') return setSorting({sort: true, sortBy: 'expense'})
-        return setSorting({...sorting, sort: !sorting.sort})
-    }
-    const sortRevenue = () => {
-        if(sorting.sortBy !== 'revenue') return setSorting({sort: true, sortBy: 'revenue'})
-        return setSorting({...sorting, sort: !sorting.sort})
-    }
-    const sortEarning = () => {
-      if(sorting.sortBy !== 'earning') return setSorting({sort: true, sortBy: 'earning'})
-      return setSorting({...sorting, sort: !sorting.sort})
+  const sortMonthly = () => {
+    if (sorting.sortBy !== 'monthly')
+      return setSorting({ sort: true, sortBy: 'monthly' })
+    return setSorting({ ...sorting, sort: !sorting.sort })
+  }
+  const sortExpense = () => {
+    if (sorting.sortBy !== 'expense')
+      return setSorting({ sort: true, sortBy: 'expense' })
+    return setSorting({ ...sorting, sort: !sorting.sort })
+  }
+  const sortRevenue = () => {
+    if (sorting.sortBy !== 'revenue')
+      return setSorting({ sort: true, sortBy: 'revenue' })
+    return setSorting({ ...sorting, sort: !sorting.sort })
+  }
+  const sortEarning = () => {
+    if (sorting.sortBy !== 'earning')
+      return setSorting({ sort: true, sortBy: 'earning' })
+    return setSorting({ ...sorting, sort: !sorting.sort })
   }
 
   return (
     <thead>
       <tr role="row">
         <th
-          className={"sorting " + (sorting.sortBy === 'monthly'? sorting.sort?  "sorting_asc" : "sorting_desc" : "")}
+          className={"sorting " +
+            (sorting.sortBy === 'monthly' ?
+              sorting.sort ? "sorting_asc" : "sorting_desc" : "")}
           tabIndex={0}
           aria-controls="dataTable"
           rowSpan={1}
@@ -40,7 +46,9 @@ export default function TableHead({
           Monthly
         </th>
         <th
-          className={"sorting " + (sorting.sortBy === 'expense'? sorting.sort?  "sorting_asc" : "sorting_desc" : "")}
+          className={"sorting " +
+            (sorting.sortBy === 'expense' ?
+              sorting.sort ? "sorting_asc" : "sorting_desc" : "")}
           tabIndex={0}
           aria-controls="dataTable"
           rowSpan={1}
@@ -51,7 +59,9 @@ export default function TableHead({
           Expense
         </th>
         <th
-          className={"sorting " + (sorting.sortBy === 'revenue'? sorting.sort?  "sorting_asc" : "sorting_desc" : "")}
+          className={"sorting " +
+            (sorting.sortBy === 'revenue' ?
+              sorting.sort ? "sorting_asc" : "sorting_desc" : "")}
           tabIndex={0}
           aria-controls="dataTable"
           rowSpan={1}
@@ -62,7 +72,9 @@ export default function TableHead({
           Revenue
         </th>
         <th
-          className={"sorting " + (sorting.sortBy === 'earning'? sorting.sort?  "sorting_asc" : "sorting_desc" : "")}
+          className={"sorting " +
+            (sorting.sortBy === 'earning' ?
+              sorting.sort ? "sorting_asc" : "sorting_desc" : "")}
           tabIndex={0}
           aria-controls="dataTable"
           rowSpan={1}

@@ -1,12 +1,14 @@
 "use client";
 
+import { SocketContext } from "@/app/home/layout";
 import { useDispatch, useSelector } from "@/lib/redux";
 import { getGood, getGoodAsync, updateGoodAsync } from "@/lib/redux/goods/goodSlice";
+import { addNotifAsync } from "@/lib/redux/notif/notifSlice";
 import { loadUnitAsync, selectUnits } from "@/lib/redux/units/unitSlice";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 export default function Edite() {
   const { id }: { id: string } = useParams();
@@ -15,6 +17,7 @@ export default function Edite() {
   const dispatch = useDispatch();
   const router = useRouter();
   const [image, setImage] = useState();
+  const socket = useContext(SocketContext);
 
   const [input, setInput] = useState({
     barcode: "",
@@ -36,8 +39,25 @@ export default function Edite() {
     const formData: any = new FormData();
     formData.append("data", JSON.stringify(input));
     if (image) formData.append("image", image);
-    dispatch(updateGoodAsync({ id: Number(id), input: formData }))
-    router.push("/home/goods")
+    dispatch(
+      updateGoodAsync({
+        id: Number(id),
+        input: formData
+      })
+    ).then(() => {
+      if (input.stock <= 5) {
+        dispatch(
+          addNotifAsync({
+            barcode: input.barcode,
+            name: input.name,
+            stock: input.stock
+          })
+        ).then(() => {
+          socket.emit("send_notif", "send")
+        }).catch(err => { })
+      }
+      router.push("/home/goods")
+    }).catch(err => { })
   };
 
   useEffect(() => {
@@ -82,8 +102,10 @@ export default function Edite() {
                   value={input.barcode}
                   required
                   onChange={(e) =>
-                    setInput({ ...input, barcode: e.target.value })
-                  }
+                    setInput({
+                      ...input,
+                      barcode: e.target.value
+                    })}
                 />
               </div>
             </div>
@@ -95,7 +117,10 @@ export default function Edite() {
                   className="form-control"
                   value={input.name}
                   required
-                  onChange={(e) => setInput({ ...input, name: e.target.value })}
+                  onChange={(e) => setInput({
+                    ...input,
+                    name: e.target.value
+                  })}
                 />
               </div>
             </div>
@@ -107,7 +132,10 @@ export default function Edite() {
                   className="form-control"
                   value={input.stock}
                   required
-                  onChange={(e) => setInput({ ...input, stock: Number(e.target.value) })}
+                  onChange={(e) => setInput({
+                    ...input,
+                    stock: Number(e.target.value)
+                  })}
                 />
               </div>
             </div>
@@ -120,8 +148,10 @@ export default function Edite() {
                   value={input.purchaseprice}
                   required
                   onChange={(e) =>
-                    setInput({ ...input, purchaseprice: e.target.value })
-                  }
+                    setInput({
+                      ...input,
+                      purchaseprice: e.target.value
+                    })}
                 />
               </div>
             </div>
@@ -134,8 +164,10 @@ export default function Edite() {
                   value={input.sellingprice}
                   required
                   onChange={(e) =>
-                    setInput({ ...input, sellingprice: e.target.value })
-                  }
+                    setInput({
+                      ...input,
+                      sellingprice: e.target.value
+                    })}
                 />
               </div>
             </div>
@@ -147,7 +179,10 @@ export default function Edite() {
                   aria-label="Default select example"
                   value={input.unit}
                   required
-                  onChange={(e) => setInput({ ...input, unit: Number(e.target.value) })}
+                  onChange={(e) => setInput({
+                    ...input,
+                    unit: Number(e.target.value)
+                  })}
                 >
                   {units.map((unit) => (
                     <option value={unit.id} key={unit.id}>
@@ -173,10 +208,9 @@ export default function Edite() {
               <div className="col-sm-10">
                 <Image
                   className="form-control h-auto w-75"
-                  src={
-                    image
-                      ? URL.createObjectURL(image)
-                      : `/imgGoods/${input.picture}`
+                  src={image ?
+                    URL.createObjectURL(image) :
+                    `/imgGoods/${input.picture}`
                   }
                   alt="good image"
                   width={500}

@@ -48,7 +48,7 @@ export default function PurchaseItems({ id }: { id: string }) {
   }, [dispatch]);
 
   useEffect(() => {
-    if(Number(qty) < 0) setQty('0')
+    if (Number(qty) < 0) setQty('0')
   }, [index, qty, goods])
 
   return (
@@ -135,10 +135,8 @@ export default function PurchaseItems({ id }: { id: string }) {
           />
         </div>
       </div>
-      <button
-        className="btn btn-primary btn-icon-split"
-        onClick={(e: any) => addItem(e)}
-      >
+      <button className="btn btn-primary btn-icon-split"
+        onClick={(e: any) => addItem(e)}>
         <span className="icon text-white-50">
           <i className="fas fa-plus"></i>
         </span>

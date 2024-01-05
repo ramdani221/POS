@@ -14,7 +14,7 @@ export default function TableData({
   setId: Dispatch<SetStateAction<number>>;
   setShow: Dispatch<SetStateAction<boolean>>
 }) {
-  const {data} : {data: any} = useSession()
+  const { data }: { data: any } = useSession()
   return (
     <tr className="odd/even disabled">
       <td className="">{purchase?.invoice}</td>
@@ -22,10 +22,18 @@ export default function TableData({
       <td className="">{RpInd.format(purchase?.totalsum)}</td>
       <td className="">{purchase?.Supplier?.name}</td>
       <td>
-        <Link href={`/home/purchases/edit/${purchase?.id}`} className={"btn btn-success btn-circle me-1 " + (data.user.id === purchase.operator? '' : 'disabled')}>
+        <Link
+          href={`/home/purchases/edit/${purchase?.id}`}
+          className={"btn btn-success btn-circle me-1 " +
+            (data.user.id === purchase.operator ? '' : 'disabled')}
+        >
           <i className="fas fa-info-circle"></i>
         </Link>
-        <button className={"btn btn-danger btn-circle me-1 " + (data.user.id === purchase.operator? '' : 'disabled')} onClick={() => {setId(purchase?.id); setShow(true)}}>
+        <button
+          className={"btn btn-danger btn-circle me-1 " +
+            (data.user.id === purchase.operator ? '' : 'disabled')}
+          onClick={() => { setId(purchase?.id); setShow(true) }}
+        >
           <i className="fas fa-trash"></i>
         </button>
       </td>

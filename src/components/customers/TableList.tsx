@@ -21,7 +21,7 @@ export default function TableList({
   const [show, setShow] = useState(false);
   const [id, setId] = useState(0);
   const [sorting, setSorting] = useState({
-    sort: true,
+    sort: false,
     sortBy: "id"
   });
 

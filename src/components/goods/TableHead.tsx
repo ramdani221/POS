@@ -42,14 +42,8 @@ export default function TableHead({
     <thead>
       <tr role="row">
         <th
-          className={
-            "sorting " +
-            (sorting.sortBy === "barcode"
-              ? sorting.sort
-                ? "sorting_asc"
-                : "sorting_desc"
-              : "")
-          }
+          className={"sorting " + (sorting.sortBy === "barcode" ?
+            sorting.sort ? "sorting_asc" : "sorting_desc" : "")}
           tabIndex={0}
           aria-controls="dataTable"
           rowSpan={1}
@@ -60,14 +54,8 @@ export default function TableHead({
           Barcode
         </th>
         <th
-          className={
-            "sorting " +
-            (sorting.sortBy === "name"
-              ? sorting.sort
-                ? "sorting_asc"
-                : "sorting_desc"
-              : "")
-          }
+          className={"sorting " + (sorting.sortBy === "name" ?
+            sorting.sort ? "sorting_asc" : "sorting_desc" : "")}
           tabIndex={0}
           aria-controls="dataTable"
           rowSpan={1}
@@ -78,14 +66,8 @@ export default function TableHead({
           Name
         </th>
         <th
-          className={
-            "sorting " +
-            (sorting.sortBy === "stock"
-              ? sorting.sort
-                ? "sorting_asc"
-                : "sorting_desc"
-              : "")
-          }
+          className={"sorting " + (sorting.sortBy === "stock" ?
+            sorting.sort ? "sorting_asc" : "sorting_desc" : "")}
           tabIndex={0}
           aria-controls="dataTable"
           rowSpan={1}
@@ -96,14 +78,8 @@ export default function TableHead({
           Stock
         </th>
         <th
-          className={
-            "sorting " +
-            (sorting.sortBy === "unit"
-              ? sorting.sort
-                ? "sorting_asc"
-                : "sorting_desc"
-              : "")
-          }
+          className={"sorting " + (sorting.sortBy === "unit" ?
+            sorting.sort ? "sorting_asc" : "sorting_desc" : "")}
           tabIndex={0}
           aria-controls="dataTable"
           rowSpan={1}
@@ -114,14 +90,8 @@ export default function TableHead({
           Unit
         </th>
         <th
-          className={
-            "sorting " +
-            (sorting.sortBy === "purchaseprice"
-              ? sorting.sort
-                ? "sorting_asc"
-                : "sorting_desc"
-              : "")
-          }
+          className={"sorting " + (sorting.sortBy === "purchaseprice" ?
+            sorting.sort ? "sorting_asc" : "sorting_desc" : "")}
           tabIndex={0}
           aria-controls="dataTable"
           rowSpan={1}
@@ -132,14 +102,8 @@ export default function TableHead({
           Purchase Price
         </th>
         <th
-          className={
-            "sorting " +
-            (sorting.sortBy === "sellingprice"
-              ? sorting.sort
-                ? "sorting_asc"
-                : "sorting_desc"
-              : "")
-          }
+          className={"sorting " + (sorting.sortBy === "sellingprice" ?
+            sorting.sort ? "sorting_asc" : "sorting_desc" : "")}
           tabIndex={0}
           aria-controls="dataTable"
           rowSpan={1}

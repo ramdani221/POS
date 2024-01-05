@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 export default function Edite() {
-  const { data: session,  update }: {data: any, update: any} = useSession();
+  const { data: session, update }: { data: any, update: any } = useSession();
   const id = session?.user?.id;
   const user = useSelector(getUser);
   const dispatch = useDispatch();
@@ -36,12 +36,16 @@ export default function Edite() {
     e.preventDefault();
     setIsSuccess(false)
     setIsFailed(false)
-    fetchUpdateUser( id, input )
+    fetchUpdateUser(id, input)
       .then(() => {
         setIsSuccess(true)
-        return new Promise(resolve => 
+        return new Promise(resolve =>
           setTimeout(() => {
-            resolve(update({...session?.user, name: input.name, email: input.email}))
+            resolve(update({
+              ...session?.user,
+              name: input.name,
+              email: input.email
+            }))
           }, 3000))
       })
       .catch(() => setIsFailed(true));
@@ -56,8 +60,8 @@ export default function Edite() {
       )}
       {isFailed && (
         <div className="alert alert-danger" role="alert">
-        Your profile failed to update
-      </div>
+          Your profile failed to update
+        </div>
       )}
       <h1 className="h3 mb-2 text-gray-800">Profile</h1>
       <div className="card shadow mb-4">
@@ -68,10 +72,7 @@ export default function Edite() {
           <div className="card-body">
             <div className="table-responsive">
               <div className="row mb-3 me-">
-                <label
-                  htmlFor="inputEmail3"
-                  className="col-sm-2 col-form-label"
-                >
+                <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">
                   Email
                 </label>
                 <div className="col-sm-10">
@@ -81,9 +82,10 @@ export default function Edite() {
                     id="inputEmail3"
                     required
                     value={input.email}
-                    onChange={(e) =>
-                      setInput({ ...input, email: e.target.value })
-                    }
+                    onChange={(e) => setInput({
+                      ...input,
+                      email: e.target.value
+                    })}
                   />
                 </div>
               </div>
@@ -95,19 +97,17 @@ export default function Edite() {
                     className="form-control"
                     required
                     value={input.name}
-                    onChange={(e) =>
-                      setInput({ ...input, name: e.target.value })
-                    }
+                    onChange={(e) => setInput({
+                      ...input,
+                      name: e.target.value
+                    })}
                   />
                 </div>
               </div>
             </div>
           </div>
           <div className="card-footer py-3">
-            <button
-              type="submit"
-              className="btn btn-success btn-icon-split me-1"
-            >
+            <button type="submit" className="btn btn-success btn-icon-split me-1">
               <span className="icon text-white-50">
                 <i className="fas fa-database"></i>
               </span>

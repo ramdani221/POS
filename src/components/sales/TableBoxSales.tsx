@@ -11,9 +11,9 @@ import { addSaleAsync } from "@/lib/redux/sales/saleSlice";
 
 export default function TableBoxSales() {
   const { data }: { data: any } = useSession();
-  const [filter, setFilter] = useState({ 
-    keyword: "", 
-    limit: 3 
+  const [filter, setFilter] = useState({
+    keyword: "",
+    limit: 3
   });
   const [pageNum, setPageNum] = useState(1);
   const [isError, setIsError] = useState(false);
@@ -40,12 +40,8 @@ export default function TableBoxSales() {
 
   return (
     <>
-      <div
-        className={
-          "alert alert-danger alert-dismissible fade position-absolute top-0 end-0 " + (isError && "show")
-        }
-        role="alert"
-      >
+      <div className={"alert alert-danger alert-dismissible fade position-absolute top-0 end-0 " +
+        (isError && "show")} role="alert">
         <i className="fas fa-exclamation-triangle"></i>
         <span className="ms-2">Failed to add sale, an error occurred when entering data</span>
         <button
@@ -68,10 +64,8 @@ export default function TableBoxSales() {
         </div>
         <div className="card-body">
           <div className="table-responsive">
-            <div
-              id="dataTable_wrapper"
-              className="dataTables_wrapper dt-bootstrap4"
-            >
+            <div className="dataTables_wrapper dt-bootstrap4"
+              id="dataTable_wrapper">
               <TableControl
                 setFilter={setFilter}
                 filter={filter}

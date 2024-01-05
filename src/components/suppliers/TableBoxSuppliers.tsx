@@ -10,10 +10,7 @@ export default function TableBoxSuppliers() {
   return (
     <div className="card shadow mb-4">
       <div className="card-header py-3">
-        <Link
-          href="/home/suppliers/add"
-          className="btn btn-primary btn-icon-split"
-        >
+        <Link href="/home/suppliers/add" className="btn btn-primary btn-icon-split">
           <span className="icon text-white-50">
             <i className="fas fa-plus"></i>
           </span>
@@ -22,10 +19,7 @@ export default function TableBoxSuppliers() {
       </div>
       <div className="card-body">
         <div className="table-responsive">
-          <div
-            id="dataTable_wrapper"
-            className="dataTables_wrapper dt-bootstrap4"
-          >
+          <div className="dataTables_wrapper dt-bootstrap4" id="dataTable_wrapper">
             <TableControl
               setFilter={setFilter}
               filter={filter}

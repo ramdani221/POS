@@ -24,30 +24,19 @@ export default function Pagination({
           role="status"
           aria-live="polite"
         >
-          {offset < total
-            ? "Showing " +
-              (offset + 1) +
-              " to " +
+          {offset < total ?
+            (`Showing ${offset + 1} to ` +
               (limit + offset > total ? total : limit + offset) +
-              " of " +
-              total +
-              " entries"
-            : "Nothing to show"}
+              ` of ${total} entries`) :
+            "Nothing to show"}
         </div>
       </div>
       <div className="col-sm-12 col-md-7">
-        <div
-          className="dataTables_paginate paging_simple_numbers"
-          id="dataTable_paginate"
-        >
+        <div className="dataTables_paginate paging_simple_numbers"
+          id="dataTable_paginate">
           <ul className="pagination">
-            <li
-              className={
-                "paginate_button page-item previous " +
-                (page === 1 && "disabled")
-              }
-              id="dataTable_previous"
-            >
+            <li className={"paginate_button page-item previous " +
+              (page === 1 && "disabled")} id="dataTable_previous">
               <button
                 aria-controls="dataTable"
                 data-dt-idx="0"
@@ -66,13 +55,8 @@ export default function Pagination({
                 setPageNum={setPageNum}
               />
             ))}
-            <li
-              className={
-                "paginate_button page-item next " +
-                (page >= pages && "disabled")
-              }
-              id="dataTable_next"
-            >
+            <li className={"paginate_button page-item next " +
+              (page >= pages && "disabled")} id="dataTable_next">
               <button
                 aria-controls="dataTable"
                 data-dt-idx="7"

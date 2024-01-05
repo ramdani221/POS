@@ -56,16 +56,20 @@ export default function Edite() {
           <div className="card-body">
             <div className="table-responsive">
               <div className="row mb-3 me-">
-                <label htmlFor="inputPassword3"
-                  className="col-sm-2 col-form-label">
+                <label htmlFor="inputPassword3" className="col-sm-2 col-form-label">
                   Old Password
                 </label>
                 <div className="col-sm-10">
-                  <input type="password" className="form-control"
-                    id="inputPassowrd3" required value={input.oldPassword}
-                    onChange={(e) =>
-                      setInput({ ...input, oldPassword: e.target.value })
-                    }
+                  <input
+                    type="password"
+                    className="form-control"
+                    id="inputPassowrd3"
+                    required
+                    value={input.oldPassword}
+                    onChange={(e) => setInput({
+                      ...input,
+                      oldPassword: e.target.value
+                    })}
                   />
                 </div>
               </div>
@@ -74,11 +78,15 @@ export default function Edite() {
                   New Password
                 </label>
                 <div className="col-sm-10">
-                  <input type="password" className="form-control"
-                    required value={input.newPassword}
-                    onChange={(e) =>
-                      setInput({ ...input, newPassword: e.target.value })
-                    }
+                  <input
+                    type="password"
+                    className="form-control"
+                    required
+                    value={input.newPassword}
+                    onChange={(e) => setInput({
+                      ...input,
+                      newPassword: e.target.value
+                    })}
                   />
                 </div>
               </div>
@@ -92,9 +100,10 @@ export default function Edite() {
                     className="form-control"
                     required
                     value={input.rePassword}
-                    onChange={(e) =>
-                      setInput({ ...input, rePassword: e.target.value })
-                    }
+                    onChange={(e) => setInput({
+                      ...input,
+                      rePassword: e.target.value
+                    })}
                   />
                 </div>
               </div>

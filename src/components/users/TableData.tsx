@@ -17,10 +17,17 @@ export default function TableData({
       <td className="">{user?.name}</td>
       <td className="">{user?.role}</td>
       <td>
-        <Link href={`/home/users/edit/${user?.id}`} className="btn btn-success btn-circle me-1">
+        <Link href={`/home/users/edit/${user?.id}`}
+          className="btn btn-success btn-circle me-1">
           <i className="fas fa-info-circle"></i>
         </Link>
-        <button className="btn btn-danger btn-circle" onClick={() => {setId(user?.id); setShow(true)}}>
+        <button
+          className="btn btn-danger btn-circle"
+          onClick={() => {
+            setId(user?.id);
+            setShow(true)
+          }}
+        >
           <i className="fas fa-trash"></i>
         </button>
       </td>

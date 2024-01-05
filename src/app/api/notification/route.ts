@@ -1,19 +1,26 @@
+import connectDB from "@/db/mongoose/connectdb";
+import Notif from "@/db/mongoose/models/Notif";
+import { getNotifs } from "@/services/model";
 import { NextRequest, NextResponse } from "next/server";
-import db from "@/db/sequelize/models";
-import { Op } from "sequelize";
 
-const models: any = db
+connectDB()
 
 export async function GET(req: NextRequest, res: NextResponse) {
     const limit = req.nextUrl.searchParams.get('limit') || 5
     try {
-        const notifs = await models.Good.findAll({
-            where: {
-                stock: { [Op.lte]: limit }
-            },
-        })
-        return NextResponse.json({ data: notifs })
+        const { count, notifs } = await getNotifs()
+        return NextResponse.json({ data: { notifs, count } })
     } catch (error: any) {
         return NextResponse.json({ error: error.message })
+    }
+}
+
+export async function POST(req: NextRequest, res: NextResponse) {
+    try {
+        const input = await req.json()
+        const data = await Notif.create(input)
+        return NextResponse.json({ data })
+    } catch (error: any) {
+        throw NextResponse.json({ error: error.message })
     }
 }

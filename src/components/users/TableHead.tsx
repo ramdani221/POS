@@ -8,28 +8,33 @@ export default function TableHead({
   setSorting: Dispatch<SetStateAction<{ sort: boolean; sortBy: string }>>;
 }) {
 
-    const sortId = () => {
-        if(sorting.sortBy !== 'id') return setSorting({sort: true, sortBy: 'id'})
-        return setSorting({...sorting, sort: !sorting.sort})
-    }
-    const sortEmail = () => {
-        if(sorting.sortBy !== 'email') return setSorting({sort: true, sortBy: 'email'})
-        return setSorting({...sorting, sort: !sorting.sort})
-    }
-    const sortName = () => {
-        if(sorting.sortBy !== 'name') return setSorting({sort: true, sortBy: 'name'})
-        return setSorting({...sorting, sort: !sorting.sort})
-    }
-    const sortRole = () => {
-        if(sorting.sortBy !== 'role') return setSorting({sort: true, sortBy: 'role'})
-        return setSorting({...sorting, sort: !sorting.sort})
-    }
+  const sortId = () => {
+    if (sorting.sortBy !== 'id')
+      return setSorting({ sort: true, sortBy: 'id' })
+    return setSorting({ ...sorting, sort: !sorting.sort })
+  }
+  const sortEmail = () => {
+    if (sorting.sortBy !== 'email')
+      return setSorting({ sort: true, sortBy: 'email' })
+    return setSorting({ ...sorting, sort: !sorting.sort })
+  }
+  const sortName = () => {
+    if (sorting.sortBy !== 'name')
+      return setSorting({ sort: true, sortBy: 'name' })
+    return setSorting({ ...sorting, sort: !sorting.sort })
+  }
+  const sortRole = () => {
+    if (sorting.sortBy !== 'role')
+      return setSorting({ sort: true, sortBy: 'role' })
+    return setSorting({ ...sorting, sort: !sorting.sort })
+  }
 
   return (
     <thead>
       <tr role="row">
         <th
-          className={"sorting " + (sorting.sortBy === 'id'? sorting.sort?  "sorting_asc" : "sorting_desc" : "")}
+          className={"sorting " + (sorting.sortBy === 'id' ?
+            sorting.sort ? "sorting_asc" : "sorting_desc" : "")}
           tabIndex={0}
           aria-controls="dataTable"
           rowSpan={1}
@@ -41,7 +46,8 @@ export default function TableHead({
           User ID
         </th>
         <th
-          className={"sorting " + (sorting.sortBy === 'email'? sorting.sort?  "sorting_asc" : "sorting_desc" : "")}
+          className={"sorting " + (sorting.sortBy === 'email' ?
+            sorting.sort ? "sorting_asc" : "sorting_desc" : "")}
           tabIndex={0}
           aria-controls="dataTable"
           rowSpan={1}
@@ -52,7 +58,8 @@ export default function TableHead({
           Email
         </th>
         <th
-          className={"sorting " + (sorting.sortBy === 'name'? sorting.sort?  "sorting_asc" : "sorting_desc" : "")}
+          className={"sorting " + (sorting.sortBy === 'name' ?
+            sorting.sort ? "sorting_asc" : "sorting_desc" : "")}
           tabIndex={0}
           aria-controls="dataTable"
           rowSpan={1}
@@ -63,7 +70,8 @@ export default function TableHead({
           Name
         </th>
         <th
-          className={"sorting " + (sorting.sortBy === 'role'? sorting.sort?  "sorting_asc" : "sorting_desc" : "")}
+          className={"sorting " + (sorting.sortBy === 'role' ?
+            sorting.sort ? "sorting_asc" : "sorting_desc" : "")}
           tabIndex={0}
           aria-controls="dataTable"
           rowSpan={1}

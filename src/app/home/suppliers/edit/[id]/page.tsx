@@ -12,12 +12,12 @@ export default function Edite() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const [input, setInput] = useState({ 
-    name: "", 
-    address: "", 
-    phone: "" 
+  const [input, setInput] = useState({
+    name: "",
+    address: "",
+    phone: ""
   });
-  
+
   const submit = (e: any) => {
     e.preventDefault();
     dispatch(updateSupplierAsync({ id: Number(id), input }))
@@ -52,7 +52,10 @@ export default function Edite() {
                   className="form-control"
                   value={input.name}
                   required
-                  onChange={(e) => setInput({ ...input, name: e.target.value })}
+                  onChange={(e) => setInput({
+                    ...input,
+                    name: e.target.value
+                  })}
                 />
               </div>
             </div>
@@ -65,7 +68,10 @@ export default function Edite() {
                   value={input.address}
                   required
                   rows={2}
-                  onChange={(e) => setInput({ ...input, address: e.target.value })}
+                  onChange={(e) => setInput({
+                    ...input,
+                    address: e.target.value
+                  })}
                 ></textarea>
               </div>
             </div>
@@ -77,10 +83,13 @@ export default function Edite() {
                   className="form-control"
                   value={input.phone}
                   required
-                  onChange={(e) => setInput({ ...input, phone: e.target.value })}
+                  onChange={(e) => setInput({
+                    ...input,
+                    phone: e.target.value
+                  })}
                 />
               </div>
-            </div>            
+            </div>
           </div>
         </div>
         <div className="card-footer py-3">

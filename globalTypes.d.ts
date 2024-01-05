@@ -209,10 +209,11 @@ declare type NotifInput = {
 }
 
 declare type NotifsType = {
-    id: string,
+    _id: string,
     barcode: string,
     name: string,
-    stock: number
+    stock: number,
+    isRead: boolean
 }
 
 declare type PasswordChange = {
@@ -220,4 +221,10 @@ declare type PasswordChange = {
     oldPassword: string,
     newPassword: string,
     rePassword: string
+}
+
+declare type NotifInput = {
+    barcode: string,
+    name: string,
+    stock: number
 }

@@ -37,9 +37,10 @@ export default function Edite() {
                   type="text"
                   className="form-control"
                   required
-                  onChange={(e) =>
-                    setSupplier({ ...supplier, name: e.target.value })
-                  }
+                  onChange={(e) => setSupplier({
+                    ...supplier,
+                    name: e.target.value
+                  })}
                 />
               </div>
             </div>
@@ -51,9 +52,10 @@ export default function Edite() {
                   id="exampleFormControlTextarea1"
                   required
                   rows={2}
-                  onChange={(e) =>
-                    setSupplier({ ...supplier, address: e.target.value })
-                  }
+                  onChange={(e) => setSupplier({
+                    ...supplier,
+                    address: e.target.value
+                  })}
                 ></textarea>
               </div>
             </div>
@@ -64,9 +66,10 @@ export default function Edite() {
                   type="text"
                   className="form-control"
                   required
-                  onChange={(e) =>
-                    setSupplier({ ...supplier, phone: e.target.value })
-                  }
+                  onChange={(e) => setSupplier({
+                    ...supplier,
+                    phone: e.target.value
+                  })}
                 />
               </div>
             </div>

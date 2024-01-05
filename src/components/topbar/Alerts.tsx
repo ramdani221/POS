@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "@/lib/redux";
 import AlertDropdown from "./AlertDropdown";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { loadNotifAsync, selectNotifs } from "@/lib/redux/notif/notifSlice";
 import { SocketContext } from "@/app/home/layout";
 
@@ -9,6 +9,19 @@ export default function Alert() {
   const notifs = useSelector(selectNotifs);
   const dispatch = useDispatch();
   const socket = useContext(SocketContext);
+  const ref: any = useRef(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event: Event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setDropped(false)
+      }
+    }
+    document.addEventListener('click', handleClickOutside, true);
+    return () => {
+      document.removeEventListener('click', handleClickOutside, true);
+    };
+  }, [])
 
   useEffect(() => {
     socket.on("load_notif", (arg: any) => {
@@ -20,7 +33,7 @@ export default function Alert() {
     dispatch(loadNotifAsync());
   }, [dispatch]);
   return (
-    <li className="nav-item dropdown no-arrow mx-1">
+    <li className="nav-item dropdown no-arrow mx-1" ref={ref}>
       <button
         className="nav-link dropdown-toggle"
         id="alertsDropdown"
@@ -31,9 +44,9 @@ export default function Alert() {
         onClick={() => setDropped(!dropped)}
       >
         <i className="fas fa-bell fa-fw"></i>
-        <span className="badge badge-danger badge-counter">3+</span>
+        <span className="badge badge-danger badge-counter">{notifs.count}+</span>
       </button>
-      <AlertDropdown dropped={dropped} notifs={notifs} />
+      <AlertDropdown dropped={dropped} notifs={notifs.notifs} />
     </li>
   );
 }

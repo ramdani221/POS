@@ -76,15 +76,13 @@ export default function Edite() {
           </div>
         </div>
         <div className="card-footer py-3">
-          <button type="submit"
-            className="btn btn-success btn-icon-split me-1">
+          <button type="submit" className="btn btn-success btn-icon-split me-1">
             <span className="icon text-white-50">
               <i className="fas fa-database"></i>
             </span>
             <span className="text">Save</span>
           </button>
-          <Link href={"/home/customers"}
-            className="btn btn-warning btn-icon-split">
+          <Link href={"/home/customers"} className="btn btn-warning btn-icon-split">
             <span className="icon text-white-50">
               <i className="fas fa-undo-alt"></i>
             </span>

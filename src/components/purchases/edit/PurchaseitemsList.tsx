@@ -1,11 +1,7 @@
 import { SocketContext } from "@/app/home/layout";
 import { useDispatch, useSelector } from "@/lib/redux";
 import { reduceStock } from "@/lib/redux/goods/goodSlice";
-import {
-  deletePurchaseItem,
-  loadPurchaseitemAsync,
-  selectPurchaseitems,
-} from "@/lib/redux/purchaseItems/purchaseitemSlice";
+import { deletePurchaseItem, loadPurchaseitemAsync, selectPurchaseitems } from "@/lib/redux/purchaseItems/purchaseitemSlice";
 import { RpInd } from "@/services/currency";
 import { Dispatch, SetStateAction, useContext, useEffect } from "react";
 
@@ -39,7 +35,7 @@ export default function PurchaseitemsList({
   useEffect(() => {
     dispatch(loadPurchaseitemAsync(id));
   }, [dispatch, id]);
-  
+
   return (
     <div className="card-body px-0 overflow-x-auto">
       <table className="table table-striped">
@@ -57,9 +53,7 @@ export default function PurchaseitemsList({
         <tbody>
           {purchaseitems.length === 0 && (
             <tr>
-              <td colSpan={7} className="text-center">
-                no items
-              </td>
+              <td colSpan={7} className="text-center">no items</td>
             </tr>
           )}
           {purchaseitems.length > 0 &&

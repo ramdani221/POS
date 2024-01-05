@@ -1,3 +1,4 @@
+import Notif from "@/db/mongoose/models/Notif";
 import db, { sequelize } from "@/db/sequelize/models";
 import { Op, QueryTypes } from "sequelize";
 
@@ -169,18 +170,38 @@ export async function monthReport(keyword: string | null, sortBy: string, sort: 
 
     sql += ` ${queries.join(' ')}`
 
-    const count = await sequelize.query(sql, {
-        bind: params,
-        type: QueryTypes.SELECT
-    })
-
-    sql += ` ORDER BY ${sortBy} ${sort} LIMIT ${limit} OFFSET ${offset}`
-
-    const report = await sequelize.query(sql,
-        {
+    try {
+        const count = await sequelize.query(sql, {
             bind: params,
             type: QueryTypes.SELECT
         })
 
-    return { total: count.length, report }
+        sql += ` ORDER BY ${sortBy} ${sort} LIMIT ${limit} OFFSET ${offset}`
+
+        const report = await sequelize.query(sql,
+            {
+                bind: params,
+                type: QueryTypes.SELECT
+            })
+
+        return { total: count.length, report }
+    } catch (error) {
+        throw error
+    }
+}
+
+export async function getNotifs() {
+    try {
+        const notifsUnRead = await Notif.find({ isRead: false }).sort({ createdAt: 'asc' })
+        if(notifsUnRead.length < 1) return {count: notifsUnRead.length, notifs: []}
+        const allNotifs = await Notif.find({
+            createdAt: {
+                '$gte': new Date (notifsUnRead[0].createdAt),
+                '$lte': new Date (notifsUnRead[notifsUnRead.length - 1].createdAt)
+            }
+        }).sort({ createdAt: 'desc' })
+        return {count: notifsUnRead.length, notifs: allNotifs}
+    } catch (error) {
+        throw error
+    }
 }

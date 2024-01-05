@@ -55,6 +55,7 @@ export default function CustomerModal({
             </button>
             <button
               className="btn btn-primary"
+              type="button"
               onClick={() => {
                 dispatch(removeCustomer(id, input, pages));
                 setShow(false);

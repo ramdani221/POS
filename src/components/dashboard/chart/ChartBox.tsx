@@ -20,14 +20,14 @@ export default function ChartBox() {
       </div>
       <div className="col-xl-4 col-lg-5">
         <div className="card shadow mb-4">
-        <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h6 className="m-0 font-weight-bold text-primary">
               Earnings Overview
             </h6>
           </div>
           <div className="card-body">
             <div className="chart-area position-relative">
-            <PieChart />
+              <PieChart />
             </div>
           </div>
         </div>

@@ -3,14 +3,27 @@
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function UserInfo({ setShow }: { setShow: any }) {
   const { data, status } = useSession();
   const [dropped, setDropped] = useState(false);
+  const ref: any = useRef(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event: Event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setDropped(false)
+      }
+    }
+    document.addEventListener('click', handleClickOutside, true);
+    return () => {
+      document.removeEventListener('click', handleClickOutside, true);
+    };
+  }, [])
 
   return (
-    <li className="nav-item dropdown no-arrow">
+    <li className="nav-item dropdown no-arrow" ref={ref}>
       <button
         className="nav-link dropdown-toggle"
         role="button"

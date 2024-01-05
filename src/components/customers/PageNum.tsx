@@ -10,8 +10,7 @@ export default function PageNum({
   setPageNum: Dispatch<SetStateAction<number>>
 }) {
   return (
-    <li className={"paginate_button page-item " +
-      (page === pageNow && 'active')}>
+    <li className={"paginate_button page-item " + (page === pageNow && 'active')}>
       <button
         aria-controls="dataTable"
         data-dt-idx="1"
