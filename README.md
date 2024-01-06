@@ -111,7 +111,7 @@ Role        :Admin
 ![alt text](https://github.com/ramdani221/POS/blob/main/public/screenshots/Purchases.png?raw=true)
 
 * Sales
-![alt text](https://youtu.be/vt5fpE0bzSY)
+![alt text](https://github.com/ramdani221/POS/blob/main/public/screenshots/Sales.png?raw=true)
 
 * Demo
-![Watch the video](https://github.com/ramdani221/POS/blob/main/public/screenshots/Screencast%20from%2006-01-24%2020%3A10%3A22.mp4)
+[![Watch the video](https://i.stack.imgur.com/Vp2cE.png)](https://youtu.be/vt5fpE0bzSY)
