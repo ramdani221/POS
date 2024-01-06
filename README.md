@@ -86,4 +86,8 @@ Role        :Admin
 
 ## Preview
 
+* Sign In
 ![alt text](https://github.com/ramdani221/POS/blob/main/public/screenshots/SigIn.png?raw=true)
+
+* Dashboard
+![alt text](https://github.com/ramdani221/POS/blob/main/public/screenshots/Dashboard.png?raw=true)
