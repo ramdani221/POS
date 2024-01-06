@@ -86,4 +86,4 @@ Role        :Admin
 
 ## Preview
 
-https://github.com/ramdani221/POS/blob/main/public/screenshots/SigIn.png?
+![alt text](https://github.com/ramdani221/POS/blob/main/public/screenshots/SigIn.png?raw=true)
