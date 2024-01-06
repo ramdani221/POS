@@ -61,7 +61,7 @@ export const getSupplier = async (id: string | number) => {
         return data
     } catch (error) {
         throw error
-    }models.User.findOne({ where: { id } });
+    }
 }
 
 export const findUnit = async (id: string | number) => {

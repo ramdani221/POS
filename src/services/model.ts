@@ -22,9 +22,14 @@ export async function deletePurchase(id: number | string) {
 
 async function deletePurchaseItems(purchaseId: number | string) {
     try {
-        const purchaseitems = await models.Purchaseitem.findAll({ where: { invoice: purchaseId } })
+        const purchaseitems = await models.Purchaseitem.findAll({
+            where: { invoice: purchaseId }
+        })
         purchaseitems.forEach(async (item: any) => {
-            await models.Good.decrement('stock', { by: item.quantity, where: { id: item.itemcode } })
+            await models.Good.decrement('stock', {
+                by: item.quantity,
+                where: { id: item.itemcode }
+            })
         });
     } catch (error) {
         throw error
@@ -33,8 +38,13 @@ async function deletePurchaseItems(purchaseId: number | string) {
 
 export async function deletePurchaseItem(id: number | string) {
     try {
-        const purchaseitem = await models.Purchaseitem.findOne({ where: { id } })
-        await models.Good.decrement('stock', { by: purchaseitem.quantity, where: { id: purchaseitem.itemcode } })
+        const purchaseitem = await models.Purchaseitem.findOne({
+            where: { id }
+        })
+        await models.Good.decrement('stock', {
+            by: purchaseitem.quantity,
+            where: { id: purchaseitem.itemcode }
+        })
         await models.Purchaseitem.destroy({ where: { id } })
         return purchaseitem
     } catch (error) {
@@ -53,14 +63,27 @@ export async function createPurchaseItem(input: PurchaseitemInput) {
             }
         })
         if (findPurchaseitem) {
-            await findPurchaseitem.increment('totalprice', { by: input.totalprice })
-            const purchaseitem = await findPurchaseitem.increment('quantity', { by: input.quantity });
-            await models.Good.increment('stock', { by: input.quantity, where: { id: input.itemcode } });
+            await findPurchaseitem.increment('totalprice', {
+                by: input.totalprice
+            })
+            const purchaseitem = await findPurchaseitem.increment('quantity', {
+                by: input.quantity
+            });
+            await models.Good.increment('stock', {
+                by: input.quantity,
+                where: { id: input.itemcode }
+            });
             return purchaseitem
         }
         const newPurchaseitem = await models.Purchaseitem.create(input);
-        const purchaseitem = await models.Purchaseitem.findOne({ where: { id: newPurchaseitem.id }, include: models.Good })
-        models.Good.increment('stock', { by: input.quantity, where: { id: input.itemcode } });
+        const purchaseitem = await models.Purchaseitem.findOne({
+            where: { id: newPurchaseitem.id },
+            include: models.Good
+        })
+        models.Good.increment('stock', {
+            by: input.quantity,
+            where: { id: input.itemcode }
+        });
         return purchaseitem
     } catch (error) {
         throw error
@@ -85,10 +108,15 @@ export async function deleteSale(id: number | string) {
 
 async function deleteSaleItems(saleId: number | string) {
     try {
-        const saleitems = await models.Saleitem.findAll({ where: { invoice: saleId } })
+        const saleitems = await models.Saleitem.findAll({
+            where: { invoice: saleId }
+        })
         saleitems.forEach(async (item: any) => {
-            await models.Good.increment('stock', { by: item.quantity, where: { id: item.itemcode } })
-        }); 15
+            await models.Good.increment('stock', {
+                by: item.quantity,
+                where: { id: item.itemcode }
+            })
+        });
     } catch (error) {
         throw error
     }
@@ -96,8 +124,13 @@ async function deleteSaleItems(saleId: number | string) {
 
 export async function deleteSaleItem(id: number | string) {
     try {
-        const saleitem = await models.Saleitem.findOne({ where: { id } })
-        await models.Good.increment('stock', { by: saleitem.quantity, where: { id: saleitem.itemcode } })
+        const saleitem = await models.Saleitem.findOne({ 
+            where: { id } 
+        })
+        await models.Good.increment('stock', {
+            by: saleitem.quantity,
+            where: { id: saleitem.itemcode }
+        })
         await models.Saleitem.destroy({ where: { id } })
         return saleitem
     } catch (error) {
@@ -116,14 +149,27 @@ export async function createSaleItem(input: SaleitemInput) {
             }
         })
         if (findSaleitem) {
-            await findSaleitem.increment('totalprice', { by: input.totalprice })
-            const saleitem = await findSaleitem.increment('quantity', { by: input.quantity });
-            await models.Good.decrement('stock', { by: input.quantity, where: { id: input.itemcode } });
+            await findSaleitem.increment('totalprice', { 
+                by: input.totalprice 
+            })
+            const saleitem = await findSaleitem.increment('quantity', { 
+                by: input.quantity 
+            });
+            await models.Good.decrement('stock', {
+                by: input.quantity,
+                where: { id: input.itemcode }
+            });
             return saleitem
         }
         const newSaleitem = await models.Saleitem.create(input);
-        const saleitem = await models.Saleitem.findOne({ where: { id: newSaleitem.id }, include: models.Good })
-        models.Good.decrement('stock', { by: input.quantity, where: { id: input.itemcode } });
+        const saleitem = await models.Saleitem.findOne({
+            where: { id: newSaleitem.id },
+            include: models.Good
+        })
+        models.Good.decrement('stock', {
+            by: input.quantity,
+            where: { id: input.itemcode }
+        });
         return saleitem
     } catch (error) {
         throw error
@@ -193,14 +239,14 @@ export async function monthReport(keyword: string | null, sortBy: string, sort: 
 export async function getNotifs() {
     try {
         const notifsUnRead = await Notif.find({ isRead: false }).sort({ createdAt: 'asc' })
-        if(notifsUnRead.length < 1) return {count: notifsUnRead.length, notifs: []}
+        if (notifsUnRead.length < 1) return { count: notifsUnRead.length, notifs: [] }
         const allNotifs = await Notif.find({
             createdAt: {
-                '$gte': new Date (notifsUnRead[0].createdAt),
-                '$lte': new Date (notifsUnRead[notifsUnRead.length - 1].createdAt)
+                '$gte': new Date(notifsUnRead[0].createdAt),
+                '$lte': new Date(notifsUnRead[notifsUnRead.length - 1].createdAt)
             }
         }).sort({ createdAt: 'desc' })
-        return {count: notifsUnRead.length, notifs: allNotifs}
+        return { count: notifsUnRead.length, notifs: allNotifs }
     } catch (error) {
         throw error
     }

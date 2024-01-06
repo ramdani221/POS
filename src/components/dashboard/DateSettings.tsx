@@ -14,14 +14,18 @@ export default function DateSettings({
   setEndDate: Dispatch<SetStateAction<string>>;
 }) {
   const dispatch = useDispatch();
+  const [firstDate, setFirstDate] = useState('')
+  const [lastDate, setLastDate] = useState('')
 
   const submit = (e: any) => {
     e.preventDefault();
+    setStrDate(firstDate)
+    setEndDate(lastDate)
     dispatch(
       loadDashboardAsync({
         keyword: "",
-        endDate: endDate,
-        strDate: strDate,
+        endDate: lastDate,
+        strDate: firstDate,
         limit: "3",
         page: 1,
         sort: "asc",
@@ -37,23 +41,23 @@ export default function DateSettings({
         </div>
         <div className="card-body row">
           <div className="col-sm-6">
-            <label htmlFor="strDate" className="form-label">Start Date</label>
+            <label htmlFor="firstDate" className="form-label">Start Date</label>
             <input
               type="date"
               className="form-control"
-              id="strDate"
-              value={strDate}
-              onChange={(e) => setStrDate(e.target.value)}
+              id="firstDate"
+              value={firstDate}
+              onChange={(e) => setFirstDate(e.target.value)}
             />
           </div>
           <div className="col-sm-6">
-            <label htmlFor="endDate" className="form-label">End Date</label>
+            <label htmlFor="lastDate" className="form-label">End Date</label>
             <input
               type="date"
               className="form-control"
-              id="endDate"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
+              id="lastDate"
+              value={lastDate}
+              onChange={(e) => setLastDate(e.target.value)}
             />
           </div>
         </div>
@@ -67,14 +71,14 @@ export default function DateSettings({
           <button
             className="btn btn-warning btn-icon-split"
             onClick={() => {
-              setEndDate("");
-              setStrDate("");
+              setLastDate("");
+              setFirstDate("");
             }}
           >
             <span className="icon text-white-50">
               <i className="fas fa-arrow-left"></i>
             </span>
-            <span className="text">Back</span>
+            <span className="text">Reset</span>
           </button>
         </div>
       </form>
