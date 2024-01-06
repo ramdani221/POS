@@ -83,3 +83,32 @@ Email       :johndoe@gmail.com
 Password    :12345
 Role        :Admin
 ```
+
+## Preview
+
+* Sign In
+![alt text](https://github.com/ramdani221/POS/blob/main/public/screenshots/SigIn.png?raw=true)
+
+* Dashboard
+![alt text](https://github.com/ramdani221/POS/blob/main/public/screenshots/Dashboard.png?raw=true)
+
+* Goods
+![alt text](https://github.com/ramdani221/POS/blob/main/public/screenshots/Goods.png?raw=true)
+
+* Units
+![alt text](https://github.com/ramdani221/POS/blob/main/public/screenshots/Units.png?raw=true)
+
+* Suppliers
+![alt text](https://github.com/ramdani221/POS/blob/main/public/screenshots/Suppliers.png?raw=true)
+
+* Customers
+![alt text](https://github.com/ramdani221/POS/blob/main/public/screenshots/Customers.png?raw=true)
+
+* Users
+![alt text](https://github.com/ramdani221/POS/blob/main/public/screenshots/Users.png?raw=true)
+
+* Purchases
+![alt text](https://github.com/ramdani221/POS/blob/main/public/screenshots/Purchases.png?raw=true)
+
+* Sales
+![alt text](https://github.com/ramdani221/POS/blob/main/public/screenshots/Sales.png?raw=true)
