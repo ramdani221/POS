@@ -10,7 +10,7 @@ store customer data, calculate profits and losses, and recap sales reports.
 ## Before You Begin
 
 Before you begin i recommend you to read about the basic building blocks that assemble this application:
-* NextJS - The best way to understand NextJS is through it's [Official Website]((https://nextjs.org) which has a [Getting Started](https://nextjs.org/docs) guide.
+* NextJS - The best way to understand NextJS is through it's [Official Website](https://nextjs.org) which has a [Getting Started](https://nextjs.org/docs) guide.
 * ReactJS - React's [Official Website](https://reactjs.org/) is a great starting point.
 * Sequelize - Get in-depth information about Sequelize on the [Official Website](https://sequelize.org/) to learn the [Core Concept](https://sequelize.org/docs/v6/category/core-concepts/) of Sequelize.
 * MongoDB - Go through [MongoDB Official Website](https://www.mongodb.com/) and proceed to their [Official Manual](https://docs.mongodb.com/), which should help you understand NoSQL and MongoDB better.
