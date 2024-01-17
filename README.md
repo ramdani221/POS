@@ -32,6 +32,7 @@ Make sure you have installed all of the following prerequisites on your developm
  - redux
  - redux-thunk
  - bootstrap
+ - socket.io (client)
 
 *source files in `src/` folder.*
 ## back-end
@@ -41,6 +42,7 @@ Make sure you have installed all of the following prerequisites on your developm
  - NextJS
  - Sequelize ORM
  - Mongosee ODM
+ - Socket.io
 
 *source files in `src/api` folder*
 
