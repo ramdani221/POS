@@ -39,6 +39,8 @@ Make sure you have installed all of the following prerequisites on your developm
  - NodeJS
  - ExpressJS
  - NextJS
+ - Sequelize ORM
+ - Mongosee ODM
 
 *source files in `src/api` folder*
 
